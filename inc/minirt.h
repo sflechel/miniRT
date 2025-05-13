@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 10:20:05 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/13 10:27:13 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,7 @@ typedef struct s_mlx
 	void	*window;
 	t_img	img;
 }	t_mlx;
+
+void	handle_hooks(t_mlx *mlx);
 
 #endif // !MINIRT_H

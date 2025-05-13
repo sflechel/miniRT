@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 10:23:31 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/13 10:29:35 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,6 @@ int	free_mlx(t_mlx *mlx)
 {
 	mlx_destroy_window(mlx->mlx, mlx->window);
 	mlx_destroy_display(mlx->mlx);
-	free(mlx->img.img);
 	free(mlx->mlx);
 	return (1);
 }
@@ -211,10 +210,12 @@ int	main(void)
 		return (free_mlx(&mlx));
 	shapes->nb_shapes = 1;
 	shapes->array[0] = (t_shape){SPHERE, (t_vec3){0, 0, 0}, (t_vec3){0, 0, 0}, (t_color){{255, 255, 255, 255}}, NULL};
+	handle_hooks(&mlx);
 	scan_viewport(&camera, shapes, &mlx);
 	mlx_put_image_to_window(mlx.mlx, mlx.window, mlx.img.img, 0, 0);
 	mlx_loop(mlx.mlx);
 	mlx_destroy_image(mlx.mlx, mlx.img.img);
 	free_mlx(&mlx);
+	free(shapes);
 	return (0);
 }

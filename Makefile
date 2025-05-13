@@ -14,6 +14,7 @@ LIBS = -Lminilibx-linux -lmlx_Linux -lXext -lX11 -lm -lz
 HEADERS = $(INC_DIR)minirt.h\
 
 SRC = main.c\
+	  hooks.c\
 
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC))
 
