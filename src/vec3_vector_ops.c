@@ -6,12 +6,22 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:34:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 10:35:23 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/13 11:23:04 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
+
+float	dot_product(t_vec3 vec1, t_vec3 vec2)
+{
+	return (vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z);
+}
+
+float	get_squared_magnitude(t_vec3 vec)
+{
+	return (vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
+}
 
 float	get_magnitude(t_vec3 vec)
 {

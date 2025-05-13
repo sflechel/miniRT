@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 10:44:46 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/13 12:09:25 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,20 @@ int	init_mlx(t_mlx *mlx, t_camera *camera)
 	return (0);
 }
 
+void	sphere_constructor(t_vec3 pos, t_vec3 rot, t_color color, float radius, t_shape *shape)
+{
+	shape->pos = pos;
+	shape->rot = rot;
+	shape->color = color;
+	shape->sphere.radius = radius;
+	shape->get_collision = &sphere_get_collision;
+}
+
 int	main(void)
 {
 	t_camera		camera;
 	t_mlx			mlx;
+	t_shape			shape;
 	t_shape_list	*shapes;
 
 	init_camera(&camera);
@@ -72,7 +82,8 @@ int	main(void)
 	if (shapes == 0)
 		return (free_mlx(&mlx));
 	shapes->nb_shapes = 1;
-	shapes->array[0] = (t_shape){SPHERE, (t_vec3){0, 0, 0}, (t_vec3){0, 0, 0}, (t_color){{255, 255, 255, 255}}, NULL};
+	sphere_constructor((t_vec3){0, 0, -1}, (t_vec3){0, 0, 0}, (t_color){{0, 0, 0, 0}}, 0.5, &shape);
+	shapes->array[0] = shape;
 	handle_hooks(&mlx);
 	scan_viewport(&camera, shapes, &mlx);
 	mlx_put_image_to_window(mlx.mlx, mlx.window, mlx.img.img, 0, 0);

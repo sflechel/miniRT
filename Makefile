@@ -20,6 +20,7 @@ SRC = main.c\
 	  color_utils.c\
 	  scanning.c\
 	  raytracing.c\
+	  collision.c\
 
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC))
 

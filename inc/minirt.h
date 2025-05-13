@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 10:45:55 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/13 12:01:14 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ typedef union u_color
 {
 	struct
 	{
-		unsigned char	a;
-		unsigned char	r;
-		unsigned char	g;
 		unsigned char	b;
+		unsigned char	g;
+		unsigned char	r;
+		unsigned char	a;
 	};
 	int	rgba;
 }	t_color;
@@ -40,7 +40,18 @@ typedef enum e_type
 	SPHERE
 }	t_type;
 
+typedef struct s_ray
+{
+	t_vec3	origin;
+	t_vec3	direction;
+}	t_ray;
+
 typedef struct s_shape	t_shape;
+
+typedef struct s_sphere
+{
+	float	radius;
+}	t_sphere;
 
 struct s_shape
 {
@@ -48,7 +59,11 @@ struct s_shape
 	t_vec3	pos;
 	t_vec3	rot;
 	t_color	color;
-	int		(*get_collision)(t_shape *shape, t_vec3 *ray, t_vec3 *camera_pos);
+	float	(*get_collision)(t_shape *shape, t_ray ray);
+	union
+	{
+		t_sphere	sphere;
+	};
 };
 
 typedef struct s_shape_list
@@ -57,18 +72,6 @@ typedef struct s_shape_list
 	int		nb_shapes;
 	t_shape	array[];
 }	t_shape_list;
-
-typedef struct s_sphere
-{
-	t_shape	shape;
-	float	radius;
-}	t_sphere;
-
-typedef struct s_ray
-{
-	t_vec3	origin;
-	t_vec3	direction;
-}	t_ray;
 
 typedef struct s_camera
 {
@@ -102,6 +105,9 @@ void	scan_viewport(t_camera *camera, t_shape_list *shapes, t_mlx *mlx);
 //raytracing.h
 t_color	cast_ray(t_ray ray, t_shape_list *shapes);
 
+//collision.c
+float	sphere_get_collision(t_shape *shape, t_ray ray);
+
 //hooks.c
 void	handle_hooks(t_mlx *mlx);
 
@@ -114,6 +120,8 @@ t_vec3	scalar_division(t_vec3 vec, float scalar);
 t_vec3	scalar_multiplication(t_vec3 vec, float scalar);
 
 //vec_3_vector_ops.c
+float	dot_product(t_vec3 vec1, t_vec3 vec2);
+float	get_squared_magnitude(t_vec3 vec);
 t_vec3	vector_normalization(t_vec3 vec);
 t_vec3	vector_subtraction(t_vec3 minuend, t_vec3 subtrahend);
 t_vec3	vector_sum(t_vec3 term1, t_vec3 term2);
