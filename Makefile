@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -g3
 LIB = libft.a
 LIB_DIR = libft/
 
-SRC_DIR = sources/
+SRC_DIR = src/
 INC_DIR = inc/
 OBJ_DIR = obj/
 
@@ -13,7 +13,7 @@ LIBS = -Lminilibx-linux -lmlx_Linux -lXext -lX11 -lm -lz
 
 HEADERS = $(INC_DIR)minirt.h\
 
-SRC = \
+SRC = main.c\
 
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC))
 
