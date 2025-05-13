@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 12:09:25 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/13 12:49:32 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ const float	g_aspect_ratio = 16. / 9.;
 void	init_camera(t_camera *camera)
 {
 	camera->focal_length = 1;
-	camera->img_width = 1080;
+	camera->img_width = 1920;
 	camera->img_heigth = camera->img_width / g_aspect_ratio;
 	camera->viewport_heigth = 2;
-	camera->viewport_width = camera->viewport_heigth * (float)(camera->img_width / camera->img_heigth);
+	camera->viewport_width = camera->viewport_heigth * ((float)camera->img_width / (float)camera->img_heigth);
 	camera->pos = (t_vec3){0, 0, 0};
 }
 
