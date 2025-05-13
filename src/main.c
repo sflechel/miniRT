@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 14:35:10 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:42:46 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_camera(t_camera *camera)
 	camera->img_heigth = camera->img_width / g_aspect_ratio;
 	camera->viewport_heigth = 2;
 	camera->viewport_width = camera->viewport_heigth * ((float)camera->img_width / (float)camera->img_heigth);
-	camera->pos = (t_vec3){0, 0, 0};
+	camera->pos = (t_vec3){0, 0,0};
 }
 
 int	free_mlx(t_mlx *mlx)
@@ -74,7 +74,7 @@ int	main(void)
 	t_mlx			mlx;
 	t_shape			shape;
 	t_shape_list	*shapes;
-	const t_light	light = (t_light){(t_vec3){1, -1, -1}, 1};
+	const t_light	light = (t_light){0.1, (t_vec3){1, -1, 1}, 1};
 
 	init_camera(&camera);
 	if (init_mlx(&mlx, &camera) == 1)
