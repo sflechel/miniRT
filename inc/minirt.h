@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 15:03:33 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:58:43 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ struct s_shape
 	t_vec3	rot;
 	t_color	color;
 	float	(*get_collision)(t_shape *shape, t_ray ray);
+	t_vec3	(*get_normal)(t_shape * shape, t_vec3 col);
 	union
 	{
 		t_sphere	sphere;
@@ -113,7 +114,12 @@ void	scan_viewport(t_camera *camera, t_shape_list *shapes, t_light light, t_mlx 
 t_color	cast_ray(t_ray ray, t_shape_list *shapes, t_light light);
 
 //collision.c
+float	get_closest_collision(t_shape_list *shapes, t_ray ray, int *col_index);
+int		there_is_collision(t_shape_list *shapes, t_ray ray);
 float	sphere_get_collision(t_shape *shape, t_ray ray);
+
+//normals.c
+t_vec3	sphere_get_normal(t_shape *shape, t_vec3 col);
 
 //hooks.c
 void	handle_hooks(t_mlx *mlx);

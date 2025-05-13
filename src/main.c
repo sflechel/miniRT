@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 15:42:46 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/13 18:01:30 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_camera(t_camera *camera)
 	camera->focal_length = 1;
 	camera->img_width = 1920;
 	camera->img_heigth = camera->img_width / g_aspect_ratio;
-	camera->viewport_heigth = 2;
+	camera->viewport_heigth = 3;
 	camera->viewport_width = camera->viewport_heigth * ((float)camera->img_width / (float)camera->img_heigth);
 	camera->pos = (t_vec3){0, 0,0};
 }
@@ -66,6 +66,7 @@ void	sphere_constructor(t_vec3 pos, t_vec3 rot, t_color color, float radius, t_s
 	shape->color = color;
 	shape->sphere.radius = radius;
 	shape->get_collision = &sphere_get_collision;
+	shape->get_normal = &sphere_get_normal;
 }
 
 int	main(void)
@@ -73,18 +74,21 @@ int	main(void)
 	t_camera		camera;
 	t_mlx			mlx;
 	t_shape			shape;
+	t_shape			shape2;
 	t_shape_list	*shapes;
-	const t_light	light = (t_light){0.1, (t_vec3){1, -1, 1}, 1};
+	const t_light	light = (t_light){0.1, (t_vec3){1, 1, -3}, 1};
 
 	init_camera(&camera);
 	if (init_mlx(&mlx, &camera) == 1)
 		return (free_mlx(&mlx));
-	shapes = malloc(sizeof(t_shape_list) + 1 * sizeof(t_shape));
+	shapes = malloc(sizeof(t_shape_list) + 2 * sizeof(t_shape));
 	if (shapes == 0)
 		return (free_mlx(&mlx));
-	shapes->nb_shapes = 1;
-	sphere_constructor((t_vec3){0, 0, -1}, (t_vec3){0, 0, 0}, (t_color){{255, 127, 0, 0}}, 0.5, &shape);
+	shapes->nb_shapes = 2;
+	sphere_constructor((t_vec3){1, -0.5, -1}, (t_vec3){0, 0, 0}, (t_color){{255, 127, 0, 0}}, 0.5, &shape);
 	shapes->array[0] = shape;
+	sphere_constructor((t_vec3){-2, 1, -3}, (t_vec3){0, 0, 0}, (t_color){{100, 200, 42, 0}}, 2, &shape2);
+	shapes->array[1] = shape2;
 	handle_hooks(&mlx);
 	scan_viewport(&camera, shapes, light, &mlx);
 	mlx_put_image_to_window(mlx.mlx, mlx.window, mlx.img.img, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 15:10:30 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/13 17:55:33 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,28 @@ t_color	cast_ray(t_ray ray, t_shape_list *shapes, t_light light)
 {
 	t_color	pixel_color;
 	float	col_ray;
-	t_vec3	col_world;
+	int		col_index;
 	t_vec3	normal;
-	t_vec3	light_ray;
+	t_ray	light_ray;
 	float	intensity;
-	float	light_col;
 
-	col_ray = shapes->array[0].get_collision(&shapes->array[0], ray);
+	col_ray = get_closest_collision(shapes, ray, &col_index);
 	if (col_ray < 0)
-		pixel_color = background_color(ray);
+		return (background_color(ray));
+	light_ray.origin = vector_sum(ray.origin, scalar_multiplication(ray.direction, col_ray));
+	light_ray.direction = vector_subtraction(light.pos, light_ray.origin);
+	normal = shapes->array[col_index].get_normal(&shapes->array[col_index], light_ray.origin);
+	if (there_is_collision(shapes, light_ray))
+		pixel_color = (t_color){{0, 0, 0, 0}};
 	else
 	{
-		col_world = vector_sum(ray.origin, scalar_multiplication(ray.direction, col_ray));
-		normal = vector_subtraction(col_world, shapes->array[0].pos);
-		normal = vector_normalization(normal);
-		light_ray = vector_subtraction(light.pos, col_world);
-		light_col = shapes->array[0].get_collision(&shapes->array[0], (t_ray){col_world, light_ray});
-		if (light_col >= 0)
+		light_ray.direction = vector_normalization(light_ray.direction);
+		intensity = light.brightness * dot_product(light_ray.direction, normal);
+		if (intensity < 0)
 			pixel_color = (t_color){{0, 0, 0, 0}};
 		else
-		{
-			light_ray = vector_normalization(light_ray);
-			intensity = light.brightness * dot_product(light_ray, normal);
-			if (intensity < 0)
-				pixel_color = (t_color){{0, 0, 0, 0}};
-			else
-				pixel_color = color_scaling(shapes->array[0].color, intensity);
-		}
-		pixel_color = color_sum(pixel_color, color_scaling(shapes->array[0].color, light.ambient));
+			pixel_color = color_scaling(shapes->array[col_index].color, intensity);
 	}
+	pixel_color = color_sum(pixel_color, color_scaling(shapes->array[col_index].color, light.ambient));
 	return (pixel_color);
 }
