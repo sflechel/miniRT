@@ -15,6 +15,11 @@ HEADERS = $(INC_DIR)minirt.h\
 
 SRC = main.c\
 	  hooks.c\
+	  vec3_vector_ops.c\
+	  vec3_scalar_ops.c\
+	  color_utils.c\
+	  scanning.c\
+	  raytracing.c\
 
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC))
 

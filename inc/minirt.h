@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 10:27:13 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/13 10:45:55 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,26 @@ typedef struct s_mlx
 	t_img	img;
 }	t_mlx;
 
+//scanning.h
+void	scan_viewport(t_camera *camera, t_shape_list *shapes, t_mlx *mlx);
+
+//raytracing.h
+t_color	cast_ray(t_ray ray, t_shape_list *shapes);
+
+//hooks.c
 void	handle_hooks(t_mlx *mlx);
+
+//color_utils.c
+t_color	color_scaling(t_color color, float scale);
+t_color	color_sum(t_color color1, t_color color2);
+
+//vec_3_scalar_ops.c
+t_vec3	scalar_division(t_vec3 vec, float scalar);
+t_vec3	scalar_multiplication(t_vec3 vec, float scalar);
+
+//vec_3_vector_ops.c
+t_vec3	vector_normalization(t_vec3 vec);
+t_vec3	vector_subtraction(t_vec3 minuend, t_vec3 subtrahend);
+t_vec3	vector_sum(t_vec3 term1, t_vec3 term2);
 
 #endif // !MINIRT_H
