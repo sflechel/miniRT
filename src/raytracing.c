@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 11:37:52 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:53:33 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,37 @@ t_color	background_color(t_ray ray)
 	return (background);
 }
 
-t_color	cast_ray(t_ray ray, t_shape_list *shapes)
+t_color	cast_ray(t_ray ray, t_shape_list *shapes, t_light light)
 {
 	t_color	pixel_color;
-	float	col_pos;
+	float	col_ray;
+	t_vec3	col_world;
+	t_vec3	normal;
+	t_vec3	light_ray;
+	float	intensity;
+	float	light_col;
 
-	col_pos = shapes->array[0].get_collision(&shapes->array[0], ray);
-	if (col_pos < 0)
+	col_ray = shapes->array[0].get_collision(&shapes->array[0], ray);
+	if (col_ray < 0)
 		pixel_color = background_color(ray);
 	else
-		pixel_color = (t_color){{0, 0, 255, 0}};
+	{
+		col_world = vector_sum(ray.origin, scalar_multiplication(ray.direction, col_ray));
+		normal = vector_subtraction(col_world, shapes->array[0].pos);
+		normal = vector_normalization(normal);
+		light_ray = vector_subtraction(light.pos, col_world);
+		light_col = shapes->array[0].get_collision(&shapes->array[0], (t_ray){col_world, light_ray});
+		if (light_col >= 0)
+			pixel_color = (t_color){{0, 0, 0, 0}};
+		else
+		{
+			light_ray = vector_normalization(light_ray);
+			intensity = light.brightness * dot_product(light_ray, normal);
+			if (intensity < 0)
+				pixel_color = (t_color){{0, 0, 0, 0}};
+			else
+				pixel_color = color_scaling(shapes->array[0].color, intensity);
+		}
+	}
 	return (pixel_color);
 }

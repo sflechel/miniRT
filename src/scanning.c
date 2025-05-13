@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:42:05 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 10:44:44 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:58:14 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_vec3	compute_first_pixel(t_camera *camera, t_vec3 *delta_u, t_vec3 *delta_v)
 	return (first_pixel);
 }
 
-void	scan_viewport(t_camera *camera, t_shape_list *shapes, t_mlx *mlx)
+void	scan_viewport(t_camera *camera, t_shape_list *shapes, t_light light, t_mlx *mlx)
 {
 	t_vec3	delta_u;
 	t_vec3	delta_v;
@@ -53,7 +53,7 @@ void	scan_viewport(t_camera *camera, t_shape_list *shapes, t_mlx *mlx)
 		while (u < camera->img_width)
 		{
 			pixel = vector_sum(pixel, delta_u);
-			pixel_color = cast_ray((t_ray){camera->pos, vector_subtraction(pixel, camera->pos)}, shapes);
+			pixel_color = cast_ray((t_ray){camera->pos, vector_subtraction(pixel, camera->pos)}, shapes, light);
 			pixel_put(mlx, u, v, pixel_color);
 			u++;
 		}

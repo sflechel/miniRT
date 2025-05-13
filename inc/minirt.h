@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 12:01:14 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:58:33 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ typedef enum e_type
 {
 	SPHERE
 }	t_type;
+
+typedef struct s_light
+{
+	t_vec3	pos;
+	float	brightness;
+}	t_light;
 
 typedef struct s_ray
 {
@@ -100,10 +106,10 @@ typedef struct s_mlx
 }	t_mlx;
 
 //scanning.h
-void	scan_viewport(t_camera *camera, t_shape_list *shapes, t_mlx *mlx);
+void	scan_viewport(t_camera *camera, t_shape_list *shapes, t_light light, t_mlx *mlx);
 
 //raytracing.h
-t_color	cast_ray(t_ray ray, t_shape_list *shapes);
+t_color	cast_ray(t_ray ray, t_shape_list *shapes, t_light light);
 
 //collision.c
 float	sphere_get_collision(t_shape *shape, t_ray ray);

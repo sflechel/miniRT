@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 12:49:32 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:35:10 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	main(void)
 	t_mlx			mlx;
 	t_shape			shape;
 	t_shape_list	*shapes;
+	const t_light	light = (t_light){(t_vec3){1, -1, -1}, 1};
 
 	init_camera(&camera);
 	if (init_mlx(&mlx, &camera) == 1)
@@ -82,10 +83,10 @@ int	main(void)
 	if (shapes == 0)
 		return (free_mlx(&mlx));
 	shapes->nb_shapes = 1;
-	sphere_constructor((t_vec3){0, 0, -1}, (t_vec3){0, 0, 0}, (t_color){{0, 0, 0, 0}}, 0.5, &shape);
+	sphere_constructor((t_vec3){0, 0, -1}, (t_vec3){0, 0, 0}, (t_color){{255, 127, 0, 0}}, 0.5, &shape);
 	shapes->array[0] = shape;
 	handle_hooks(&mlx);
-	scan_viewport(&camera, shapes, &mlx);
+	scan_viewport(&camera, shapes, light, &mlx);
 	mlx_put_image_to_window(mlx.mlx, mlx.window, mlx.img.img, 0, 0);
 	mlx_loop(mlx.mlx);
 	mlx_destroy_image(mlx.mlx, mlx.img.img);
