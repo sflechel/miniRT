@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 11:31:13 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/14 13:46:48 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,21 +94,34 @@ typedef struct s_camera
 	t_vec3	viewport_v;
 }	t_camera;
 
-typedef struct s_img
+typedef struct s_image
 {
 	void	*img;
 	char	*addr;
 	int		bpp;
 	int		len_line;
 	int		endian;
-}	t_img;
+}	t_image;
+
+typedef enum e_end
+{
+	DONT_END,
+	END
+}	t_end;
 
 typedef struct s_mlx
 {
 	void	*mlx;
 	void	*window;
-	t_img	img;
+	t_image	img;
+	t_end	end;
 }	t_mlx;
+
+typedef struct s_hook_data
+{
+	t_mlx		*mlx;
+	t_camera	*cam;
+}	t_hook_data;
 
 //scanning.h
 void	scan_viewport(t_camera *camera, t_shape_list *shapes, t_light light, t_mlx *mlx);
@@ -125,7 +138,7 @@ float	sphere_get_collision(t_shape *shape, t_ray ray);
 t_vec3	sphere_get_normal(t_shape *shape, t_vec3 col);
 
 //hooks.c
-void	handle_hooks(t_mlx *mlx);
+void	handle_hooks(t_hook_data *data);
 
 //color_utils.c
 t_color	color_scaling(t_color color, float scale);

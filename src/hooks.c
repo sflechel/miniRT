@@ -3,36 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 14:12:06 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 10:26:41 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:01:40 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "mlx.h"
 #include <X11/X.h>
+#include <X11/keysymdef.h>
+#include <stdio.h>
 
-int	end_loop_esc(int keycode, t_mlx *mlx)
+int	end_loop_esc(int keycode, void *data_v)
 {
+	const t_hook_data	*data = (t_hook_data *)data_v;
+
+	printf("3 %p\n", data_v);
 	if (keycode == 65307)
-	{
-		mlx_loop_end(mlx->mlx);
-	}
+		data->mlx->end = END;
+	else if (keycode == 'w')
+		data->cam->pos.z += 0.2;
+	else if (keycode == 's')
+		data->cam->pos.z -= 0.2;
+	else if (keycode == 'a')
+		data->cam->pos.x += 0.2;
+	else if (keycode == 'd')
+		data->cam->pos.x -= 0.2;
+	else if (keycode == 0xffe1)
+		data->cam->pos.y += 0.2;
+	else if (keycode == ' ')
+		data->cam->pos.y -= 0.2;
+	mlx_loop_end(data->mlx->mlx);
 	return (0);
 }
 
-int	end_loop_destroy(t_mlx *mlx)
+int	end_loop_destroy(void *mlx_v)
 {
+	t_mlx	*mlx;
+
+	mlx = (t_mlx *)mlx_v; 
+	mlx->end = END;
 	mlx_loop_end(mlx->mlx);
 	return (0);
 }
 
-void	handle_hooks(t_mlx *mlx)
+void	handle_hooks(t_hook_data *data)
 {
-	mlx_hook(mlx->window,
-		DestroyNotify, ResizeRedirectMask, end_loop_destroy, mlx);
-	mlx_hook(mlx->window,
-		KeyPress, KeyPressMask, end_loop_esc, mlx);
+	printf("2 %p\n", data);
+	mlx_hook(data->mlx->window,
+		DestroyNotify, ResizeRedirectMask, &end_loop_destroy, (void *)data->mlx);
+	mlx_hook(data->mlx->window,
+		KeyPress, KeyPressMask, &end_loop_esc, (void *)data);
 }

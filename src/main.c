@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 12:00:50 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/14 13:45:11 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "mlx.h"
+#include "mlx_int.h"
 #include "libft.h"
+#include <X11/X.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
@@ -72,6 +75,7 @@ int	init_mlx(t_mlx *mlx, t_camera *camera)
 		return (1);
 	}
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img, &mlx->img.bpp, &mlx->img.len_line, &mlx->img.endian);
+	mlx->end = DONT_END;
 	return (0);
 }
 
@@ -105,10 +109,18 @@ int	main(void)
 	shapes->array[0] = shape;
 	sphere_constructor((t_vec3){0, 0, -3}, (t_vec3){0, 0, 0}, (t_color){{100, 200, 42, 0}}, 2, &shape2);
 	shapes->array[1] = shape2;
-	handle_hooks(&mlx);
-	scan_viewport(&camera, shapes, light, &mlx);
-	mlx_put_image_to_window(mlx.mlx, mlx.window, mlx.img.img, 0, 0);
-	mlx_loop(mlx.mlx);
+	t_hook_data data = {&mlx, &camera};
+	printf("%p\n", data.mlx);
+	handle_hooks(&data);
+	while (mlx.end == DONT_END)
+	{
+		((t_xvar *)(mlx.mlx))->end_loop = 0;
+		scan_viewport(&camera, shapes, light, &mlx);
+		mlx_put_image_to_window(mlx.mlx, mlx.window, mlx.img.img, 0, 0);
+		printf("end loop 1\n");
+		mlx_loop(mlx.mlx);
+		printf("end loop 2\n");
+	}
 	mlx_destroy_image(mlx.mlx, mlx.img.img);
 	free_mlx(&mlx);
 	free(shapes);
