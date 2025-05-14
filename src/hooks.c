@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 14:12:06 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 15:28:03 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/14 17:18:15 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	end_loop_esc(int keycode, void *data_v)
 {
 	const t_hook_data	*data = (t_hook_data *)data_v;
 
-	printf("3 %p\n", data_v);
 	if (keycode == 65307)
 		data->mlx->end = END;
 	else if (keycode == 'w')
@@ -47,7 +46,7 @@ int	end_loop_esc(int keycode, void *data_v)
 		data->cam->rot.z += .02;
 	else if (keycode == '.')
 		data->cam->rot.z -= .02;
-	printf("%f\n, %f\n", data->cam->rot.z, data->cam->rot.x);
+	printf("move or rotate\n");
 	update_camera(data->cam);
 	mlx_loop_end(data->mlx->mlx);
 	return (0);
@@ -78,7 +77,6 @@ int	mouse_hook(int eventcode, int x, int y, t_hook_data *data)
 
 void	handle_hooks(t_hook_data *data)
 {
-	printf("2 %p\n", data);
 	mlx_hook(data->mlx->window,
 		DestroyNotify, ResizeRedirectMask, &end_loop_destroy, (void *)data->mlx);
 	mlx_hook(data->mlx->window,

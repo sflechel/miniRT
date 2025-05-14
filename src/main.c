@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 15:26:59 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/14 17:21:48 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,37 +92,47 @@ void	sphere_constructor(t_vec3 pos, t_vec3 rot, t_color color, float radius, t_s
 	shape->get_normal = &sphere_get_normal;
 }
 
+void	plane_constructor(t_vec3 pos, t_vec3 rot, t_color color, t_vec3 normal, t_shape *shape)
+{
+	shape->pos = pos;
+	shape->rot = rot;
+	shape->color = color;
+	shape->plane.normal = normal;
+	shape->get_collision = &plane_get_collision;
+	shape->get_normal = &plane_get_normal;
+}
+
 int	main(void)
 {
 	t_camera		camera;
 	t_mlx			mlx;
 	t_shape			shape;
 	t_shape			shape2;
+	t_shape			shape3;
 	t_shape_list	*shapes;
 	const t_light	light = (t_light){0.1, (t_vec3){-10, 2, 3}, 1};
 
 	init_camera(&camera);
 	if (init_mlx(&mlx, &camera) == 1)
 		return (free_mlx(&mlx));
-	shapes = malloc(sizeof(t_shape_list) + 2 * sizeof(t_shape));
+	shapes = malloc(sizeof(t_shape_list) + 3 * sizeof(t_shape));
 	if (shapes == 0)
 		return (free_mlx(&mlx));
-	shapes->nb_shapes = 2;
+	shapes->nb_shapes = 3;
 	sphere_constructor((t_vec3){-2.5, 0, -2}, (t_vec3){0, 0, 0}, (t_color){{255, 127, 0, 0}}, 0.5, &shape);
 	shapes->array[0] = shape;
 	sphere_constructor((t_vec3){0, 0, -3}, (t_vec3){0, 0, 0}, (t_color){{100, 200, 42, 0}}, 2, &shape2);
 	shapes->array[1] = shape2;
+	plane_constructor((t_vec3){0, 0, -4}, (t_vec3){0, 0, 0}, (t_color){{50, 50, 200, 0}}, (t_vec3){0, 0, 1}, &shape3);
+	shapes->array[2] = shape3;
 	t_hook_data data = {&mlx, &camera};
-	printf("%p\n", data.mlx);
 	handle_hooks(&data);
 	while (mlx.end == DONT_END)
 	{
 		((t_xvar *)(mlx.mlx))->end_loop = 0;
 		scan_viewport(&camera, shapes, light, &mlx);
 		mlx_put_image_to_window(mlx.mlx, mlx.window, mlx.img.img, 0, 0);
-		printf("end loop 1\n");
 		mlx_loop(mlx.mlx);
-		printf("end loop 2\n");
 	}
 	mlx_destroy_image(mlx.mlx, mlx.img.img);
 	free_mlx(&mlx);

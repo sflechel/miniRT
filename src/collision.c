@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 08:38:10 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/14 17:21:09 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,19 @@ float	sphere_get_collision(t_shape *shape, t_ray ray)
 		return (-1);
 	else
 		return ((h - sqrtf(discriminant)) / a);
+}
+
+float	plane_get_collision(t_shape *shape, t_ray ray)
+{
+	const t_vec3	center_vector = vector_subtraction(ray.origin, shape->pos);
+	const t_vec3	minus_norm = scalar_mult(shape->plane.normal, -1);
+	float			dot_prod = dot_product(minus_norm, center_vector);
+	float			dot_prod2 = dot_product(shape->plane.normal, ray.direction);
+	float			res = dot_prod / dot_prod2;
+
+	if (res > 0)
+		return (res);
+	return (-1);
 }
 
 // float	sphere_get_collision(t_shape *shape, t_ray ray)
