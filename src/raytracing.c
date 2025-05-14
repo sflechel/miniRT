@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 08:04:56 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/14 08:39:28 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ t_color	cast_ray(t_ray ray, t_shape_list *shapes, t_light light)
 	light_ray.direction = vector_subtraction(light.pos, light_ray.origin);
 	normal = shapes->array[col_index].get_normal(&shapes->array[col_index], light_ray.origin);
 	if (there_is_collision(shapes, light_ray))
-		pixel_color = (t_color){{0, 255, 0, 0}};
+		pixel_color = (t_color){{0, 0, 0, 0}};
 	else
 	{
 		light_ray.direction = vector_normalization(light_ray.direction);
 		intensity = light.brightness * dot_product(light_ray.direction, normal);
 		if (intensity < 0)
-			pixel_color = (t_color){{0, 0, 255, 0}};
+			pixel_color = (t_color){{0, 0, 0, 0}};
 		else
 			pixel_color = color_scaling(shapes->array[col_index].color, intensity);
 	}

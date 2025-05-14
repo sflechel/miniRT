@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 16:58:43 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/14 10:14:47 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ struct s_shape
 
 typedef struct s_shape_list
 {
-	// int		sizes[3];
 	int		nb_shapes;
 	t_shape	array[];
 }	t_shape_list;
@@ -85,10 +84,13 @@ typedef struct s_camera
 {
 	t_vec3	pos;
 	float	focal_length;
+	float	vertical_fov;
 	int		img_width;
 	int		img_heigth;
 	float	viewport_heigth;
 	float	viewport_width;
+	t_vec3	viewport_u;
+	t_vec3	viewport_v;
 }	t_camera;
 
 typedef struct s_img
@@ -136,6 +138,7 @@ t_vec3	scalar_multiplication(t_vec3 vec, float scalar);
 float	dot_product(t_vec3 vec1, t_vec3 vec2);
 float	get_squared_magnitude(t_vec3 vec);
 t_vec3	vector_normalization(t_vec3 vec);
+t_vec3	vector_mult(t_vec3 term1, t_vec3 term2);
 t_vec3	vector_subtraction(t_vec3 minuend, t_vec3 subtrahend);
 t_vec3	vector_sum(t_vec3 term1, t_vec3 term2);
 
