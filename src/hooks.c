@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 14:12:06 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 14:01:40 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:24:42 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,19 @@ int	end_loop_destroy(void *mlx_v)
 	return (0);
 }
 
+int	mouse_hook(int eventcode, int x, int y, t_hook_data *data)
+{
+	(void)x;
+	(void)y;
+	if (eventcode == 4)
+		data->cam->vertical_fov -= 0.05;
+	if (eventcode == 5)
+		data->cam->vertical_fov += 0.05;
+	update_camera(data->cam);
+	mlx_loop_end(data->mlx->mlx);
+	return (0);
+}
+
 void	handle_hooks(t_hook_data *data)
 {
 	printf("2 %p\n", data);
@@ -56,4 +69,5 @@ void	handle_hooks(t_hook_data *data)
 		DestroyNotify, ResizeRedirectMask, &end_loop_destroy, (void *)data->mlx);
 	mlx_hook(data->mlx->window,
 		KeyPress, KeyPressMask, &end_loop_esc, (void *)data);
+	mlx_hook(data->mlx->window, ButtonPress, ButtonPressMask, mouse_hook, data);
 }

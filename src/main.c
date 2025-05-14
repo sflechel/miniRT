@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 13:45:11 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:20:18 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,32 @@
 
 const float	g_aspect_ratio = 16. / 9.;
 
-void	init_camera(t_camera *cam)
+void	update_camera(t_camera *cam)
 {
 	t_vec3	u;
 	t_vec3	v;
-	t_vec3	w;
 
-	cam->rot = (t_vec3){10, 0, 0};
 	cam->rot = scalar_mult(cam->rot, M_PI / 180);
-	cam->focal_length = (t_vec3){0, 0, 10};
-	cam->vertical_fov = 20 * M_PI / 180;
-	cam->img_width = 1920;
-	cam->img_heigth = cam->img_width / g_aspect_ratio;
 	cam->viewport_heigth = 2 * tanf(cam->vertical_fov / 2) * cam->focal_length.z;
 	cam->viewport_width = cam->viewport_heigth * ((float)cam->img_width / (float)cam->img_heigth);
-	cam->pos = (t_vec3){0, 0,10};
 	u = (t_vec3){1, 0, 0};
 	v = (t_vec3){0, -1, 0};
-	w = (t_vec3){0, 0, 1};
 	rotation(&u, cam->rot);
 	rotation(&v, cam->rot);
 	rotation(&cam->focal_length, cam->rot);
 	cam->viewport_u = scalar_mult(u, cam->viewport_width);
 	cam->viewport_v = scalar_mult(v, cam->viewport_heigth);
+}
+
+void	init_camera(t_camera *cam)
+{
+	cam->rot = (t_vec3){10, 0, 0};
+	cam->focal_length = (t_vec3){0, 0, 10};
+	cam->vertical_fov = 20 * M_PI / 180;
+	cam->img_width = 1920;
+	cam->img_heigth = cam->img_width / g_aspect_ratio;
+	cam->pos = (t_vec3){0, 0,10};
+	update_camera(cam);
 }
 
 int	free_mlx(t_mlx *mlx)

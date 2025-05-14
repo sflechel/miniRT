@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 13:46:48 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:21:33 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,9 @@ typedef struct s_hook_data
 	t_mlx		*mlx;
 	t_camera	*cam;
 }	t_hook_data;
+
+//camera.c
+void	update_camera(t_camera *cam);
 
 //scanning.h
 void	scan_viewport(t_camera *camera, t_shape_list *shapes, t_light light, t_mlx *mlx);
