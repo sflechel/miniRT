@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 08:39:28 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/14 11:07:00 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_color	cast_ray(t_ray ray, t_shape_list *shapes, t_light light)
 	col_ray = get_closest_collision(shapes, ray, &col_index);
 	if (col_ray < 0)
 		return (background_color(ray));
-	light_ray.origin = vector_sum(ray.origin, scalar_multiplication(ray.direction, col_ray));
+	light_ray.origin = vector_sum(ray.origin, scalar_mult(ray.direction, col_ray));
 	light_ray.direction = vector_subtraction(light.pos, light_ray.origin);
 	normal = shapes->array[col_index].get_normal(&shapes->array[col_index], light_ray.origin);
 	if (there_is_collision(shapes, light_ray))

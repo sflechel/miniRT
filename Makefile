@@ -22,6 +22,7 @@ SRC = main.c\
 	  raytracing.c\
 	  collision.c\
 	  normals.c\
+	  rotation.c\
 
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC))
 

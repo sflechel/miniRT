@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 10:14:47 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/14 11:31:13 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ typedef struct s_shape_list
 typedef struct s_camera
 {
 	t_vec3	pos;
-	float	focal_length;
+	t_vec3	rot;
+	t_vec3	focal_length;
 	float	vertical_fov;
 	int		img_width;
 	int		img_heigth;
@@ -132,7 +133,7 @@ t_color	color_sum(t_color color1, t_color color2);
 
 //vec_3_scalar_ops.c
 t_vec3	scalar_division(t_vec3 vec, float scalar);
-t_vec3	scalar_multiplication(t_vec3 vec, float scalar);
+t_vec3	scalar_mult(t_vec3 vec, float scalar);
 
 //vec_3_vector_ops.c
 float	dot_product(t_vec3 vec1, t_vec3 vec2);
@@ -141,5 +142,11 @@ t_vec3	vector_normalization(t_vec3 vec);
 t_vec3	vector_mult(t_vec3 term1, t_vec3 term2);
 t_vec3	vector_subtraction(t_vec3 minuend, t_vec3 subtrahend);
 t_vec3	vector_sum(t_vec3 term1, t_vec3 term2);
+
+//rotation.c
+void	rotation(t_vec3 *vec, t_vec3 rot);
+void	rotation_x(t_vec3 *vec, float angle);
+void	rotation_y(t_vec3 *vec, float angle);
+void	rotation_z(t_vec3 *vec, float angle);
 
 #endif // !MINIRT_H
