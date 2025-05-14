@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 14:12:06 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 14:24:42 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/14 15:28:03 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,20 @@ int	end_loop_esc(int keycode, void *data_v)
 		data->cam->pos.y += 0.2;
 	else if (keycode == ' ')
 		data->cam->pos.y -= 0.2;
+	else if (keycode == 65361)
+		data->cam->rot.y += 0.02;
+	else if (keycode == 65362)
+		data->cam->rot.x += .02;
+	else if (keycode == 65363)
+		data->cam->rot.y -= .02;
+	else if (keycode == 65364)
+		data->cam->rot.x -= .02;
+	else if (keycode == '0')
+		data->cam->rot.z += .02;
+	else if (keycode == '.')
+		data->cam->rot.z -= .02;
+	printf("%f\n, %f\n", data->cam->rot.z, data->cam->rot.x);
+	update_camera(data->cam);
 	mlx_loop_end(data->mlx->mlx);
 	return (0);
 }
@@ -69,5 +83,5 @@ void	handle_hooks(t_hook_data *data)
 		DestroyNotify, ResizeRedirectMask, &end_loop_destroy, (void *)data->mlx);
 	mlx_hook(data->mlx->window,
 		KeyPress, KeyPressMask, &end_loop_esc, (void *)data);
-	mlx_hook(data->mlx->window, ButtonPress, ButtonPressMask, mouse_hook, data);
+	mlx_hook(data->mlx->window, ButtonPress, ButtonPressMask, mouse_hook, (void *)data);
 }
