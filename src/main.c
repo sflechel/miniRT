@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 11:34:56 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/14 12:00:50 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_camera(t_camera *cam)
 	t_vec3	v;
 	t_vec3	w;
 
-	cam->rot = (t_vec3){0, 0, 0};
+	cam->rot = (t_vec3){10, 0, 0};
 	cam->rot = scalar_mult(cam->rot, M_PI / 180);
 	cam->focal_length = (t_vec3){0, 0, 10};
 	cam->vertical_fov = 20 * M_PI / 180;
