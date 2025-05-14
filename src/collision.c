@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 17:54:06 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/14 08:38:10 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,19 @@ float	sphere_get_collision(t_shape *shape, t_ray ray)
 	if (discriminant < 0)
 		return (-1);
 	else
-		return (h - sqrtf(discriminant) / a);
+		return ((h - sqrtf(discriminant)) / a);
 }
+
+// float	sphere_get_collision(t_shape *shape, t_ray ray)
+// {
+// 	const t_vec3	center_vector = vector_subtraction(shape->pos, ray.origin);
+// 	const float		a = dot_product(ray.direction, ray.direction);
+// 	const float		b = -2 * dot_product(ray.direction, center_vector);
+// 	const float		c = dot_product(center_vector, center_vector) - shape->sphere.radius * shape->sphere.radius;
+// 	const float		discriminant = b * b - 4 * a * c;
+//
+// 	if (discriminant < 0)
+// 		return (-1);
+// 	else
+// 		return (-b - sqrtf(discriminant) / 2 * a);
+// }
