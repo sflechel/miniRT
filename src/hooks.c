@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 14:12:06 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 14:24:42 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:34:26 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	end_loop_destroy(void *mlx_v)
 {
 	t_mlx	*mlx;
 
-	mlx = (t_mlx *)mlx_v; 
+	mlx = (t_mlx *)mlx_v;
 	mlx->end = END;
 	mlx_loop_end(mlx->mlx);
 	return (0);
