@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 17:04:14 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:35:19 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,17 @@ typedef struct s_plane
 	t_vec3	normal;
 }	t_plane;
 
+typedef struct s_cylinder
+{
+	float	radius;
+	float	height;
+}	t_cylinder;
+
 struct s_shape
 {
 	t_type	type;
 	t_vec3	pos;
-	t_vec3	rot;
+	t_vec3	axis;
 	t_color	color;
 	float	(*get_collision)(t_shape *shape, t_ray ray);
 	t_vec3	(*get_normal)(t_shape * shape, t_vec3 col);
@@ -77,6 +83,7 @@ struct s_shape
 	{
 		t_sphere	sphere;
 		t_plane		plane;
+		t_cylinder	cylinder;
 	};
 };
 
@@ -141,10 +148,12 @@ t_color	cast_ray(t_ray ray, t_shape_list *shapes, t_light light);
 //collision.c
 float	get_closest_collision(t_shape_list *shapes, t_ray ray, int *col_index);
 int		there_is_collision(t_shape_list *shapes, t_ray ray);
+float	cylinder_get_collision(t_shape *shape, t_ray ray);
 float	sphere_get_collision(t_shape *shape, t_ray ray);
 float	plane_get_collision(t_shape *shape, t_ray ray);
 
 //normals.c
+t_vec3	cylinder_get_normal(t_shape *shape, t_vec3 col);
 t_vec3	sphere_get_normal(t_shape *shape, t_vec3 col);
 t_vec3	plane_get_normal(t_shape *shape, t_vec3 col);
 
@@ -162,6 +171,7 @@ t_vec3	scalar_mult(t_vec3 vec, float scalar);
 //vec_3_vector_ops.c
 float	dot_product(t_vec3 vec1, t_vec3 vec2);
 float	get_squared_magnitude(t_vec3 vec);
+t_vec3	ortho_proj(t_vec3 projected, t_vec3 line);
 t_vec3	vector_normalization(t_vec3 vec);
 t_vec3	vector_mult(t_vec3 term1, t_vec3 term2);
 t_vec3	vector_subtraction(t_vec3 minuend, t_vec3 subtrahend);

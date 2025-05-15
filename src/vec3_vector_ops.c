@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:34:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 10:14:18 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:20:36 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ float	get_squared_magnitude(t_vec3 vec)
 float	get_magnitude(t_vec3 vec)
 {
 	return (sqrtf(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z));
+}
+
+t_vec3	ortho_proj(t_vec3 projected, t_vec3 line)
+{
+	return (scalar_mult(line, dot_product(line, projected)));
 }
 
 t_vec3	vector_normalization(t_vec3 vec)

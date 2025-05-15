@@ -6,11 +6,22 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 16:52:51 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:31:16 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_vec3	cylinder_get_normal(t_shape *shape, t_vec3 col)
+{
+	const t_vec3	o_col = vector_subtraction(col, shape->pos);
+	const t_vec3	o_col_perp = vector_subtraction(o_col,
+			ortho_proj(o_col, shape->axis));
+	const t_vec3	normal
+		= scalar_division(o_col_perp, shape->cylinder.radius);
+
+	return (normal);
+}
 
 t_vec3	sphere_get_normal(t_shape *shape, t_vec3 col)
 {

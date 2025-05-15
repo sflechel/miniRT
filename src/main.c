@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/14 17:21:48 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:50:25 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,24 +82,35 @@ int	init_mlx(t_mlx *mlx, t_camera *camera)
 	return (0);
 }
 
-void	sphere_constructor(t_vec3 pos, t_vec3 rot, t_color color, float radius, t_shape *shape)
+void	sphere_constructor(t_vec3 pos, t_vec3 axis, t_color color, float radius, t_shape *shape)
 {
 	shape->pos = pos;
-	shape->rot = rot;
+	shape->axis = axis;
 	shape->color = color;
 	shape->sphere.radius = radius;
 	shape->get_collision = &sphere_get_collision;
 	shape->get_normal = &sphere_get_normal;
 }
 
-void	plane_constructor(t_vec3 pos, t_vec3 rot, t_color color, t_vec3 normal, t_shape *shape)
+void	plane_constructor(t_vec3 pos, t_vec3 axis, t_color color, t_vec3 normal, t_shape *shape)
 {
 	shape->pos = pos;
-	shape->rot = rot;
+	shape->axis = axis;
 	shape->color = color;
 	shape->plane.normal = normal;
 	shape->get_collision = &plane_get_collision;
 	shape->get_normal = &plane_get_normal;
+}
+
+void	cylinder_constructor(t_vec3 pos, t_vec3 axis, t_color color, float radius, float height, t_shape *shape)
+{
+	shape->pos = pos;
+	shape->axis = axis;
+	shape->color = color;
+	shape->cylinder.radius = radius;
+	shape->cylinder.height = height;
+	shape->get_collision = &cylinder_get_collision;
+	shape->get_normal = &cylinder_get_normal;
 }
 
 int	main(void)
@@ -109,22 +120,25 @@ int	main(void)
 	t_shape			shape;
 	t_shape			shape2;
 	t_shape			shape3;
+	t_shape			shape4;
 	t_shape_list	*shapes;
 	const t_light	light = (t_light){0.1, (t_vec3){-10, 2, 3}, 1};
 
 	init_camera(&camera);
 	if (init_mlx(&mlx, &camera) == 1)
 		return (free_mlx(&mlx));
-	shapes = malloc(sizeof(t_shape_list) + 3 * sizeof(t_shape));
+	shapes = malloc(sizeof(t_shape_list) + 4 * sizeof(t_shape));
 	if (shapes == 0)
 		return (free_mlx(&mlx));
-	shapes->nb_shapes = 3;
+	shapes->nb_shapes = 1;
 	sphere_constructor((t_vec3){-2.5, 0, -2}, (t_vec3){0, 0, 0}, (t_color){{255, 127, 0, 0}}, 0.5, &shape);
 	shapes->array[0] = shape;
 	sphere_constructor((t_vec3){0, 0, -3}, (t_vec3){0, 0, 0}, (t_color){{100, 200, 42, 0}}, 2, &shape2);
 	shapes->array[1] = shape2;
 	plane_constructor((t_vec3){0, 0, -4}, (t_vec3){0, 0, 0}, (t_color){{50, 50, 200, 0}}, (t_vec3){0, 0, 1}, &shape3);
 	shapes->array[2] = shape3;
+	cylinder_constructor((t_vec3){0, 0, -2}, (t_vec3){0, 0, 0}, (t_color){{20, 150, 200, 0}}, 5, 1,&shape4);
+	shapes->array[0] = shape4;
 	t_hook_data data = {&mlx, &camera};
 	handle_hooks(&data);
 	while (mlx.end == DONT_END)
