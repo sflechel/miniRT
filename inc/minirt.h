@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/16 10:17:35 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/16 11:16:04 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,5 +190,15 @@ void	rotation(t_vec3 *vec, t_vec3 rot);
 void	rotation_x(t_vec3 *vec, float angle);
 void	rotation_y(t_vec3 *vec, float angle);
 void	rotation_z(t_vec3 *vec, float angle);
+
+//constructor.c
+void	sphere_constructor(t_vec3 pos, t_vec3 axis, t_color color, float radius, t_shape *shape);
+void	disk_constructor(t_vec3 pos, t_vec3 axis, t_color color, t_vec3 normal, float radius, t_shape *shape);
+void	plane_constructor(t_vec3 pos, t_vec3 axis, t_color color, t_vec3 normal, t_shape *shape);
+void	cylinder_constructor(t_vec3 pos, t_vec3 axis, t_color color, float radius, float height, t_shape *shape);
+
+//camera.c
+void	update_camera(t_camera *cam);
+void	init_camera(t_camera *cam);
 
 #endif // !MINIRT_H

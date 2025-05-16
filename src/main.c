@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/16 10:37:52 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/16 11:16:22 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,39 +15,9 @@
 #include "mlx_int.h"
 #include "libft.h"
 #include <X11/X.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 const float	g_aspect_ratio = 16. / 9.;
-
-void	update_camera(t_camera *cam)
-{
-	t_vec3	u;
-	t_vec3	v;
-	
-	cam->focal_length = (t_vec3){0, 0, 10};
-	cam->viewport_heigth = 2 * tanf(cam->vertical_fov / 2) * cam->focal_length.z;
-	cam->viewport_width = cam->viewport_heigth * ((float)cam->img_width / (float)cam->img_heigth);
-	u = (t_vec3){1, 0, 0};
-	v = (t_vec3){0, -1, 0};
-	rotation(&u, cam->rot);
-	rotation(&v, cam->rot);
-	rotation(&cam->focal_length, cam->rot);
-	cam->viewport_u = scalar_mult(u, cam->viewport_width);
-	cam->viewport_v = scalar_mult(v, cam->viewport_heigth);
-}
-
-void	init_camera(t_camera *cam)
-{
-	cam->rot = (t_vec3){0, 0, 0};
-	cam->rot = scalar_mult(cam->rot, M_PI / 180);
-	cam->vertical_fov = 20 * M_PI / 180;
-	cam->img_width = 1000;
-	cam->img_heigth = cam->img_width / g_aspect_ratio;
-	cam->pos = (t_vec3){0, 0,10};
-	update_camera(cam);
-}
 
 int	free_mlx(t_mlx *mlx)
 {
@@ -80,48 +50,6 @@ int	init_mlx(t_mlx *mlx, t_camera *camera)
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img, &mlx->img.bpp, &mlx->img.len_line, &mlx->img.endian);
 	mlx->end = DONT_END;
 	return (0);
-}
-
-void	sphere_constructor(t_vec3 pos, t_vec3 axis, t_color color, float radius, t_shape *shape)
-{
-	shape->pos = pos;
-	shape->axis = axis;
-	shape->color = color;
-	shape->sphere.radius = radius;
-	shape->get_collision = &sphere_get_collision;
-	shape->get_normal = &sphere_get_normal;
-}
-
-void	disk_constructor(t_vec3 pos, t_vec3 axis, t_color color, t_vec3 normal, float radius, t_shape *shape)
-{
-	shape->pos = pos;
-	shape->axis = axis;
-	shape->color = color;
-	shape->disk.normal = normal;
-	shape->disk.radius = radius;
-	shape->get_collision = &disk_get_collision;
-	shape->get_normal = &disk_get_normal;
-}
-
-void	plane_constructor(t_vec3 pos, t_vec3 axis, t_color color, t_vec3 normal, t_shape *shape)
-{
-	shape->pos = pos;
-	shape->axis = axis;
-	shape->color = color;
-	shape->plane.normal = normal;
-	shape->get_collision = &plane_get_collision;
-	shape->get_normal = &plane_get_normal;
-}
-
-void	cylinder_constructor(t_vec3 pos, t_vec3 axis, t_color color, float radius, float height, t_shape *shape)
-{
-	shape->pos = pos;
-	shape->axis = axis;
-	shape->color = color;
-	shape->cylinder.radius = radius;
-	shape->cylinder.height = height;
-	shape->get_collision = &cylinder_get_collision;
-	shape->get_normal = &cylinder_get_normal;
 }
 
 int	main(void)

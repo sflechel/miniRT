@@ -23,6 +23,8 @@ SRC = main.c\
 	  collision.c\
 	  normals.c\
 	  rotation.c\
+	  constructors.c\
+	  camera.c\
 
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC))
 
