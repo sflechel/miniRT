@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/15 18:57:15 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/16 10:37:52 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	update_camera(t_camera *cam)
 
 void	init_camera(t_camera *cam)
 {
-	cam->rot = (t_vec3){10, 0, 0};
+	cam->rot = (t_vec3){0, 0, 0};
 	cam->rot = scalar_mult(cam->rot, M_PI / 180);
 	cam->vertical_fov = 20 * M_PI / 180;
 	cam->img_width = 1000;
@@ -92,6 +92,17 @@ void	sphere_constructor(t_vec3 pos, t_vec3 axis, t_color color, float radius, t_
 	shape->get_normal = &sphere_get_normal;
 }
 
+void	disk_constructor(t_vec3 pos, t_vec3 axis, t_color color, t_vec3 normal, float radius, t_shape *shape)
+{
+	shape->pos = pos;
+	shape->axis = axis;
+	shape->color = color;
+	shape->disk.normal = normal;
+	shape->disk.radius = radius;
+	shape->get_collision = &disk_get_collision;
+	shape->get_normal = &disk_get_normal;
+}
+
 void	plane_constructor(t_vec3 pos, t_vec3 axis, t_color color, t_vec3 normal, t_shape *shape)
 {
 	shape->pos = pos;
@@ -121,6 +132,7 @@ int	main(void)
 	t_shape			shape2;
 	t_shape			shape3;
 	t_shape			shape4;
+	t_shape			shape5;
 	t_shape_list	*shapes;
 	const t_light	light = (t_light){0.1, (t_vec3){-10, 2, 3}, 1};
 
@@ -130,15 +142,17 @@ int	main(void)
 	shapes = malloc(sizeof(t_shape_list) + 4 * sizeof(t_shape));
 	if (shapes == 0)
 		return (free_mlx(&mlx));
-	shapes->nb_shapes = 1;
+	shapes->nb_shapes = 2;
 	sphere_constructor((t_vec3){-2.5, 0, -2}, (t_vec3){0, 0, 0}, (t_color){{255, 127, 0, 0}}, 0.5, &shape);
 	shapes->array[0] = shape;
 	sphere_constructor((t_vec3){0, 0, -3}, (t_vec3){0, 0, 0}, (t_color){{100, 200, 42, 0}}, 2, &shape2);
 	shapes->array[1] = shape2;
 	plane_constructor((t_vec3){0, 0, -4}, (t_vec3){0, 0, 0}, (t_color){{50, 50, 200, 0}}, (t_vec3){0, 0, 1}, &shape3);
-	shapes->array[2] = shape3;
-	cylinder_constructor((t_vec3){0, 0, -2}, (t_vec3){0, 1, 0}, (t_color){{20, 150, 200, 0}}, 5, 1,&shape4);
+	shapes->array[1] = shape3;
+	cylinder_constructor((t_vec3){0, 0, -2}, (t_vec3){0, 1, 0}, (t_color){{20, 100, 200, 0}}, 1, 3, &shape4);
 	shapes->array[0] = shape4;
+	disk_constructor((t_vec3){1, 1, -2}, (t_vec3){0, 1, 0}, (t_color){{150, 150, 0, 0}}, (t_vec3){0, 0, 1}, 3, &shape5);
+	shapes->array[0] = shape5;
 	t_hook_data data = {&mlx, &camera};
 	handle_hooks(&data);
 	while (mlx.end == DONT_END)

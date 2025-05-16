@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/16 09:09:23 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/16 10:38:30 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,35 @@ float	cylinder_get_collision(t_shape *shape, t_ray ray)
 
 float	plane_get_collision(t_shape *shape, t_ray ray)
 {
-	const t_vec3	center_vector = vector_subtraction(ray.origin, shape->pos);
-	const t_vec3	minus_norm = scalar_mult(shape->plane.normal, -1);
-	float			dot_prod = dot_product(minus_norm, center_vector);
-	float			dot_prod2 = dot_product(shape->plane.normal, ray.direction);
-	float			res = dot_prod / dot_prod2;
+	const t_vec3	center_vector = vector_subtraction(shape->pos, ray.origin);
+	const float		dot_prod = dot_product(shape->plane.normal, center_vector);
+	const float		dot_prod2 = dot_product(shape->plane.normal, ray.direction);
+	float			res;
 
+	if (dot_prod2 == 0)
+		return (-1);
+	res = dot_prod / dot_prod2;
 	if (res > 0)
 		return (res);
+	return (-1);
+}
+
+float	disk_get_collision(t_shape *shape, t_ray ray)
+{
+	const t_vec3	o = vector_subtraction(shape->pos, ray.origin);
+	const float		dot_prod = dot_product(shape->disk.normal, o);
+	const float		dot_prod2 = dot_product(shape->disk.normal, ray.direction);
+	float			t;
+	t_vec3			col;
+
+	if (dot_prod2 == 0)
+		return (-1);
+	t = dot_prod / dot_prod2;
+	if (t < 0)
+		return (-1);
+	col = vector_sum(ray.origin, scalar_mult(ray.direction, t));
+	if (dot_product(col, col) < shape->disk.radius * shape->disk.radius)
+		return (t);
 	return (-1);
 }
 

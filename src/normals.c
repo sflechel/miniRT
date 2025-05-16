@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/15 18:31:16 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/16 10:17:22 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,10 @@ t_vec3	plane_get_normal(t_shape *shape, t_vec3 col)
 {
 	(void)col;
 	return (shape->plane.normal);
+}
+
+t_vec3	disk_get_normal(t_shape *shape, t_vec3 col)
+{
+	(void)col;
+	return (shape->disk.normal);
 }
