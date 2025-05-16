@@ -6,13 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/15 18:51:45 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/16 09:09:23 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
-#include <stdio.h>
 
 float	get_closest_collision(t_shape_list *shapes, t_ray ray, int *col_index)
 {
@@ -80,19 +79,26 @@ float	sphere_get_collision(t_shape *shape, t_ray ray)
 
 float	cylinder_get_collision(t_shape *shape, t_ray ray)
 {
-	const t_vec3	o = vector_subtraction(ray.origin, shape->pos);
-	const t_vec3	d = vector_normalization(ray.direction);
-	const t_vec3	d_perp = vector_subtraction(d,
-			ortho_proj(d, shape->axis));
+	const t_vec3	o = vector_subtraction(shape->pos, ray.origin);
+	const t_vec3	d_perp = vector_subtraction(ray.direction,
+			ortho_proj(ray.direction, shape->axis));
 	const t_vec3	o_perp = vector_subtraction(o, ortho_proj(o, shape->axis));
 	const float		a = dot_product(d_perp, d_perp);
 	const float		h = dot_product(o_perp, d_perp);
 	const float		c = dot_product(o_perp, o_perp) - shape->cylinder.radius * shape->cylinder.radius;
 	const float		discriminant = h * h - a * c;
+	float			t;
+	t_vec3			col;
+	float			len;
 
 	if (discriminant < 0)
 		return (-1);
-	return ((h - sqrtf(discriminant)) / a);
+	t = (h - sqrtf(discriminant)) / a;
+	col = vector_sum(ray.origin, scalar_mult(ray.direction, t));
+	len = dot_product(vector_subtraction(col, shape->pos), shape->axis);
+	if (len < shape->cylinder.height && len > -shape->cylinder.height)
+		return (t);
+	return (-1);
 }
 
 float	plane_get_collision(t_shape *shape, t_ray ray)

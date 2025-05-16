@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/15 18:50:25 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:57:15 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int	main(void)
 	shapes->array[1] = shape2;
 	plane_constructor((t_vec3){0, 0, -4}, (t_vec3){0, 0, 0}, (t_color){{50, 50, 200, 0}}, (t_vec3){0, 0, 1}, &shape3);
 	shapes->array[2] = shape3;
-	cylinder_constructor((t_vec3){0, 0, -2}, (t_vec3){0, 0, 0}, (t_color){{20, 150, 200, 0}}, 5, 1,&shape4);
+	cylinder_constructor((t_vec3){0, 0, -2}, (t_vec3){0, 1, 0}, (t_color){{20, 150, 200, 0}}, 5, 1,&shape4);
 	shapes->array[0] = shape4;
 	t_hook_data data = {&mlx, &camera};
 	handle_hooks(&data);
