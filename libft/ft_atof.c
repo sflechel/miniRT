@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 14:59:51 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/16 18:29:15 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/19 14:46:05 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	protected_atof(const char *s, float *f)
+int	safe_atof(const char *s, float *f)
 {
 	int	i;
 	int	count;

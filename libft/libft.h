@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:10:49 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/19 10:00:34 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:58:01 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ char			*ft_str_triple_join(char const *s1,
 int				strchr_index(const char *s, int c);
 int				strchr_last_index(const char *s, int c);
 
-int				protected_atof(const char *s, float *f);
+int				safe_atof(const char *s, float *f);
 float			ft_atof(const char *s);
 
 char			**split_better(char const *s, char c);

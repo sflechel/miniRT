@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_better.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 08:20:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/19 11:56:18 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:57:32 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,6 @@ static int	ft_worddup(char *dest, const char *src, char c)
 	return (i + 1);
 }
 
-void	*ft_free_split(char **strs)
-{
-	int	i;
-
-	i = 0;
-	if (!strs)
-		return (0);
-	while (strs[i] != 0)
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
-	return (0);
-}
 
 static char	**ft_realsplit(char const *s, char c, char **strs, int word_counter)
 {
