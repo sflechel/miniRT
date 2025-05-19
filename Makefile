@@ -25,6 +25,7 @@ SRC = main.c\
 	  rotation.c\
 	  constructors.c\
 	  camera.c\
+	  parsing.c\
 
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC))
 

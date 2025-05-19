@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/19 11:49:39 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:55:49 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,55 +56,17 @@ int	main(int ac, char **av)
 {
 	t_camera		camera;
 	t_mlx			mlx;
-	t_shape			shape;
-	t_shape			shape2;
-	t_shape			shape3;
-	t_shape			shape4;
-	t_shape			shape5;
 	t_shape_list	*shapes;
-	const t_light	light = (t_light){0.1, (t_color){{255, 175, 89, 0}}, (t_vec3){-10, 2, 3}, 1};
+	t_light			light;
 
-	float	f;
-	printf("%i, %f\n", protected_atof("14.5789", &f), f);
-	printf("%i, %f\n", protected_atof("", &f), f);
-	printf("%i, %f\n", protected_atof("-", &f), f);
-	printf("%i, %f\n", protected_atof("-9.684684", &f), f);
-	printf("%i, %f\n", protected_atof(".684684", &f), f);
-	printf("%i, %f\n", protected_atof(".", &f), f);
-	printf("%i, %f\n", protected_atof("2147483648", &f), f);
-	printf("%i, %f\n", protected_atof("0.2147483648", &f), f);
-	printf("%i, %f\n", protected_atof("21147483648", &f), f);
-	printf("%i, %f\n", protected_atof("0.20147483648", &f), f);
-	printf("%i, %f\n", protected_atof("0.", &f), f);
-	char **strs = split_better(ft_strdup("  salut tu vas bien "), ' ');
-	int i = 0;
-	while (strs[i])
-	{
-		printf("%s\n", strs[i]);
-		i++;
-	}
-	free(strs);
-	(void)av;
 	if (ac != 2)
 		return (EXIT_FAILURE);
-	// parse_file(av[1]);
 	init_camera(&camera);
+	if (parse_file(av[1], &shapes, &camera, &light) == 1)
+		return (EXIT_FAILURE);
 	if (init_mlx(&mlx, &camera) == 1)
 		return (free_mlx(&mlx));
-	shapes = malloc(sizeof(t_shape_list) + 4 * sizeof(t_shape));
-	if (shapes == 0)
-		return (free_mlx(&mlx));
-	shapes->nb_shapes = 3;
-	sphere_constructor((t_vec3){-2.5, 0, -2}, (t_vec3){0, 0, 0}, (t_color){{255, 127, 0, 0}}, 0.5, &shape);
-	shapes->array[0] = shape;
-	sphere_constructor((t_vec3){0, 0, -3}, (t_vec3){0, 0, 0}, (t_color){{100, 200, 42, 0}}, 2, &shape2);
-	shapes->array[1] = shape2;
-	plane_constructor((t_vec3){0, 0, -4}, (t_vec3){0, 0, 0}, (t_color){{50, 50, 200, 0}}, (t_vec3){0, 0, 1}, &shape3);
-	shapes->array[1] = shape3;
-	cylinder_constructor((t_vec3){0, 0, -2}, (t_vec3){0, 1, 0}, (t_color){{20, 100, 200, 0}}, 1, 3, &shape4);
-	shapes->array[2] = shape4;
-	disk_constructor((t_vec3){1, 1, -2}, (t_vec3){0, 1, 0}, (t_color){{150, 150, 0, 0}}, (t_vec3){0, 0, 1}, 3, &shape5);
-	shapes->array[0] = shape5;
+	update_camera(&camera);
 	t_hook_data data = {&mlx, &camera};
 	handle_hooks(&data);
 	while (mlx.end == DONT_END)
