@@ -38,6 +38,8 @@ SRC_FILES = $(SRC_DIR)ft_isalpha.c\
 		$(SRC_DIR)multifree_return_zero.c\
 		$(SRC_DIR)strchr_index.c\
 		$(SRC_DIR)safe_atoi.c\
+		$(SRC_DIR)ft_atof.c\
+		$(SRC_DIR)split_better.c\
 #		$(SRC_DIR)main.c\
 
 OBJ_FILES = $(SRC_FILES:.c=.o)

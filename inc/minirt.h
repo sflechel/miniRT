@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/16 11:16:04 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:29:48 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef enum e_type
 typedef struct s_light
 {
 	float	ambient;
+	t_color	ambient_color;
 	t_vec3	pos;
 	float	brightness;
 }	t_light;
@@ -76,6 +77,7 @@ typedef struct s_disk
 	float	radius;
 	t_vec3	normal;
 }	t_disk;
+
 struct s_shape
 {
 	t_type	type;
