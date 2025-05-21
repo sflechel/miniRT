@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/21 13:14:58 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/21 17:08:49 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,19 +127,22 @@ int	parse_rgba(char *str, t_color *color)
 {
 	const char	**rgba = (const char **)ft_split(str, ',');
 	const int	len = ptr_array_len((char **)rgba);
+	const int	r = color->r;
+	const int	g = color->g;
+	const int	b = color->b;
 
 	if (len != 3
-		|| safe_atoi(rgba[0], (int *)&color->r) == 1
-		|| color->r < 0 || color->r > 255
-		|| safe_atoi(rgba[1], (int *)&color->g) == 1
-		|| color->g < 0 || color->g > 255
-		|| safe_atoi(rgba[2], (int *)&color->b) == 1
-		|| color->b < 0 || color->b > 255)
+		|| safe_atoi(rgba[0], (int *)&r) == 1 || r < 0 || r > 255
+		|| safe_atoi(rgba[1], (int *)&g) == 1 || g < 0 || g > 255
+		|| safe_atoi(rgba[2], (int *)&b) == 1 || b < 0 || b > 255)
 	{
 		printf("Error\n%s is not a valid color", str);
 		ft_free_split((char **)rgba);
 		return (1);
 	}
+	color->r = r;
+	color->g = g;
+	color->b = b;
 	color->a = 0;
 	ft_free_split((char **)rgba);
 	return (0);
@@ -176,10 +179,7 @@ int	parse_vector3(char *str, t_vec3 *vec)
 
 int	parse_vector3_normalised(char *str, t_vec3 *vec)
 {
-	if (parse_vector3(str, vec) == 1
-		|| vec->x < -1 || vec->x > 1
-		|| vec->y < -1 || vec->y > 1
-		|| vec->z < -1 || vec->z > 1)
+	if (parse_vector3(str, vec) == 1 || get_norm(*vec) != 1)
 		return (1);
 	return (0);
 }
@@ -203,6 +203,9 @@ int	handle_camera(char **line, t_camera *cam)
 {
 	const int	len = ptr_array_len(line);
 	t_vec3		cam_axis;
+	t_vec3		a;
+	float		cosa;
+	float		cost;
 
 	printf("parse the cam\n");
 	if (len != 4
@@ -213,9 +216,12 @@ int	handle_camera(char **line, t_camera *cam)
 		printf(" in the camera\n");
 		return (1);
 	}
-	cam->rot.x = acosf(dot_product(cam_axis, (t_vec3){1, 0, 0}));
-	cam->rot.y = acosf(dot_product(cam_axis, (t_vec3){0, 1, 0}));
-	cam->rot.z = acosf(dot_product(cam_axis, (t_vec3){0, 0, 1}));
+	cosa = dot_product(cam_axis, (t_vec3){0, 1, 0});
+	a = cross_product(cam_axis, (t_vec3){0, 1, 0});
+	cam->rot.y = -asinf(-a.y + (a.x * a.z) / (1 + cosa));
+	cost = 1 / cosf(cam->rot.y);
+	cam->rot.x = atan2f((a.x + (a.z * a.y) / (1 + cosa)) * cost, (1 + (-a.x * a.x + -a.y * a.y) / (1 + cosa)) * cost);
+	cam->rot.z = atan2f((a.z + (a.x * a.y) / (1 + cosa)) * cost, (1 + (-a.z * a.z + -a.y * a.y) / (1 + cosa)) * cost);
 	printf("%f, %f, %f\n", cam->rot.x, cam->rot.y, cam->rot.z);
 	return (0);
 }

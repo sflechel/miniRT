@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/16 10:38:30 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/21 10:36:47 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int	there_is_collision(t_shape_list *shapes, t_ray ray)
 float	sphere_get_collision(t_shape *shape, t_ray ray)
 {
 	const t_vec3	center_vector = vector_subtraction(shape->pos, ray.origin);
-	const float		a = get_squared_magnitude(ray.direction);
+	const float		a = get_squared_norm(ray.direction);
 	const float		h = dot_product(ray.direction, center_vector);
-	const float		c = get_squared_magnitude(center_vector) - shape->sphere.radius * shape->sphere.radius;
+	const float		c = get_squared_norm(center_vector) - shape->sphere.radius * shape->sphere.radius;
 	const float		discriminant = h * h - a * c;
 
 	if (discriminant < 0)

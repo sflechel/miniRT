@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 14:12:06 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/15 18:31:49 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/21 17:03:25 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 #include <X11/keysymdef.h>
 #include <stdio.h>
 
+void	change_pos_camera(t_vec3 dpos, t_camera *cam)
+{
+	rotation(&dpos, cam->rot);
+	cam->pos = vector_sum(dpos, cam->pos);
+}
+
 int	end_loop_esc(int keycode, void *data_v)
 {
 	const t_hook_data	*data = (t_hook_data *)data_v;
@@ -23,17 +29,17 @@ int	end_loop_esc(int keycode, void *data_v)
 	if (keycode == 65307)
 		data->mlx->end = END;
 	else if (keycode == 'w')
-		data->cam->pos.z += 0.2;
+		change_pos_camera((t_vec3){0, 0, 0.2}, data->cam);
 	else if (keycode == 's')
-		data->cam->pos.z -= 0.2;
+		change_pos_camera((t_vec3){0, 0, -0.2}, data->cam);
 	else if (keycode == 'a')
-		data->cam->pos.x += 0.2;
+		change_pos_camera((t_vec3){0.2, 0, 0}, data->cam);
 	else if (keycode == 'd')
-		data->cam->pos.x -= 0.2;
+		change_pos_camera((t_vec3){-0.2, 0, 0}, data->cam);
 	else if (keycode == 0xffe1)
-		data->cam->pos.y += 0.2;
+		change_pos_camera((t_vec3){0, 0.2, 0}, data->cam);
 	else if (keycode == ' ')
-		data->cam->pos.y -= 0.2;
+		change_pos_camera((t_vec3){0, -0.2, 0}, data->cam);
 	else if (keycode == 65361)
 		data->cam->rot.y += 0.02;
 	else if (keycode == 65362)
@@ -46,6 +52,8 @@ int	end_loop_esc(int keycode, void *data_v)
 		data->cam->rot.z += .02;
 	else if (keycode == '.')
 		data->cam->rot.z -= .02;
+	printf("%f, %f, %f\n", data->cam->pos.x, data->cam->pos.y, data->cam->pos.z);
+	printf("%f, %f, %f\n", data->cam->rot.x, data->cam->rot.y, data->cam->rot.z);
 	printf("move or rotate\n");
 	update_camera(data->cam);
 	mlx_loop_end(data->mlx->mlx);
