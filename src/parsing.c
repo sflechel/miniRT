@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/19 17:47:53 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/21 09:36:10 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,10 +163,7 @@ int	parse_vector3(char *str, t_vec3 *vec)
 
 int	parse_vector3_normalised(char *str, t_vec3 *vec)
 {
-	if (parse_vector3(str, vec) == 1
-		|| vec->x < -1 || vec->x > 1
-		|| vec->y < -1 || vec->y > 1
-		|| vec->z < -1 || vec->z > 1)
+	if (parse_vector3(str, vec) == 1 || get_norm(*vec) != 1)
 		return (1);
 	return (0);
 }
@@ -187,6 +184,9 @@ int	handle_camera(char **line, t_camera *cam)
 {
 	const int	len = ptr_array_len(line);
 	t_vec3		cam_axis;
+	t_vec3		cam_axis_x;
+	t_vec3		cam_axis_y;
+	t_vec3		cam_axis_z;
 
 	printf("cammmmmmm\n");
 	if (len != 4
@@ -194,9 +194,12 @@ int	handle_camera(char **line, t_camera *cam)
 		|| parse_vector3_normalised(line[2], &cam_axis) == 1
 		|| parse_form_range(line[3], &cam->vertical_fov, 0, 180) == 1)
 		return (1);
-	cam->rot.x = acosf(dot_product(cam_axis, (t_vec3){1, 0, 0}));
+	cam_axis_x = (t_vec3){0, cam_axis.y, cam_axis.z};
+	cam_axis_y = (t_vec3){cam_axis.x, 0, cam_axis.z};
+	cam_axis_z = (t_vec3){cam_axis.x, cam_axis.y, 0};
+	cam->rot.x = acosf(dot_product(cam_axis, (t_vec3){0, 1, 0}));
 	cam->rot.y = acosf(dot_product(cam_axis, (t_vec3){0, 1, 0}));
-	cam->rot.z = acosf(dot_product(cam_axis, (t_vec3){0, 0, 1}));
+	cam->rot.z = acosf(dot_product(cam_axis, (t_vec3){0, 1, 0}));
 	printf("%f, %f, %f\n", cam->rot.x, cam->rot.y, cam->rot.z);
 	return (0);
 }
