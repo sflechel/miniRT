@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/21 09:36:06 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/21 12:30:29 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ t_vec3	scalar_mult(t_vec3 vec, float scalar);
 
 //vec_3_vector_ops.c
 float	dot_product(t_vec3 vec1, t_vec3 vec2);
+t_vec3	cross_product(t_vec3 vec1, t_vec3 vec2);
 float	get_norm(t_vec3 vec);
 float	get_squared_norm(t_vec3 vec);
 t_vec3	ortho_proj(t_vec3 projected, t_vec3 line);

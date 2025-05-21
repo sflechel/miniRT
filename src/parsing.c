@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/21 10:53:59 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/21 15:28:34 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,9 +187,9 @@ int	handle_camera(char **line, t_camera *cam)
 {
 	const int	len = ptr_array_len(line);
 	t_vec3		cam_axis;
-	t_vec3		cam_axis_x;
-	t_vec3		cam_axis_y;
-	t_vec3		cam_axis_z;
+	t_vec3		a;
+	float		cosa;
+	float		cost;
 
 	printf("cammmmmmm\n");
 	if (len != 4
@@ -197,12 +197,12 @@ int	handle_camera(char **line, t_camera *cam)
 		|| parse_vector3_normalised(line[2], &cam_axis) == 1
 		|| parse_form_range(line[3], &cam->vertical_fov, 0, 180) == 1)
 		return (1);
-	cam_axis_x = (t_vec3){0, cam_axis.y, cam_axis.z};
-	cam_axis_y = (t_vec3){cam_axis.x, 0, cam_axis.z};
-	cam_axis_z = (t_vec3){cam_axis.x, cam_axis.y, 0};
-	cam->rot.x = acosf(dot_product(cam_axis, (t_vec3){0, 1, 0}));
-	cam->rot.y = acosf(dot_product(cam_axis, (t_vec3){0, 1, 0}));
-	cam->rot.z = acosf(dot_product(cam_axis, (t_vec3){0, 1, 0}));
+	cosa = dot_product(cam_axis, (t_vec3){0, 1, 0});
+	a = cross_product(cam_axis, (t_vec3){0, 1, 0});
+	cam->rot.y = -asinf(-a.y + (a.x * a.z) / (1 + cosa));
+	cost = 1 / cosf(cam->rot.y);
+	cam->rot.x = atan2f((a.x + (a.z * a.y) / (1 + cosa)) * cost, (1 + (-a.x * a.x + -a.y * a.y) / (1 + cosa)) * cost);
+	cam->rot.z = atan2f((a.z + (a.x * a.y) / (1 + cosa)) * cost, (1 + (-a.z * a.z + -a.y * a.y) / (1 + cosa)) * cost);
 	printf("%f, %f, %f\n", cam->rot.x, cam->rot.y, cam->rot.z);
 	return (0);
 }

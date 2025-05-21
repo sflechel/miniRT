@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:34:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/21 09:35:44 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/21 12:29:59 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,16 @@
 float	dot_product(t_vec3 vec1, t_vec3 vec2)
 {
 	return (vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z);
+}
+
+t_vec3	cross_product(t_vec3 vec1, t_vec3 vec2)
+{
+	t_vec3	output;
+
+	output.x = vec1.y * vec2.z - vec1.z * vec2.y;
+	output.y = vec1.z * vec2.x - vec1.x * vec2.z;
+	output.z = vec1.x * vec2.y - vec1.y * vec2.x;
+	return (output);
 }
 
 float	get_squared_norm(t_vec3 vec)
