@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/19 17:55:49 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/21 10:36:44 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "mlx_int.h"
 #include "libft.h"
 #include <X11/X.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 const float	g_aspect_ratio = 16. / 9.;
@@ -69,6 +70,7 @@ int	main(int ac, char **av)
 	update_camera(&camera);
 	t_hook_data data = {&mlx, &camera};
 	handle_hooks(&data);
+	printf("light pos: %f, %f, %f\n", light.pos.x, light.pos.y, light.pos.z);
 	while (mlx.end == DONT_END)
 	{
 		((t_xvar *)(mlx.mlx))->end_loop = 0;

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/21 09:36:10 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/21 10:53:59 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,18 +119,21 @@ int	parse_rgba(char *str, t_color *color)
 {
 	const char	**rgba = (const char **)ft_split(str, ',');
 	const int	len = ptr_array_len((char **)rgba);
+	const int	r = color->r;
+	const int	g = color->g;
+	const int	b = color->b;
 
 	if (len != 3
-		|| safe_atoi(rgba[0], (int *)&color->r) == 1
-		|| color->r < 0 || color->r > 255
-		|| safe_atoi(rgba[1], (int *)&color->g) == 1
-		|| color->g < 0 || color->g > 255
-		|| safe_atoi(rgba[2], (int *)&color->b) == 1
-		|| color->b < 0 || color->b > 255)
+		|| safe_atoi(rgba[0], (int *)&r) == 1 || r < 0 || r > 255
+		|| safe_atoi(rgba[1], (int *)&g) == 1 || g < 0 || g > 255
+		|| safe_atoi(rgba[2], (int *)&b) == 1 || b < 0 || b > 255)
 	{
 		ft_free_split((char **)rgba);
 		return (1);
 	}
+	color->r = r;
+	color->g = g;
+	color->b = b;
 	color->a = 0;
 	ft_free_split((char **)rgba);
 	return (0);
