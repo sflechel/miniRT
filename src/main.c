@@ -6,14 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/19 17:55:49 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:09:08 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "mlx.h"
 #include "mlx_int.h"
-#include "libft.h"
 #include <X11/X.h>
 #include <stdlib.h>
 
@@ -32,19 +31,19 @@ int	init_mlx(t_mlx *mlx, t_camera *camera)
 	mlx->mlx = mlx_init();
 	if (mlx->mlx == 0)
 	{
-		ft_dprintf(2, "Error\nwhen initializing minilibx");
+		printf("Error\nwhen initializing minilibx");
 		return (1);
 	}
 	mlx->window = mlx_new_window(mlx->mlx, camera->img_width, camera->img_heigth, "miniRT");
 	if (mlx->window == 0)
 	{
-		ft_dprintf(2, "Error\nwhen creating window");
+		printf("Error\nwhen creating window");
 		return (1);
 	}
 	mlx->img.img = mlx_new_image(mlx->mlx, camera->img_width, camera->img_heigth);
 	if (mlx->img.img == 0)
 	{
-		ft_dprintf(2, "Error\nwhen creating image");
+		printf("Error\nwhen creating image");
 		return (1);
 	}
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img, &mlx->img.bpp, &mlx->img.len_line, &mlx->img.endian);
@@ -62,7 +61,7 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		return (EXIT_FAILURE);
 	init_camera(&camera);
-	if (parse_file(av[1], &shapes, &camera, &light) == 1)
+	if (parsing(av[1], &shapes, &camera, &light) == 1)
 		return (EXIT_FAILURE);
 	if (init_mlx(&mlx, &camera) == 1)
 		return (free_mlx(&mlx));

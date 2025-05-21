@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/19 17:47:53 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:14:58 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	count_shapes_and_verify(char **lines)
 		i++;
 	}
 	if (acl[0] != 1 || acl[1] != 1 || acl[2] != 1)
-		return (-1);
+		return (-2);
 	return (nb_shapes);
 }
 
@@ -106,8 +106,16 @@ int	alloc_list_shapes(char **lines, t_shape_list **list)
 {
 	const int	nb_shapes = count_shapes_and_verify(lines);
 
-	if (nb_shapes == -1)
+	if (nb_shapes < 0)
+	{
+		printf("Error\nInvalid ");
+		if (nb_shapes == -1)
+			printf("shape id\n");
+		else
+			printf(
+					"amount of requiered params(cam, ambient, light)\n");
 		return (1);
+	}
 	*list = malloc(sizeof(t_shape_list) + sizeof(t_shape) * nb_shapes);
 	if (*list == 0)
 		return (1);
@@ -128,6 +136,7 @@ int	parse_rgba(char *str, t_color *color)
 		|| safe_atoi(rgba[2], (int *)&color->b) == 1
 		|| color->b < 0 || color->b > 255)
 	{
+		printf("Error\n%s is not a valid color", str);
 		ft_free_split((char **)rgba);
 		return (1);
 	}
@@ -140,7 +149,10 @@ int	parse_form_range(char *str, float *range, float min, float max)
 {
 	if (safe_atof(str, range) == 1
 		|| *range < min || *range > max)
+	{
+		printf("Error\n%s is not a valid float in range %f %f", str, min, max);
 		return (1);
+	}
 	return (0);
 }
 
@@ -154,6 +166,7 @@ int	parse_vector3(char *str, t_vec3 *vec)
 		|| safe_atof(vector[1], &vec->y) == 1
 		|| safe_atof(vector[2], &vec->z) == 1)
 	{
+		printf("Error\n%s is not a valid vector 3", str);
 		ft_free_split((char **)vector);
 		return (1);
 	}
@@ -175,11 +188,14 @@ int	handle_ambient(char **line, t_light *light)
 {
 	const int	len = ptr_array_len(line);
 
-	printf("ambient\n");
+	printf("parse the ambient\n");
 	if (len != 3
 		|| parse_form_range(line[1], &light->ambient, 0, 1) == 1
 		|| parse_rgba(line[2], &light->ambient_color) == 1)
+	{
+		printf(" in the ambient\n");
 		return (1);
+	}
 	return (0);
 }
 
@@ -188,12 +204,15 @@ int	handle_camera(char **line, t_camera *cam)
 	const int	len = ptr_array_len(line);
 	t_vec3		cam_axis;
 
-	printf("cammmmmmm\n");
+	printf("parse the cam\n");
 	if (len != 4
 		|| parse_vector3(line[1], &cam->pos) == 1
 		|| parse_vector3_normalised(line[2], &cam_axis) == 1
 		|| parse_form_range(line[3], &cam->vertical_fov, 0, 180) == 1)
+	{
+		printf(" in the camera\n");
 		return (1);
+	}
 	cam->rot.x = acosf(dot_product(cam_axis, (t_vec3){1, 0, 0}));
 	cam->rot.y = acosf(dot_product(cam_axis, (t_vec3){0, 1, 0}));
 	cam->rot.z = acosf(dot_product(cam_axis, (t_vec3){0, 0, 1}));
@@ -205,12 +224,15 @@ int	handle_light(char **line, t_light *light)
 {
 	const int	len = ptr_array_len(line);
 
-	printf("light\n");
+	printf("parse the light\n");
 	if (len != 3)
 		return (1);
 	if (parse_vector3(line[1], &light->pos) == 1
 		|| parse_form_range(line[2], &light->brightness, 0, 1) == 1)
+	{
+		printf(" in the light\n");
 		return (1);
+	}
 	return (0);
 }
 
@@ -218,14 +240,17 @@ int	handle_cylinder(char **line, t_shape *cylinder)
 {
 	const int	len = ptr_array_len(line);
 
-	printf("cylinder\n");
+	printf("parse the cylinder\n");
 	if (len != 6
 		|| parse_vector3(line[1], &cylinder->pos) == 1
 		|| parse_vector3_normalised(line[2], &cylinder->axis) == 1
 		|| safe_atof(line[3], &cylinder->cylinder.radius) == 1
 		|| safe_atof(line[4], &cylinder->cylinder.height) == 1
 		|| parse_rgba(line[5], &cylinder->color) == 1)
+	{
+		printf(" in a cylinder\n");	
 		return (1);
+	}
 	cylinder->get_collision = &cylinder_get_collision;
 	cylinder->get_normal = &cylinder_get_normal;
 	return (0);// CAP ???
@@ -235,12 +260,15 @@ int	handle_plane(char **line, t_shape *plane)
 {
 	const int	len = ptr_array_len(line);
 
-	printf("plan\n");
+	printf("parse the plan\n");
 	if (len != 4
 		|| parse_vector3(line[1], &plane->pos) == 1
 		|| parse_vector3_normalised(line[2], &plane->plane.normal) == 1
 		|| parse_rgba(line[3], &plane->color) == 1)
+	{
+		printf(" in a plane\n");
 		return (1);
+	}
 	plane->get_collision = &plane_get_collision;
 	plane->get_normal = &plane_get_normal;
 	return (0);
@@ -250,12 +278,15 @@ int	handle_sphere(char **line, t_shape *sphere)
 {
 	const int	len = ptr_array_len(line);
 
-	printf("sphere\n");
+	printf("parse the sphere\n");
 	if (len != 4
 		|| parse_vector3(line[1], &sphere->pos) == 1
 		|| safe_atof(line[2], &sphere->sphere.radius) == 1
 		|| parse_rgba(line[3], &sphere->color) == 1)
+	{
+		printf(" in a sphere\n");
 		return (1);
+	}
 	sphere->get_collision = &sphere_get_collision;
 	sphere->get_normal = &sphere_get_normal;
 	return (0);
@@ -269,7 +300,6 @@ int	parse_line(char *line, t_shape_list *list, t_camera *cam, t_light *light)
 	params = ft_split(line, ' ');
 	if (params == 0)
 		return (1);
-	printf("%c\n", params[0][0]);
 	if ((params[0][0] == 'A' && handle_ambient(params, light) == 1)
 		|| (params[0][0] == 'C' && handle_camera(params, cam) == 1)
 		|| (params[0][0] == 'L' && handle_light(params, light) == 1)
@@ -297,26 +327,40 @@ int	fill_data_structs(char **lines, t_shape_list *list, t_camera *cam,
 	return (0);
 }
 
-int	parse_file(char *filename, t_shape_list **list, t_camera *cam,
+char	*parse_file(char *filename)
+{
+	int		fd;
+	char	*file;
+
+	if (ft_strchr_last_index(filename, '.') == -1 || ft_strcmp(filename + ft_strchr_last_index(filename, '.'), ".rt") != 0)
+	{
+		printf("Error\n%s does no end with .rt\n", filename);
+		return (NULL);
+	}
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+	{
+		printf("Error\n%s could not be opened\n", filename);
+		return (NULL);
+	}
+	file = read_file(fd);
+	close(fd);
+	return (file);
+}
+
+int	parsing(char *filename, t_shape_list **list, t_camera *cam,
 		t_light *light)
 {
 	char	*file;
 	char	**lines;
-	int		fd;
 
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		return (1);
-	file = read_file(fd);
-	printf("_%s_\n", file);
-	close(fd);
+	file = parse_file(filename);
 	if (file == 0)
 		return (1);
 	lines = ft_split(file, '\n');
 	free(file);
 	if (lines == 0)
 		return (1);
-	printf("teset\n");
 	if (alloc_list_shapes(lines, list) == 1)
 		return (ft_free_split(lines), 1);
 	if (fill_data_structs(lines, *list, cam, light) == 1)
