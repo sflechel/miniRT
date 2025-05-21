@@ -6,14 +6,14 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:29:00 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/01 18:33:51 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:49:36 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <string.h>
 
-int	strchr_index(const char *s, int c)
+int	ft_strchr_index(const char *s, int c)
 {
 	int	i;
 
@@ -27,7 +27,7 @@ int	strchr_index(const char *s, int c)
 	return (-1);
 }
 
-int	strchr_last_index(const char *s, int c)
+int	ft_strchr_last_index(const char *s, int c)
 {
 	int	i;
 	int	len;

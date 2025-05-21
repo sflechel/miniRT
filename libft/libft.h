@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:10:49 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/19 17:58:01 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:49:31 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,8 @@ void			*table_delete_return_null(t_hash_table *table);
 char			*ft_str_triple_join(char const *s1,
 					char const *s2, char const *s3);
 
-int				strchr_index(const char *s, int c);
-int				strchr_last_index(const char *s, int c);
+int				ft_strchr_index(const char *s, int c);
+int				ft_strchr_last_index(const char *s, int c);
 
 int				safe_atof(const char *s, float *f);
 float			ft_atof(const char *s);
