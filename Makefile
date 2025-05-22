@@ -15,13 +15,14 @@ HEADERS = $(INC_DIR)minirt.h\
 
 SRC = main.c\
 	  hooks.c\
-	  vec3_vector_ops.c\
-	  vec3_scalar_ops.c\
-	  color_utils.c\
+	  math_utils/vec3_vector_ops.c\
+	  math_utils/vec3_to_float_ops.c\
+	  math_utils/vec3_scalar_ops.c\
+	  math_utils/color_utils.c\
 	  scanning.c\
 	  raytracing.c\
-	  collision.c\
-	  normals.c\
+	  shapes/collision.c\
+	  shapes/normals.c\
 	  rotation.c\
 	  constructors.c\
 	  camera.c\
@@ -44,6 +45,7 @@ $(OBJ_DIR):
 		mkdir $(OBJ_DIR)
 
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c $(HEADERS) | $(OBJ_DIR)
+				mkdir -p $(dir $@)
 				$(CC) $(CFLAGS) $(I) -c $< -o $@
 
 $(NAME): $(LIB_DIR)$(LIB) minilibx-linux/libmlx_Linux.a $(OBJ_FILES) Makefile
