@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 11:47:24 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/22 11:49:17 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "mlx.h"
 #include "mlx_int.h"
 #include <X11/X.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 const float	g_aspect_ratio = 16. / 9.;
