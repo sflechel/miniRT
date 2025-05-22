@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/21 10:36:47 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/22 08:43:22 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ float	cylinder_get_collision(t_shape *shape, t_ray ray)
 	t = (h - sqrtf(discriminant)) / a;
 	col = vector_sum(ray.origin, scalar_mult(ray.direction, t));
 	len = dot_product(vector_subtraction(col, shape->pos), shape->axis);
-	if (len < shape->cylinder.height && len > -shape->cylinder.height)
+	if (len < shape->cylinder.height /2 && len > -shape->cylinder.height / 2)
 		return (t);
 	return (-1);
 }
@@ -118,18 +118,18 @@ float	plane_get_collision(t_shape *shape, t_ray ray)
 
 float	disk_get_collision(t_shape *shape, t_ray ray)
 {
-	const t_vec3	o = vector_subtraction(shape->pos, ray.origin);
-	const float		dot_prod = dot_product(shape->disk.normal, o);
-	const float		dot_prod2 = dot_product(shape->disk.normal, ray.direction);
+	const t_vec3	o = vector_subtraction(ray.origin, shape->pos);
+	const float		angle_onorm = dot_product(shape->disk.normal, o);
+	const float		angle_dirnorm = dot_product(shape->disk.normal, ray.direction);
 	float			t;
 	t_vec3			col;
 
-	if (dot_prod2 == 0)
+	if (angle_dirnorm == 0)
 		return (-1);
-	t = dot_prod / dot_prod2;
+	t = -angle_onorm / angle_dirnorm;
 	if (t < 0)
 		return (-1);
-	col = vector_sum(ray.origin, scalar_mult(ray.direction, t));
+	col = vector_sum(o, scalar_mult(ray.direction, t));
 	if (dot_product(col, col) < shape->disk.radius * shape->disk.radius)
 		return (t);
 	return (-1);
