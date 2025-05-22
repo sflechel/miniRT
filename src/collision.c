@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 08:43:22 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/22 11:16:24 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,17 @@ float	get_closest_collision(t_shape_list *shapes, t_ray ray, int *col_index)
 int	there_is_collision(t_shape_list *shapes, t_ray ray)
 {
 	float	col;
-	float	col_min;
 	int		i;
 
 	i = 1;
-	col_min = shapes->array[0].get_collision(&shapes->array[0], ray);
 	while (i < shapes->nb_shapes)
 	{
 		col = shapes->array[i].get_collision(&shapes->array[i], ray);
-		if (col < 0)
-		{
-			i++;
-			continue ;
-		}
-		if (col < col_min)
-			col_min = col;
+		if (col >= 0)
+			return (1);
 		i++;
 	}
-	if (col_min <= 0)
-		return (0);
-	return (1);
+	return (0);
 }
 
 float	sphere_get_collision(t_shape *shape, t_ray ray)
