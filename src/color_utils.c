@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:37:00 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/13 15:37:01 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/22 09:26:42 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,17 @@ unsigned char	clamp_uchar(int c)
 	if (c >= 255)
 		return (255);
 	return (c);
+}
+
+t_color	color_mult(t_color color1, t_color color2)
+{
+	t_color	output;
+
+	output.a = color1.a;
+	output.r = ((int)color1.r * (int)color2.r) / 255;
+	output.g = ((int)color1.g * (int)color2.g) / 255;
+	output.b = ((int)color1.b * (int)color2.b) / 255;
+	return (output);
 }
 
 t_color	color_scaling(t_color color, float scale)

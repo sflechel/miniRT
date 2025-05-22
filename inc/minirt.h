@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/21 17:57:13 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/22 09:28:02 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ t_vec3	plane_get_normal(t_shape *shape, t_vec3 col);
 void	handle_hooks(t_hook_data *data);
 
 //color_utils.c
+t_color	color_mult(t_color color1, t_color color2);
 t_color	color_scaling(t_color color, float scale);
 t_color	color_sum(t_color color1, t_color color2);
 
