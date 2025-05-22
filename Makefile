@@ -18,8 +18,6 @@ HEADERS_FILES = minirt.h\
 HEADERS = $(addprefix $(INC_DIR), $(HEADERS_FILES))
 
 SRC = main.c\
-	  hook.c\
-	  hook_key.c\
 	  vec3_vector_ops.c\
 	  vec3_scalar_ops.c\
 	  color_utils.c\
@@ -30,6 +28,8 @@ SRC = main.c\
 	  rotation.c\
 	  constructors.c\
 	  camera.c\
+	  hook/hook.c\
+	  hook/hook_key.c\
 	  parsing/parsing.c\
 	  parsing/parsing_utils.c\
 	  parsing/parsing_utils_vector.c\
