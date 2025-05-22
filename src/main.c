@@ -6,10 +6,11 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/21 17:07:56 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/22 11:47:24 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minirt.h"
 #include "mlx.h"
 #include "mlx_int.h"
@@ -21,33 +22,37 @@ const float	g_aspect_ratio = 16. / 9.;
 
 int	free_mlx(t_mlx *mlx)
 {
+	mlx_destroy_image(mlx->mlx, mlx->img.img);
 	mlx_destroy_window(mlx->mlx, mlx->window);
 	mlx_destroy_display(mlx->mlx);
 	free(mlx->mlx);
 	return (1);
 }
 
-int	init_mlx(t_mlx *mlx, t_camera *camera)
+int	init_mlx(t_mlx *mlx, t_camera *cam)
 {
 	mlx->mlx = mlx_init();
 	if (mlx->mlx == 0)
 	{
-		printf("Error\nwhen initializing minilibx");
+		ft_dprintf(2, "Error\nwhen initializing minilibx");
 		return (1);
 	}
-	mlx->window = mlx_new_window(mlx->mlx, camera->img_width, camera->img_heigth, "miniRT");
+	mlx->window = mlx_new_window(mlx->mlx,
+			cam->img_width, cam->img_heigth, "miniRT");
 	if (mlx->window == 0)
 	{
-		printf("Error\nwhen creating window");
-		return (1);
+		ft_dprintf(2, "Error\nwhen creating window");
+		return (free_1_return_1(mlx->mlx));
 	}
-	mlx->img.img = mlx_new_image(mlx->mlx, camera->img_width, camera->img_heigth);
+	mlx->img.img = mlx_new_image(mlx->mlx, cam->img_width, cam->img_heigth);
 	if (mlx->img.img == 0)
 	{
-		printf("Error\nwhen creating image");
-		return (1);
+		mlx_destroy_window(mlx->mlx, mlx->window);
+		ft_dprintf(2, "Error\nwhen creating image");
+		return (free_1_return_1(mlx->mlx));
 	}
-	mlx->img.addr = mlx_get_data_addr(mlx->img.img, &mlx->img.bpp, &mlx->img.len_line, &mlx->img.endian);
+	mlx->img.addr = mlx_get_data_addr(mlx->img.img,
+			&mlx->img.bpp, &mlx->img.len_line, &mlx->img.endian);
 	mlx->end = DONT_END;
 	return (0);
 }
@@ -58,6 +63,7 @@ int	main(int ac, char **av)
 	t_mlx			mlx;
 	t_shape_list	*shapes;
 	t_light			light;
+	t_hook_data		data;
 
 	if (ac != 2)
 		return (EXIT_FAILURE);
@@ -65,11 +71,10 @@ int	main(int ac, char **av)
 	if (parsing(av[1], &shapes, &camera, &light) == 1)
 		return (EXIT_FAILURE);
 	if (init_mlx(&mlx, &camera) == 1)
-		return (free_mlx(&mlx));
+		return (EXIT_FAILURE);
 	update_camera(&camera);
-	t_hook_data data = {&mlx, &camera};
+	data = (t_hook_data){&mlx, &camera};
 	handle_hooks(&data);
-	printf("light pos: %f, %f, %f\n", light.pos.x, light.pos.y, light.pos.z);
 	while (mlx.end == DONT_END)
 	{
 		((t_xvar *)(mlx.mlx))->end_loop = 0;
@@ -77,8 +82,6 @@ int	main(int ac, char **av)
 		mlx_put_image_to_window(mlx.mlx, mlx.window, mlx.img.img, 0, 0);
 		mlx_loop(mlx.mlx);
 	}
-	mlx_destroy_image(mlx.mlx, mlx.img.img);
 	free_mlx(&mlx);
-	free(shapes);
-	return (0);
+	return (free_1_return_0(shapes));
 }
