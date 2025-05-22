@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 13:45:06 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:02:55 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,12 +137,6 @@ typedef struct s_mlx
 	t_end	end;
 }	t_mlx;
 
-typedef struct s_hook_data
-{
-	t_mlx		*mlx;
-	t_camera	*cam;
-}	t_hook_data;
-
 //camera.c
 void	update_camera(t_camera *cam);
 
@@ -165,9 +159,6 @@ t_vec3	disk_get_normal(t_shape *shape, t_vec3 col);
 t_vec3	cylinder_get_normal(t_shape *shape, t_vec3 col);
 t_vec3	sphere_get_normal(t_shape *shape, t_vec3 col);
 t_vec3	plane_get_normal(t_shape *shape, t_vec3 col);
-
-//hooks.c
-void	handle_hooks(t_hook_data *data);
 
 //color_utils.c
 t_color	color_mult(t_color color1, t_color color2);

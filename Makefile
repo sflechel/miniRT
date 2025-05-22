@@ -11,10 +11,15 @@ OBJ_DIR = obj/
 I = -I $(INC_DIR) -I $(LIB_DIR) -I minilibx-linux
 LIBS = -Lminilibx-linux -lmlx_Linux -lXext -lX11 -lm -lz
 
-HEADERS = $(INC_DIR)minirt.h\
+HEADERS_FILES = minirt.h\
+				parsing.h\
+				hook.h\
+
+HEADERS = $(addprefix $(INC_DIR), $(HEADERS_FILES))
 
 SRC = main.c\
-	  hooks.c\
+	  hook.c\
+	  hook_key.c\
 	  vec3_vector_ops.c\
 	  vec3_scalar_ops.c\
 	  color_utils.c\

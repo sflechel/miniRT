@@ -6,12 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 13:48:35 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:04:13 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "parsing.h"
+#include "hook.h"
 #include "mlx.h"
 #include "mlx_int.h"
 
