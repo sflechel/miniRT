@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 07:58:42 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/22 09:42:40 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,15 +212,17 @@ int	verif_len(int len, int target)
 int	handle_ambient(char **line, t_light *light)
 {
 	const int	len = ptr_array_len(line);
+	float		ambient_intensity;
 
 	printf("parse the ambient\n");
 	if ((verif_len(len, 3) == 1)
-		|| parse_form_range(line[1], &light->ambient, 0, 1) == 1
-		|| parse_rgba(line[2], &light->ambient_color) == 1)
+		|| parse_form_range(line[1], &ambient_intensity, 0, 1) == 1
+		|| parse_rgba(line[2], &light->ambient) == 1)
 	{
 		printf(" in the ambient\n");
 		return (1);
 	}
+	light->ambient = color_scaling(light->ambient, ambient_intensity);
 	return (0);
 }
 

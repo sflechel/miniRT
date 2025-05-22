@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 09:34:36 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/22 09:43:35 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_color	cast_ray(t_ray ray, t_shape_list *shapes, t_light light)
 		else
 			pixel_color = color_scaling(shapes->array[col_index].color, intensity);
 	}
-	ambient = color_mult(shapes->array[col_index].color, color_scaling(light.ambient_color, light.ambient));
+	ambient = color_mult(shapes->array[col_index].color, light.ambient);
 	pixel_color = color_sum(pixel_color, ambient);
 	return (pixel_color);
 }

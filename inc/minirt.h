@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 09:28:02 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/22 09:42:04 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ typedef enum e_type
 
 typedef struct s_light
 {
-	float	ambient;
-	t_color	ambient_color;
+	t_color	ambient;
 	t_vec3	pos;
 	float	brightness;
 }	t_light;
