@@ -14,17 +14,20 @@ LIBS = -Lminilibx-linux -lmlx_Linux -lXext -lX11 -lm -lz
 HEADERS_FILES = minirt.h\
 				parsing.h\
 				hook.h\
+				math_utils.h\
+				shapes.h\
 
 HEADERS = $(addprefix $(INC_DIR), $(HEADERS_FILES))
 
 SRC = main.c\
-	  vec3_vector_ops.c\
-	  vec3_scalar_ops.c\
-	  color_utils.c\
+	  math_utils/vec3_vector_ops.c\
+	  math_utils/vec3_to_float_ops.c\
+	  math_utils/vec3_scalar_ops.c\
+	  math_utils/color_utils.c\
 	  scanning.c\
 	  raytracing.c\
-	  collision.c\
-	  normals.c\
+	  shapes/collision.c\
+	  shapes/normals.c\
 	  rotation.c\
 	  constructors.c\
 	  camera.c\
