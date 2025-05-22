@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 09:42:04 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:45:06 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,9 +204,5 @@ void	cylinder_constructor(t_vec3 pos, t_vec3 axis, t_color color, float radius, 
 //camera.c
 void	update_camera(t_camera *cam);
 void	init_camera(t_camera *cam);
-
-//parsing.c
-int		parsing(char *filename, t_shape_list **list, t_camera *cam,
-			t_light *light);
 
 #endif // !MINIRT_H
