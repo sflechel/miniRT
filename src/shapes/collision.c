@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 12:41:25 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/23 14:37:31 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ float	cylinder_get_collision(t_shape *shape, t_ray ray)
 	cyl_col.o_perp = vector_subtraction(o, ortho_proj(o, shape->axis));
 	cyl_col.a = dot_product(cyl_col.d_perp, cyl_col.d_perp);
 	cyl_col.h = dot_product(cyl_col.o_perp, cyl_col.d_perp);
-	cyl_col.c = dot_product(cyl_col.o_perp, cyl_col.o_perp);
-	cyl_col.discriminant = dot_product(cyl_col.o_perp, cyl_col.o_perp);
+	cyl_col.c = dot_product(cyl_col.o_perp, cyl_col.o_perp) - shape->cylinder.radius * shape->cylinder.radius;
+	cyl_col.discriminant = cyl_col.h * cyl_col.h - cyl_col.a * cyl_col.c;
 	if (cyl_col.discriminant < 0)
 		return (-1);
 	t = (cyl_col.h - sqrtf(cyl_col.discriminant)) / cyl_col.a;
