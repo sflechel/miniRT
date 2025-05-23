@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:32:09 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/22 13:37:16 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:07:04 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	parse_line(char *line, t_shape_list *list, t_camera *cam, t_light *light)
 		|| (id == 'p' && handle_plane(params, &list->array[nb_shape]) == 1)
 		|| (id == 's' && handle_sphere(params, &list->array[nb_shape]) == 1))
 		return (ft_free_split(params), 1);
+	ft_free_split(params);
 	if (id == 'p' || id == 's')
 		nb_shape++;
 	else if (id == 'c')
