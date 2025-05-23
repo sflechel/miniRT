@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:42:19 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/22 12:44:55 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:11:04 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	handle_cylinder(char **line, t_shape_list *shapes, int index)
 		|| parse_float(line[4], &cylinder->cylinder.height) == 1
 		|| parse_rgba(line[5], &cylinder->color) == 1)
 	{
-		printf(" in a cylinder\n");
+		ft_dprintf(STDERR_FILENO, " in a cylinder\n");
 		return (1);
 	}
 	cylinder->get_collision = &cylinder_get_collision;
@@ -69,7 +69,7 @@ int	handle_plane(char **line, t_shape *plane)
 		|| parse_vector3_normalised(line[2], &plane->plane.normal) == 1
 		|| parse_rgba(line[3], &plane->color) == 1)
 	{
-		printf(" in a plane\n");
+		ft_dprintf(STDERR_FILENO, " in a plane\n");
 		return (1);
 	}
 	plane->get_collision = &plane_get_collision;
@@ -87,7 +87,7 @@ int	handle_sphere(char **line, t_shape *sphere)
 		|| parse_float(line[2], &sphere->sphere.radius) == 1
 		|| parse_rgba(line[3], &sphere->color) == 1)
 	{
-		printf(" in a sphere\n");
+		ft_dprintf(STDERR_FILENO, " in a sphere\n");
 		return (1);
 	}
 	sphere->get_collision = &sphere_get_collision;

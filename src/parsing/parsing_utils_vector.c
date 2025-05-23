@@ -6,13 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:35:42 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/23 15:10:01 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:08:07 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "math_utils.h"
-#include <stdio.h>
+#include <unistd.h>
 
 int	parse_vector3(char *str, t_vec3 *vec)
 {
@@ -24,7 +24,7 @@ int	parse_vector3(char *str, t_vec3 *vec)
 		|| safe_atof(vector[1], &vec->y) == 1
 		|| safe_atof(vector[2], &vec->z) == 1)
 	{
-		printf("Error\n%s is not a valid vector 3", str);
+		ft_dprintf(STDERR_FILENO, "Error\n%s is not a valid vector 3", str);
 		ft_free_split((char **)vector);
 		return (1);
 	}
@@ -38,7 +38,7 @@ int	parse_vector3_normalised(char *str, t_vec3 *vec)
 		return (1);
 	else if (get_norm(*vec) != 1)
 	{
-		printf("Error\n%s cant be normalised", str);
+		ft_dprintf(STDERR_FILENO, "Error\n%s cant be normalised", str);
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:18:16 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/23 19:00:05 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:11:40 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	handle_ambient(char **line, t_light *light)
 		|| parse_form_range(line[1], &ambient_intensity, 0, 1) == 1
 		|| parse_rgba(line[2], &light->ambient) == 1)
 	{
-		printf(" in the ambient\n");
+		ft_dprintf(STDERR_FILENO, " in the ambient\n");
 		return (1);
 	}
 	light->ambient = color_scaling(light->ambient, ambient_intensity);
@@ -43,7 +43,7 @@ int	handle_camera(char **line, t_camera *cam)
 		|| parse_vector3_normalised(line[2], &cam_axis) == 1
 		|| parse_form_range(line[3], &cam->vertical_fov, 0, 180) == 1)
 	{
-		printf(" in the camera\n");
+		ft_dprintf(STDERR_FILENO, " in the camera\n");
 		return (1);
 	}
 	init_camera(cam, &cam_axis);
@@ -60,7 +60,7 @@ int	handle_light(char **line, t_light *light)
 	if (parse_vector3(line[1], &light->pos) == 1
 		|| parse_form_range(line[2], &light->brightness, 0, 1) == 1)
 	{
-		printf(" in the light\n");
+		ft_dprintf(STDERR_FILENO, " in the light\n");
 		return (1);
 	}
 	return (0);

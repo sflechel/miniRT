@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/23 19:03:57 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:08:43 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,21 @@ int	init_mlx(t_mlx *mlx, t_camera *cam)
 	mlx->mlx = mlx_init();
 	if (mlx->mlx == 0)
 	{
-		ft_dprintf(STDERR_FILENO, "Error\nwhen initializing minilibx");
+		ft_dprintf(STDERR_FILENO, "Error\nwhen initializing minilibx\n");
 		return (1);
 	}
 	mlx->window = mlx_new_window(mlx->mlx,
 			cam->img_width, cam->img_heigth, "miniRT");
 	if (mlx->window == 0)
 	{
-		ft_dprintf(STDERR_FILENO, "Error\nwhen creating window");
+		ft_dprintf(STDERR_FILENO, "Error\nwhen creating window\n");
 		return (free_1_return_1(mlx->mlx));
 	}
 	mlx->img.img = mlx_new_image(mlx->mlx, cam->img_width, cam->img_heigth);
 	if (mlx->img.img == 0)
 	{
 		mlx_destroy_window(mlx->mlx, mlx->window);
-		ft_dprintf(STDERR_FILENO, "Error\nwhen creating image");
+		ft_dprintf(STDERR_FILENO, "Error\nwhen creating image\n");
 		return (free_1_return_1(mlx->mlx));
 	}
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img,

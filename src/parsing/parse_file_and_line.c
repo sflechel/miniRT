@@ -6,13 +6,14 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:32:09 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/23 15:07:04 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:10:26 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "parsing.h"
 #include <stdio.h>
+#include <unistd.h>
 
 static char	*read_file(int fd)
 {
@@ -49,13 +50,15 @@ char	*open_and_read_file(char *filename)
 
 	if (dot_index == -1 || ft_strcmp(filename + dot_index, ".rt") != 0)
 	{
-		printf("Error\n%s does no end with .rt\n", filename);
+		ft_dprintf(STDERR_FILENO,
+			"Error\n%s does no end with .rt\n", filename);
 		return (NULL);
 	}
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 	{
-		printf("Error\n%s could not be opened\n", filename);
+		ft_dprintf(STDERR_FILENO,
+			"Error\n%s could not be opened\n", filename);
 		return (NULL);
 	}
 	file = read_file(fd);
