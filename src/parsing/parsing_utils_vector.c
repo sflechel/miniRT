@@ -6,12 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:35:42 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/22 13:20:11 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:10:01 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minirt.h"
+#include "math_utils.h"
 #include <stdio.h>
 
 int	parse_vector3(char *str, t_vec3 *vec)

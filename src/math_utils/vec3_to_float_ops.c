@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   vec3_to_float_ops.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:12:34 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 18:16:32 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:10:35 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "math_utils.h"
 #include <math.h>
 
 float	dot_product(t_vec3 vec1, t_vec3 vec2)

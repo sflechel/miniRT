@@ -6,12 +6,11 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/23 14:39:33 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:12:30 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include <math.h>
 
 float	get_closest_collision(t_shape_list *shapes, t_ray ray, int *col_index)
 {

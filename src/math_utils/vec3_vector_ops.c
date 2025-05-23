@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   vec3_vector_ops.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:34:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 18:16:35 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:10:39 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "math_utils.h"
 
 t_vec3	cross_product(t_vec3 vec1, t_vec3 vec2)
 {

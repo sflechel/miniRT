@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   color_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:37:00 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 09:26:42 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:10:33 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "math_utils.h"
 
 unsigned char	clamp_uchar(int c)
 {
