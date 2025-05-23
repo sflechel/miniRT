@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 08:20:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/19 17:57:32 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/23 14:44:09 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static int	ft_worddup(char *dest, const char *src, char c)
 	dest[i] = '\0';
 	return (i + 1);
 }
-
 
 static char	**ft_realsplit(char const *s, char c, char **strs, int word_counter)
 {
