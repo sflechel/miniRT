@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/23 13:41:09 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:03:57 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "hook.h"
 #include "mlx.h"
 #include "mlx_int.h"
+#include <unistd.h>
 
 int	free_mlx(t_mlx *mlx)
 {
@@ -31,21 +32,21 @@ int	init_mlx(t_mlx *mlx, t_camera *cam)
 	mlx->mlx = mlx_init();
 	if (mlx->mlx == 0)
 	{
-		ft_dprintf(2, "Error\nwhen initializing minilibx");
+		ft_dprintf(STDERR_FILENO, "Error\nwhen initializing minilibx");
 		return (1);
 	}
 	mlx->window = mlx_new_window(mlx->mlx,
 			cam->img_width, cam->img_heigth, "miniRT");
 	if (mlx->window == 0)
 	{
-		ft_dprintf(2, "Error\nwhen creating window");
+		ft_dprintf(STDERR_FILENO, "Error\nwhen creating window");
 		return (free_1_return_1(mlx->mlx));
 	}
 	mlx->img.img = mlx_new_image(mlx->mlx, cam->img_width, cam->img_heigth);
 	if (mlx->img.img == 0)
 	{
 		mlx_destroy_window(mlx->mlx, mlx->window);
-		ft_dprintf(2, "Error\nwhen creating image");
+		ft_dprintf(STDERR_FILENO, "Error\nwhen creating image");
 		return (free_1_return_1(mlx->mlx));
 	}
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img,
@@ -63,13 +64,12 @@ int	main(int ac, char **av)
 	t_hook_data		data;
 
 	if (ac != 2)
+		ft_dprintf(STDERR_FILENO, "Error\nOne .rt file needed\n");
+	if (ac != 2)
 		return (EXIT_FAILURE);
-	init_camera(&camera);
-	if (parsing(av[1], &shapes, &camera, &light) == 1)
+	if (parsing(av[1], &shapes, &camera, &light) == 1
+		|| init_mlx(&mlx, &camera) == 1)
 		return (EXIT_FAILURE);
-	if (init_mlx(&mlx, &camera) == 1)
-		return (EXIT_FAILURE);
-	update_camera(&camera);
 	data = (t_hook_data){&mlx, &camera};
 	handle_hooks(&data);
 	while (mlx.end == DONT_END)

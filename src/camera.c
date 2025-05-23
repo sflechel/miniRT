@@ -6,10 +6,11 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:14:43 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/23 14:38:45 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:59:25 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "math_utils.h"
 #include "minirt.h"
 #include <math.h>
 
@@ -32,15 +33,22 @@ void	update_camera(t_camera *cam)
 	cam->viewport_v = scalar_mult(v, cam->viewport_heigth);
 }
 
-void	init_camera(t_camera *cam)
+void	init_camera(t_camera *cam, t_vec3 *cam_axis)
 {
 	const float	aspect_ratio = 16. / 9.;
-
-	cam->rot = (t_vec3){0, 0, 0};
-	cam->rot = scalar_mult(cam->rot, M_PI / 180);
-	cam->vertical_fov = 20 * M_PI / 180;
+	float		cosa;
+	float		cost;
+	t_vec3		a;
+	
 	cam->img_heigth = 480;
 	cam->img_width = cam->img_heigth * aspect_ratio;
-	cam->pos = (t_vec3){0, 0, 10};
+	cosa = dot_product(*cam_axis, (t_vec3){0, 1, 0});
+	a = cross_product(*cam_axis, (t_vec3){0, 1, 0});
+	cam->rot.y = -asinf(-a.y + (a.x * a.z) / (1 + cosa));
+	cost = 1 / cosf(cam->rot.y);
+	cam->rot.x = atan2f((a.x + (a.z * a.y) / (1 + cosa))
+			* cost, (1 + (-a.x * a.x + -a.y * a.y) / (1 + cosa)) * cost);
+	cam->rot.z = atan2f((a.z + (a.x * a.y) / (1 + cosa))
+			* cost, (1 + (-a.z * a.z + -a.y * a.y) / (1 + cosa)) * cost);
 	update_camera(cam);
 }

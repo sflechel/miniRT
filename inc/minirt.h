@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/23 13:34:57 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:38:11 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,6 @@ void	rotation_z(t_vec3 *vec, float angle);
 
 //camera.c
 void	update_camera(t_camera *cam);
-void	init_camera(t_camera *cam);
+void	init_camera(t_camera *cam, t_vec3 *cam_axis);
 
-#endif // !MINIRT_H
+#endif //MINIRT_H

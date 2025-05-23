@@ -6,14 +6,14 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:18:16 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/22 13:20:19 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:00:05 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minirt.h"
 #include "parsing.h"
 #include "libft.h"
 #include <stdio.h>
-#include <math.h>
 
 int	handle_ambient(char **line, t_light *light)
 {
@@ -36,9 +36,6 @@ int	handle_camera(char **line, t_camera *cam)
 {
 	const int	len = ptr_array_len(line);
 	t_vec3		cam_axis;
-	t_vec3		a;
-	float		cosa;
-	float		cost;
 
 	printf("parse the cam\n");
 	if (verif_len(len, 4) == 1
@@ -49,14 +46,7 @@ int	handle_camera(char **line, t_camera *cam)
 		printf(" in the camera\n");
 		return (1);
 	}
-	cosa = dot_product(cam_axis, (t_vec3){0, 1, 0});
-	a = cross_product(cam_axis, (t_vec3){0, 1, 0});
-	cam->rot.y = -asinf(-a.y + (a.x * a.z) / (1 + cosa));
-	cost = 1 / cosf(cam->rot.y);
-	cam->rot.x = atan2f((a.x + (a.z * a.y) / (1 + cosa))
-			* cost, (1 + (-a.x * a.x + -a.y * a.y) / (1 + cosa)) * cost);
-	cam->rot.z = atan2f((a.z + (a.x * a.y) / (1 + cosa))
-			* cost, (1 + (-a.z * a.z + -a.y * a.y) / (1 + cosa)) * cost);
+	init_camera(cam, &cam_axis);
 	return (0);
 }
 
