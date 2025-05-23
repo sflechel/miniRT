@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:14:43 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/23 14:14:06 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/23 14:38:45 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	update_camera(t_camera *cam)
 
 void	init_camera(t_camera *cam)
 {
-	const float aspect_ratio = 16. / 9.;
+	const float	aspect_ratio = 16. / 9.;
 
 	cam->rot = (t_vec3){0, 0, 0};
 	cam->rot = scalar_mult(cam->rot, M_PI / 180);
