@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 18:37:39 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:39:57 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "math_utils.h"
+#ifndef SHAPES_H
+# define SHAPES_H
+
+# include "math_utils.h"
 
 typedef struct s_ray	t_ray;
 
@@ -89,3 +92,5 @@ t_vec3	disk_get_normal(t_shape *shape, t_vec3 col);
 t_vec3	cylinder_get_normal(t_shape *shape, t_vec3 col);
 t_vec3	sphere_get_normal(t_shape *shape, t_vec3 col);
 t_vec3	plane_get_normal(t_shape *shape, t_vec3 col);
+
+#endif
