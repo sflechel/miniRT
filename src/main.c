@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 18:40:56 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:41:09 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "hook.h"
 #include "mlx.h"
 #include "mlx_int.h"
-
-const float	g_aspect_ratio = 16. / 9.;
 
 int	free_mlx(t_mlx *mlx)
 {

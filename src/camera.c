@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:14:43 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 13:29:53 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/23 14:14:06 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,13 @@ void	update_camera(t_camera *cam)
 
 void	init_camera(t_camera *cam)
 {
+	const float aspect_ratio = 16. / 9.;
+
 	cam->rot = (t_vec3){0, 0, 0};
 	cam->rot = scalar_mult(cam->rot, M_PI / 180);
 	cam->vertical_fov = 20 * M_PI / 180;
-	cam->img_width = 1000;
-	cam->img_heigth = cam->img_width / g_aspect_ratio;
+	cam->img_heigth = 480;
+	cam->img_width = cam->img_heigth * aspect_ratio;
 	cam->pos = (t_vec3){0, 0, 10};
 	update_camera(cam);
 }

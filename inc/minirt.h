@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 18:40:01 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:34:57 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 
 # include "math_utils.h"
 # include "shapes.h"
-
-extern const float		g_aspect_ratio;
 
 typedef struct s_light
 {
