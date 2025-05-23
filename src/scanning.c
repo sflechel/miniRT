@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   scanning.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:42:05 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 13:41:00 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/23 14:14:45 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "mlx.h"
+#include <stdio.h>
 
 void	pixel_put(t_mlx *mlx, int u, int v, t_color color)
 {
@@ -53,7 +54,8 @@ void	scan_viewport(t_camera *camera, t_shape_list *shapes,
 	pixel = compute_first_pixel(camera, &delta_u, &delta_v);
 	while (uv[1] < camera->img_heigth)
 	{
-		uv[1] = 0;
+		printf("test\n");
+		uv[0] = 0;
 		while (uv[0] < camera->img_width)
 		{
 			pixel = vector_sum(pixel, delta_u);
