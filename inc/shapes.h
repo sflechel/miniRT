@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/23 13:39:57 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/23 14:41:12 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ typedef struct s_cylinder_col
 //collision.c
 float	get_closest_collision(t_shape_list *shapes, t_ray ray, int *col_index);
 int		there_is_collision(t_shape_list *shapes, t_ray ray);
+
+//collision_shapes.c
 float	disk_get_collision(t_shape *shape, t_ray ray);
 float	cylinder_get_collision(t_shape *shape, t_ray ray);
 float	sphere_get_collision(t_shape *shape, t_ray ray);

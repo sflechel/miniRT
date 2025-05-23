@@ -19,8 +19,7 @@ HEADERS_FILES =	minirt.h\
 
 HEADERS = $(addprefix $(INC_DIR), $(HEADERS_FILES))
 
-SRC =	main.c\
-		hook/hook_key.c\
+SRC =	hook/hook_key.c\
 		hook/hook.c\
 		math_utils/color_utils.c\
 		math_utils/vec3_scalar_ops.c\
@@ -32,12 +31,14 @@ SRC =	main.c\
 		parsing/parsing_utils_vector.c\
 		parsing/parsing_utils.c\
 		parsing/parsing.c\
+		shapes/collision_shapes.c\
 		shapes/collision.c\
 		shapes/normals.c\
 		scanning.c\
 		raytracing.c\
 		rotation.c\
 		camera.c\
+		main.c\
 
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC))
 
