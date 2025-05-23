@@ -11,7 +11,7 @@ OBJ_DIR = obj/
 I = -I $(INC_DIR) -I $(LIB_DIR) -I minilibx-linux
 LIBS = -Lminilibx-linux -lmlx_Linux -lXext -lX11 -lm -lz
 
-HEADERS_FILES = minirt.h\
+HEADERS_FILES =	minirt.h\
 				parsing.h\
 				hook.h\
 				math_utils.h\
@@ -19,26 +19,25 @@ HEADERS_FILES = minirt.h\
 
 HEADERS = $(addprefix $(INC_DIR), $(HEADERS_FILES))
 
-SRC = main.c\
-	  math_utils/vec3_vector_ops.c\
-	  math_utils/vec3_to_float_ops.c\
-	  math_utils/vec3_scalar_ops.c\
-	  math_utils/color_utils.c\
-	  scanning.c\
-	  raytracing.c\
-	  shapes/collision.c\
-	  shapes/normals.c\
-	  rotation.c\
-	  constructors.c\
-	  camera.c\
-	  hook/hook.c\
-	  hook/hook_key.c\
-	  parsing/parsing.c\
-	  parsing/parsing_utils.c\
-	  parsing/parsing_utils_vector.c\
-	  parsing/parse_file_and_line.c\
-	  parsing/parse_shape.c\
-	  parsing/parse_unique.c\
+SRC =	main.c\
+		hook/hook_key.c\
+		hook/hook.c\
+		math_utils/color_utils.c\
+		math_utils/vec3_scalar_ops.c\
+		math_utils/vec3_to_float_ops.c\
+		math_utils/vec3_vector_ops.c\
+		parsing/parse_file_and_line.c\
+		parsing/parse_shape.c\
+		parsing/parse_unique.c\
+		parsing/parsing_utils_vector.c\
+		parsing/parsing_utils.c\
+		parsing/parsing.c\
+		shapes/collision.c\
+		shapes/normals.c\
+		scanning.c\
+		raytracing.c\
+		rotation.c\
+		camera.c\
 
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC))
 
