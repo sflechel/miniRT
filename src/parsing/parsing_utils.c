@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minirt.h"
+#include "math_utils.h"
 #include <stdio.h>
 
 int	parse_rgba(char *str, t_color *color)
