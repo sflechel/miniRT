@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:39:23 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/23 14:42:44 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:24:14 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,37 +55,35 @@ float	cylinder_get_collision(t_shape *shape, t_ray ray)
 
 float	plane_get_collision(t_shape *shape, t_ray ray)
 {
-	const t_vec3	center_vector = vector_subtraction(shape->pos, ray.origin);
-	const float		angle_onorm
-		= dot_product(shape->plane.normal, center_vector);
-	const float		angle_dirnorm
-		= dot_product(shape->plane.normal, ray.direction);
-	float			res;
+	const float	dot = dot_product(ray.direction, shape->plane.normal);
+	float		intersection;
+	t_vec3		origin_to_plane;
 
-	if (angle_dirnorm == 0)
+	if (dot == 0)
 		return (-1);
-	res = angle_onorm / angle_dirnorm;
-	if (res > 0)
-		return (res);
+	origin_to_plane = vector_subtraction(shape->pos, ray.origin);
+	intersection = dot_product(origin_to_plane, shape->plane.normal) / dot;
+	if (intersection > 0)
+		return (intersection);
 	return (-1);
 }
 
 float	disk_get_collision(t_shape *shape, t_ray ray)
 {
-	const t_vec3	o = vector_subtraction(ray.origin, shape->pos);
-	const float		angle_onorm = dot_product(shape->disk.normal, o);
-	const float		angle_dirnorm
-		= dot_product(shape->disk.normal, ray.direction);
-	float			t;
+	const float		dot = dot_product(shape->disk.normal, ray.direction);
+	float			intersection;
+	t_vec3			origin_to_plane;
 	t_vec3			col;
 
-	if (angle_dirnorm == 0)
+	if (dot == 0)
 		return (-1);
-	t = -angle_onorm / angle_dirnorm;
-	if (t < 0)
+	origin_to_plane = vector_subtraction(ray.origin, shape->pos);
+	intersection = -dot_product(shape->disk.normal, origin_to_plane) / dot;
+	if (intersection < 0)
 		return (-1);
-	col = vector_sum(o, scalar_mult(ray.direction, t));
+	col =
+		vector_sum(origin_to_plane, scalar_mult(ray.direction, intersection));
 	if (dot_product(col, col) < shape->disk.radius * shape->disk.radius)
-		return (t);
+		return (intersection);
 	return (-1);
 }
