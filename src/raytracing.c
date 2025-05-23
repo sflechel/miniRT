@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 13:26:57 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/23 18:01:21 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,19 @@ t_color	background_color(t_ray ray)
 	return (background);
 }
 
-t_color	shading(t_shape_list *shapes, t_shape *shape,
-		t_ray light_ray, t_light light)
+t_color	shading(t_shape_list *shapes, int shape_index, t_ray light_ray, t_light light)
 {
-	t_vec3	normal;
-	float	intensity;
-	t_color	ambient;
-	t_color	pixel_color;
-
-	normal = shape->get_normal(shape, light_ray.origin);
-	if (there_is_collision(shapes, light_ray))
+	const t_shape	*shape = &shapes->array[shape_index];
+	t_vec3			normal;
+	float			intensity;
+	t_color			ambient;
+	t_color			pixel_color;
+	
+	if (there_is_collision(shapes, light_ray, shape_index))
 		pixel_color = (t_color){{0, 0, 0, 0}};
 	else
 	{
+		normal = shape->get_normal((t_shape *)shape, light_ray.origin);
 		light_ray.direction = vector_normalization(light_ray.direction);
 		intensity = light.brightness * dot_product(light_ray.direction, normal);
 		if (intensity < 0)
@@ -60,9 +60,10 @@ t_color	cast_ray(t_ray ray, t_shape_list *shapes, t_light light)
 	col_ray = get_closest_collision(shapes, ray, &col_index);
 	if (col_ray < 0)
 		return (background_color(ray));
-	light_ray.origin = vector_sum(ray.origin,
-			scalar_mult(ray.direction, col_ray));
-	light_ray.direction = vector_subtraction(light.pos, light_ray.origin);
-	pixel_color = shading(shapes, &shapes->array[col_index], light_ray, light);
+	light_ray.origin =
+		vector_sum(ray.origin, scalar_mult(ray.direction, col_ray));
+	light_ray.direction =
+		vector_subtraction(light.pos, light_ray.origin);
+	pixel_color = shading(shapes, col_index, light_ray, light);
 	return (pixel_color);
 }
