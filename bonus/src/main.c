@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/25 15:21:42 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:14:33 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,19 @@ int	init_mlx(t_mlx *mlx, t_camera *cam)
 {
 	mlx->mlx = mlx_init();
 	if (mlx->mlx == 0)
-	{
-		ft_dprintf(STDERR_FILENO, "Error\nwhen initializing minilibx\n");
-		return (1);
-	}
+		return (print_error_1(ERR_INIT_MLX));
 	mlx->window = mlx_new_window(mlx->mlx,
 			cam->img_width, cam->img_heigth, "miniRT");
 	if (mlx->window == 0)
 	{
-		ft_dprintf(STDERR_FILENO, "Error\nwhen creating window\n");
+		print_error_1(ERR_INIT_WINDOW);
 		return (free_1_return_1(mlx->mlx));
 	}
 	mlx->img.img = mlx_new_image(mlx->mlx, cam->img_width, cam->img_heigth);
 	if (mlx->img.img == 0)
 	{
 		mlx_destroy_window(mlx->mlx, mlx->window);
-		ft_dprintf(STDERR_FILENO, "Error\nwhen creating image\n");
+		print_error_1(ERR_INIT_IMG);
 		return (free_1_return_1(mlx->mlx));
 	}
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img,
@@ -64,9 +61,7 @@ int	main(int ac, char **av)
 	t_hook_data		data;
 
 	if (ac != 2)
-		ft_dprintf(STDERR_FILENO, "Error\nOne .rt file needed\n");
-	if (ac != 2)
-		return (EXIT_FAILURE);
+		return (print_error_1(ERR_INVALID_NB_FILES));
 	if (parsing(av[1], &shapes, &camera, &light) == 1
 		|| init_mlx(&mlx, &camera) == 1)
 		return (EXIT_FAILURE);

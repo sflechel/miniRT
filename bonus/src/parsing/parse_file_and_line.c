@@ -6,11 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:32:09 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/23 19:10:26 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/26 14:46:38 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "minirt.h"
 #include "parsing.h"
 #include <stdio.h>
 #include <unistd.h>
@@ -49,26 +50,17 @@ char	*open_and_read_file(char *filename)
 	char		*file;
 
 	if (dot_index == -1 || ft_strcmp(filename + dot_index, ".rt") != 0)
-	{
-		ft_dprintf(STDERR_FILENO,
-			"Error\n%s does no end with .rt\n", filename);
-		return (NULL);
-	}
+		return (print_strerror_null(ERR_INVALID_EXTENSION, filename));
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-	{
-		ft_dprintf(STDERR_FILENO,
-			"Error\n%s could not be opened\n", filename);
-		return (NULL);
-	}
+		return (print_strerror_null(ERR_NO_OPEN, filename));
 	file = read_file(fd);
 	close(fd);
 	return (file);
 }
 
-int	parse_line(char *line, t_shape_list *list, t_camera *cam, t_light *light)
+int	parse_line(char *line, t_data *list, t_camera *cam, t_light *light)
 {
-	static int	nb_shape = 0;
 	char		**params;
 	char		id;
 
@@ -79,14 +71,10 @@ int	parse_line(char *line, t_shape_list *list, t_camera *cam, t_light *light)
 	if ((id == 'A' && handle_ambient(params, light) == 1)
 		|| (id == 'C' && handle_camera(params, cam) == 1)
 		|| (id == 'L' && handle_light(params, light) == 1)
-		|| (id == 'c' && handle_cylinder(params, list, nb_shape) == 1)
-		|| (id == 'p' && handle_plane(params, &list->array[nb_shape]) == 1)
-		|| (id == 's' && handle_sphere(params, &list->array[nb_shape]) == 1))
+		|| (id == 'c' && handle_cylinder(params, list->cylinders) == 1)
+		|| (id == 'p' && handle_plane(params, list->planes) == 1)
+		|| (id == 's' && handle_sphere(params, list->spheres) == 1))
 		return (ft_free_split(params), 1);
 	ft_free_split(params);
-	if (id == 'p' || id == 's')
-		nb_shape++;
-	else if (id == 'c')
-		nb_shape += 3;
 	return (0);
 }

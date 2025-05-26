@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/25 14:35:20 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:12:09 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ t_col_info	cap_up_get_closest_collision(t_cylinder_list *cylinders, t_ray ray);
 t_col_info	cap_down_get_closest_collision(t_cylinder_list *cylinders, t_ray ray);
 
 //normals.c
-t_col		get_normal(t_data *shapes, t_type type, int i, t_col *col);
+void		get_normal(t_data *shapes, t_type type, int i, t_col *col);
 t_vec3		cylinder_get_normal(t_cylinder *shape, t_vec3 col);
 t_vec3		sphere_get_normal(t_sphere *shape, t_vec3 col);
 t_vec3		plane_get_normal(t_plane *shape, t_vec3 col);

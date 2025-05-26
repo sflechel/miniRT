@@ -6,34 +6,34 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/25 14:08:42 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:11:46 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
 #include "shapes.h"
 
-t_vec3	cylinder_get_normal(t_shape *shape, t_vec3 col)
+t_vec3	cylinder_get_normal(t_cylinder *cylinder, t_vec3 col)
 {
-	const t_vec3	o_col = vector_subtraction(col, shape->pos);
+	const t_vec3	o_col = vector_subtraction(col, cylinder->pos);
 	const t_vec3	o_col_perp = vector_subtraction(o_col,
-			ortho_proj(o_col, shape->axis));
+			ortho_proj(o_col, cylinder->axis));
 	const t_vec3	normal
-		= scalar_division(o_col_perp, shape->cylinder.radius);
+		= scalar_division(o_col_perp, cylinder->radius);
 
 	return (normal);
 }
 
-t_vec3	sphere_get_normal(t_shape *shape, t_vec3 col)
+t_vec3	sphere_get_normal(t_sphere *sphere, t_vec3 col)
 {
 	t_vec3	normal;
 
-	normal = vector_subtraction(col, shape->pos);
-	normal = scalar_division(normal, shape->sphere.radius);
+	normal = vector_subtraction(col, sphere->pos);
+	normal = scalar_division(normal, sphere->radius);
 	return (normal);
 }
 
-t_col	get_normal(t_data *shapes, t_type type, int i, t_col *col)
+void	get_normal(t_data *shapes, t_type type, int i, t_col *col)
 {
 	if (type == TYPE_PLANE)
 	{

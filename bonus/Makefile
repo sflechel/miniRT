@@ -32,6 +32,7 @@ SRC =	hook/hook_key.c\
 		parsing/parsing_utils.c\
 		parsing/parsing.c\
 		shapes/collision_shapes.c\
+		shapes/collision_shapes_closest.c\
 		shapes/collision.c\
 		shapes/normals.c\
 		scanning.c\
@@ -39,6 +40,7 @@ SRC =	hook/hook_key.c\
 		rotation.c\
 		camera.c\
 		main.c\
+		errors.c\
 
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC))
 

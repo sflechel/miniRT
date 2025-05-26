@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/25 14:33:19 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:13:46 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,18 @@ typedef struct s_mlx
 	t_end	end;
 }	t_mlx;
 
+typedef enum e_error
+{
+	ERR_INVALID_UNIQUES,
+	ERR_INVALID_ID,
+	ERR_INVALID_EXTENSION,
+	ERR_NO_OPEN,
+	ERR_INIT_MLX,
+	ERR_INIT_WINDOW,
+	ERR_INIT_IMG,
+	ERR_INVALID_NB_FILES
+}	t_error;
+
 //camera.c
 void	update_camera(t_camera *cam);
 
@@ -86,5 +98,9 @@ void	rotation_z(t_vec3 *vec, float angle);
 //camera.c
 void	update_camera(t_camera *cam);
 void	init_camera(t_camera *cam, t_vec3 *cam_axis);
+
+//errors.c
+int		print_error_1(t_error id);
+void	*print_strerror_null(t_error id, char *str);
 
 #endif //MINIRT_H

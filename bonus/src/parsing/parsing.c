@@ -6,15 +6,17 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/25 15:24:04 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:08:18 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "minirt.h"
 #include "parsing.h"
+#include <stdlib.h>
 #include <unistd.h>
 
-static char	is_valid_id(char *line)
+static t_id	is_valid_id(char *line)
 {
 	if (ft_strncmp(line, "A ", 2) == 0)
 		return (ID_AMBIENT);
@@ -23,64 +25,74 @@ static char	is_valid_id(char *line)
 	if (ft_strncmp(line, "L ", 2) == 0)
 		return (ID_LIGHT);
 	if (ft_strncmp(line, "sp ", 3) == 0)
-		return (ID_CORRECT);
+		return (ID_SPHERE);
 	if (ft_strncmp(line, "cy ", 3) == 0)
 		return (ID_CYLINDER);
 	if (ft_strncmp(line, "pl ", 3) == 0)
-		return (ID_CORRECT);
+		return (ID_PLANE);
 	return (ID_ERROR);
 }
 
-int	count_shapes_and_verify(char **lines)
+int	verify_uniques(char **lines)
 {
-	int		nb_shapes;
 	int		i;
 	char	id;
 	char	acl[3];
 
 	i = 0;
-	nb_shapes = 0;
 	ft_memset(&acl, 0, sizeof(char) * 3);
 	while (lines[i])
 	{
 		id = is_valid_id(lines[i]);
-		if (id == ID_CORRECT)
-			nb_shapes++;
-		else if (id == ID_CYLINDER)
-			nb_shapes += 3;
-		else if (id == ID_AMBIENT || id == ID_CAMERA || id == ID_LIGHT)
+		if (id == ID_AMBIENT || id == ID_CAMERA || id == ID_LIGHT)
 			acl[(int)id] += 1;
 		else
-			return (-1);
+			return (print_error_1(ERR_INVALID_ID));
 		i++;
 	}
 	if (acl[0] != 1 || acl[1] != 1 || acl[2] != 1)
-		return (-2);
-	return (nb_shapes);
-}
-
-int	alloc_list_shapes(char **lines, t_shape_list **list)
-{
-	const int	nb_shapes = count_shapes_and_verify(lines);
-
-	if (nb_shapes < 0)
-	{
-		ft_dprintf(STDERR_FILENO,"Error\nInvalid ");
-		if (nb_shapes == -1)
-			ft_dprintf(STDERR_FILENO,"shape id\n");
-		else
-			ft_dprintf(STDERR_FILENO,
-				"amount of requiered params(cam, ambient, light)\n");
-		return (1);
-	}
-	*list = malloc(sizeof(t_shape_list) + sizeof(t_shape) * nb_shapes);
-	if (*list == 0)
-		return (1);
-	(*list)->nb_shapes = nb_shapes;
+		return (print_error_1(ERR_INVALID_UNIQUES));
 	return (0);
 }
 
-int	fill_list_shapes(char **lines, t_shape_list *list, t_camera *cam,
+int	count_shapes(char **lines, t_id id)
+{
+	int	count;
+	int	i;
+
+	count = 0;
+	i = 0;
+	while (lines[i])
+	{
+		if (is_valid_id(lines[i]) == id)
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+int	alloc_list_shapes(char **lines, t_data *list)
+{
+	const int	nb_spheres = count_shapes(lines, ID_SPHERE);
+	const int	nb_cylinders = count_shapes(lines, ID_CYLINDER);
+	const int	nb_planes = count_shapes(lines, ID_PLANE);
+
+	if (verify_uniques(lines) == 1)
+		return (1);
+	list->cylinders = malloc(sizeof(t_cylinder_list)
+			+ sizeof(t_cylinder) * nb_cylinders);
+	list->spheres = malloc(sizeof(t_sphere_list)
+			+ sizeof(t_sphere) * nb_spheres);
+	list->planes = malloc(sizeof(t_plane_list) + sizeof(t_plane) * nb_planes);
+	if (list->cylinders == 0 || list->spheres == 0 || list->planes == 0)
+		return (free_3_return_1(list->planes, list->spheres, list->cylinders));
+	list->cylinders->nb_shapes = 0;
+	list->spheres->nb_shapes = 0;
+	list->planes->nb_shapes = 0;
+	return (0);
+}
+
+int	fill_list_shapes(char **lines, t_data *list, t_camera *cam,
 		t_light *light)
 {
 	int	i;
@@ -95,7 +107,7 @@ int	fill_list_shapes(char **lines, t_shape_list *list, t_camera *cam,
 	return (0);
 }
 
-int	parsing(char *filename, t_shape_list **list, t_camera *cam,
+int	parsing(char *filename, t_data *list, t_camera *cam,
 		t_light *light)
 {
 	char	*file;
@@ -110,8 +122,8 @@ int	parsing(char *filename, t_shape_list **list, t_camera *cam,
 		return (1);
 	if (alloc_list_shapes(lines, list) == 1)
 		return (ft_free_split(lines), 1);
-	if (fill_list_shapes(lines, *list, cam, light) == 1)
-		return (ft_free_split(lines), free(*list), 1);
+	if (fill_list_shapes(lines, list, cam, light) == 1)
+		return (ft_free_split(lines), free(list->planes), free(list->spheres), free(list->cylinders), 1);
 	ft_free_split(lines);
 	return (0);
 }

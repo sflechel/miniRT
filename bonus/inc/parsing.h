@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:02:03 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/22 13:46:04 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:01:42 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,24 @@ typedef enum e_id
 	ID_AMBIENT = 0,
 	ID_CAMERA = 1,
 	ID_LIGHT = 2,
-	ID_CORRECT,
 	ID_CYLINDER,
+	ID_SPHERE,
+	ID_PLANE,
 	ID_ERROR
 }	t_id;
 
-int		parsing(char *filename, t_shape_list **list, t_camera *cam,
+//parsing.c
+int		parsing(char *filename, t_data *list, t_camera *cam,
 			t_light *light);
 
 //parse_file_and_line
 char	*open_and_read_file(char *filename);
-int		parse_line(char *line, t_shape_list *list, t_camera *cam,
-			t_light *light);
+int		parse_line(char *line, t_data *list, t_camera *cam, t_light *light);
 
 //parse_shape
-int		handle_cylinder(char **line, t_shape_list *shapes, int index);
-int		handle_plane(char **line, t_shape *plane);
-int		handle_sphere(char **line, t_shape *sphere);
+int		handle_cylinder(char **line, t_cylinder_list *list);
+int		handle_plane(char **line, t_plane_list *list);
+int		handle_sphere(char **line, t_sphere_list *list);
 
 //parse_unique
 int		handle_ambient(char **line, t_light *light);
