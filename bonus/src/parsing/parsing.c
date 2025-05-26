@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/26 15:08:18 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:38:51 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static t_id	is_valid_id(char *line)
 int	verify_uniques(char **lines)
 {
 	int		i;
-	char	id;
+	t_id	id;
 	char	acl[3];
 
 	i = 0;
@@ -46,7 +46,7 @@ int	verify_uniques(char **lines)
 		id = is_valid_id(lines[i]);
 		if (id == ID_AMBIENT || id == ID_CAMERA || id == ID_LIGHT)
 			acl[(int)id] += 1;
-		else
+		else if (id == ID_ERROR)
 			return (print_error_1(ERR_INVALID_ID));
 		i++;
 	}

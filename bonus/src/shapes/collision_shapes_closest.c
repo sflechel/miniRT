@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   collision_shapes_closest.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 14:13:07 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/26 15:17:04 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:53:29 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_col_info	plane_get_closest_collision(t_plane_list *planes, t_ray ray)
+t_col	plane_get_closest_collision(t_plane_list *planes, t_ray ray)
 {
-	t_col_info	col;
+	t_col	col;
 	float		closest_col;
 	float		curr_col;
 	int			i;
@@ -40,9 +40,9 @@ t_col_info	plane_get_closest_collision(t_plane_list *planes, t_ray ray)
 	return (col);
 }
 
-t_col_info	sphere_get_closest_collision(t_sphere_list *spheres, t_ray ray)
+t_col	sphere_get_closest_collision(t_sphere_list *spheres, t_ray ray)
 {
-	t_col_info	col;
+	t_col	col;
 	float		closest_col;
 	float		curr_col;
 	int			i;
@@ -68,9 +68,9 @@ t_col_info	sphere_get_closest_collision(t_sphere_list *spheres, t_ray ray)
 	return (col);
 }
 
-t_col_info	cylinder_get_closest_collision(t_cylinder_list *cylinders, t_ray ray)
+t_col	cylinder_get_closest_collision(t_cylinder_list *cylinders, t_ray ray)
 {
-	t_col_info	col;
+	t_col	col;
 	float		closest_col;
 	float		curr_col;
 	int			i;
@@ -96,9 +96,9 @@ t_col_info	cylinder_get_closest_collision(t_cylinder_list *cylinders, t_ray ray)
 	return (col);
 }
 
-t_col_info	cap_up_get_closest_collision(t_cylinder_list *cylinders, t_ray ray)
+t_col	cap_up_get_closest_collision(t_cylinder_list *cylinders, t_ray ray)
 {
-	t_col_info	col;
+	t_col	col;
 	float		closest_col;
 	float		curr_col;
 	int			i;
@@ -124,9 +124,9 @@ t_col_info	cap_up_get_closest_collision(t_cylinder_list *cylinders, t_ray ray)
 	return (col);
 }
 
-t_col_info	cap_down_get_closest_collision(t_cylinder_list *cylinders, t_ray ray)
+t_col	cap_down_get_closest_collision(t_cylinder_list *cylinders, t_ray ray)
 {
-	t_col_info	col;
+	t_col	col;
 	float		closest_col;
 	float		curr_col;
 	int			i;

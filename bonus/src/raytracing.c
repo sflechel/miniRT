@@ -6,11 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/25 12:40:03 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/26 16:52:56 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <stdio.h>
 
 t_color	background_color(t_ray ray)
 {
@@ -31,7 +32,7 @@ t_color	shading(t_data *shapes, t_col col, t_ray light_ray, t_light light)
 	t_color			ambient;
 	t_color			pixel_color;
 
-	if (there_is_collision(shapes, light_ray))
+	if (there_is_collision(shapes, light_ray, col))
 		pixel_color = (t_color){{0, 0, 0, 0}};
 	else
 	{
@@ -59,6 +60,7 @@ t_color	cast_ray(t_ray ray, t_data *shapes, t_light light)
 		return (background_color(ray));
 	light_ray.origin = col.pos_world;
 	light_ray.direction = vector_subtraction(light.pos, light_ray.origin);
+	//printf("%d\n", (int)col.type);
 	pixel_color = shading(shapes, col, light_ray, light);
 	return (pixel_color);
 }
