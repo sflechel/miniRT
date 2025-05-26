@@ -1,0 +1,54 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   camera.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/16 11:14:43 by sflechel          #+#    #+#             */
+/*   Updated: 2025/05/23 18:59:25 by edarnand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "math_utils.h"
+#include "minirt.h"
+#include <math.h>
+
+void	update_camera(t_camera *cam)
+{
+	t_vec3	u;
+	t_vec3	v;
+
+	cam->focal_length = (t_vec3){0, 0, 10};
+	cam->viewport_heigth = 2 * tanf(cam->vertical_fov / 2)
+		* cam->focal_length.z;
+	cam->viewport_width = cam->viewport_heigth
+		* ((float)cam->img_width / (float)cam->img_heigth);
+	u = (t_vec3){1, 0, 0};
+	v = (t_vec3){0, -1, 0};
+	rotation(&u, cam->rot);
+	rotation(&v, cam->rot);
+	rotation(&cam->focal_length, cam->rot);
+	cam->viewport_u = scalar_mult(u, cam->viewport_width);
+	cam->viewport_v = scalar_mult(v, cam->viewport_heigth);
+}
+
+void	init_camera(t_camera *cam, t_vec3 *cam_axis)
+{
+	const float	aspect_ratio = 16. / 9.;
+	float		cosa;
+	float		cost;
+	t_vec3		a;
+	
+	cam->img_heigth = 480;
+	cam->img_width = cam->img_heigth * aspect_ratio;
+	cosa = dot_product(*cam_axis, (t_vec3){0, 1, 0});
+	a = cross_product(*cam_axis, (t_vec3){0, 1, 0});
+	cam->rot.y = -asinf(-a.y + (a.x * a.z) / (1 + cosa));
+	cost = 1 / cosf(cam->rot.y);
+	cam->rot.x = atan2f((a.x + (a.z * a.y) / (1 + cosa))
+			* cost, (1 + (-a.x * a.x + -a.y * a.y) / (1 + cosa)) * cost);
+	cam->rot.z = atan2f((a.z + (a.x * a.y) / (1 + cosa))
+			* cost, (1 + (-a.z * a.z + -a.y * a.y) / (1 + cosa)) * cost);
+	update_camera(cam);
+}
