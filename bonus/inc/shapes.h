@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 13:20:28 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/27 15:09:03 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 typedef struct s_ray	t_ray;
 typedef struct s_data	t_data;
+typedef struct s_image	t_image;
 
 typedef enum e_type
 {
@@ -30,7 +31,7 @@ typedef enum e_type
 
 typedef struct s_sphere
 {
-	int		fd_cmap;
+	t_image	*txtr;
 	float	radius;
 	t_vec3	pos;
 	t_color	color;
@@ -38,7 +39,7 @@ typedef struct s_sphere
 
 typedef struct s_plane
 {
-	int		fd_cmap;
+	t_image	*txtr;
 	t_vec3	pos;
 	t_vec3	normal;
 	t_color	color;
@@ -46,7 +47,7 @@ typedef struct s_plane
 
 typedef struct s_cylinder
 {
-	int		fd_cmap;
+	t_image	*txtr;
 	float	radius;
 	float	height;
 	t_vec3	pos;
@@ -71,13 +72,6 @@ typedef struct s_sphere_list
 	int			nb_shapes;
 	t_sphere	array[];
 }	t_sphere_list;
-
-typedef struct s_data
-{
-	t_plane_list	*planes;
-	t_sphere_list	*spheres;
-	t_cylinder_list	*cylinders;
-}	t_data;
 
 typedef struct s_col
 {
@@ -120,9 +114,12 @@ t_col	cap_up_get_closest_collision(t_cylinder_list *cylinders, t_ray ray);
 t_col	cap_down_get_closest_collision(t_cylinder_list *cylinders, t_ray ray);
 
 //normals.c
-void	get_normal(t_data *shapes, t_type type, int i, t_col *col);
+void	get_normal(t_data *shapes, t_col *col);
 t_vec3	cylinder_get_normal(t_cylinder *shape, t_vec3 col);
 t_vec3	sphere_get_normal(t_sphere *shape, t_vec3 col);
 t_vec3	plane_get_normal(t_plane *shape, t_vec3 col);
+
+//texture.c
+t_color	plane_get_texture(const t_col *col, const t_plane *plane);
 
 #endif

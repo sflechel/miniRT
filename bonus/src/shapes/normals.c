@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 11:04:49 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/27 14:43:32 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,36 +34,36 @@ t_vec3	sphere_get_normal(t_sphere *sphere, t_vec3 col)
 	return (normal);
 }
 
-void	get_normal(t_data *shapes, t_col *col, t_ray ray)
+void	get_normal(t_data *shapes, t_col *col)
 {
 	if (col->type == TYPE_PLANE)
 	{
-		col->normal = shapes->planes->array[i].normal;
-		if (shapes->planes->array[i].fd_cmap != -1)
-			col->color = plane_get_texture(col, shapes->planes->array[i].fd_cmap);
+		col->normal = shapes->planes->array[col->index].normal;
+		if (shapes->planes->array[col->index].txtr != 0)
+			col->color = plane_get_texture(col, &shapes->planes->array[col->index]);
 		else
-			col->color = shapes->planes->array[i].color;
+			col->color = shapes->planes->array[col->index].color;
 	}
 	else if (col->type == TYPE_SPHERE)
 	{
-		col->normal = sphere_get_normal(&shapes->spheres->array[i],
+		col->normal = sphere_get_normal(&shapes->spheres->array[col->index],
 				col->pos_world);
-		col->color = shapes->spheres->array[i].color;
+		col->color = shapes->spheres->array[col->index].color;
 	}
 	else if (col->type == TYPE_CYLINDER)
 	{
 		col->normal = cylinder_get_normal(
-				&shapes->cylinders->array[i], col->pos_world);
-		col->color = shapes->cylinders->array[i].color;
+				&shapes->cylinders->array[col->index], col->pos_world);
+		col->color = shapes->cylinders->array[col->index].color;
 	}
 	else if (col->type == TYPE_CAP_UP)
 	{
-		col->normal = shapes->cylinders->array[i].axis;
-		col->color = shapes->cylinders->array[i].color;
+		col->normal = shapes->cylinders->array[col->index].axis;
+		col->color = shapes->cylinders->array[col->index].color;
 	}
 	else if (col->type == TYPE_CAP_DOWN)
 	{
-		col->normal = scalar_mult(shapes->cylinders->array[i].axis, -1);
-		col->color = shapes->cylinders->array[i].color;
+		col->normal = scalar_mult(shapes->cylinders->array[col->index].axis, -1);
+		col->color = shapes->cylinders->array[col->index].color;
 	}
 }

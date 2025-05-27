@@ -6,19 +6,17 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:42:05 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/26 18:07:38 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/27 14:58:55 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "mlx.h"
 
 void	pixel_put(t_mlx *mlx, int u, int v, t_color color)
 {
 	char	*dest;
 
-	color.rgba = mlx_get_color_value(mlx->mlx, color.rgba);
-	dest = mlx->img.addr + (v * mlx->img.len_line + u * (mlx->img.bpp / 8));
+	dest = mlx->img.addr + (v * mlx->img.len_line + u * mlx->img.bpp / 8);
 	*(unsigned int *)dest = color.rgba;
 }
 
@@ -40,8 +38,7 @@ t_vec3	compute_first_pixel(t_camera *cam, t_vec3 *delta_u, t_vec3 *delta_v)
 	return (first_pixel);
 }
 
-void	scan_viewport(t_camera *camera, t_data *shapes,
-			t_light_list *lights, t_mlx *mlx)
+void	scan_viewport(t_camera *camera, t_data *lists, t_mlx *mlx)
 {
 	t_vec3	delta_u;
 	t_vec3	delta_v;
@@ -58,7 +55,7 @@ void	scan_viewport(t_camera *camera, t_data *shapes,
 		{
 			pixel = vector_sum(pixel, delta_u);
 			pixel_color = cast_ray((t_ray){camera->pos, vector_subtraction(
-						pixel, camera->pos)}, shapes, lights);
+						pixel, camera->pos)}, lists);
 			pixel_put(mlx, uv[0], uv[1], pixel_color);
 			uv[0]++;
 		}

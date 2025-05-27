@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:14:43 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/23 18:59:25 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/27 15:04:29 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,16 @@ void	update_camera(t_camera *cam)
 	cam->viewport_u = scalar_mult(u, cam->viewport_width);
 	cam->viewport_v = scalar_mult(v, cam->viewport_heigth);
 }
-
-void	init_camera(t_camera *cam, t_vec3 *cam_axis)
+#include <stdio.h>
+void	init_camera(t_camera *cam, t_vec3 *cam_axis, t_mlx *mlx)
 {
-	const float	aspect_ratio = 16. / 9.;
 	float		cosa;
 	float		cost;
 	t_vec3		a;
-	
-	cam->img_heigth = 480;
-	cam->img_width = cam->img_heigth * aspect_ratio;
+
+	cam->img_heigth = mlx->img.height;
+	cam->img_width = mlx->img.width;
+	printf("%i, %i\n", cam->img_width, cam->img_heigth);
 	cosa = dot_product(*cam_axis, (t_vec3){0, 1, 0});
 	a = cross_product(*cam_axis, (t_vec3){0, 1, 0});
 	cam->rot.y = -asinf(-a.y + (a.x * a.z) / (1 + cosa));

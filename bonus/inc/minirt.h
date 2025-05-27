@@ -6,13 +6,15 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 10:34:46 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/27 15:04:00 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 
 # define MINIRT_H
+
+# define SCREEN_HEIGHT 480
 
 # include "math_utils.h"
 # include "shapes.h"
@@ -29,6 +31,14 @@ typedef struct s_light_list
 	int		nb_lights;
 	t_light	lights[];
 }	t_light_list;
+
+typedef struct s_data
+{
+	t_light_list	*lights;
+	t_plane_list	*planes;
+	t_sphere_list	*spheres;
+	t_cylinder_list	*cylinders;
+}	t_data;
 
 struct s_ray
 {
@@ -56,6 +66,8 @@ typedef struct s_image
 	char	*addr;
 	int		bpp;
 	int		len_line;
+	int		height;
+	int		width;
 	int		endian;
 }	t_image;
 
@@ -90,11 +102,10 @@ typedef enum e_error
 void	update_camera(t_camera *cam);
 
 //scanning.h
-void	scan_viewport(t_camera *camera, t_data *shapes,
-			t_light_list *lights, t_mlx *mlx);
+void	scan_viewport(t_camera *camera, t_data *lists, t_mlx *mlx);
 
 //raytracing.h
-t_color	cast_ray(t_ray ray, t_data *shapes, t_light_list *lights);
+t_color	cast_ray(t_ray ray, t_data *lists);
 
 //rotation.c
 void	rotation(t_vec3 *vec, t_vec3 rot);
@@ -104,7 +115,7 @@ void	rotation_z(t_vec3 *vec, float angle);
 
 //camera.c
 void	update_camera(t_camera *cam);
-void	init_camera(t_camera *cam, t_vec3 *cam_axis);
+void	init_camera(t_camera *cam, t_vec3 *cam_axis, t_mlx *mlx);
 
 //errors.c
 int		print_error_1(t_error id);

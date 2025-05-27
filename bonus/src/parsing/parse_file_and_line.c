@@ -6,14 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:32:09 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/26 17:59:59 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/27 14:40:49 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minirt.h"
 #include "parsing.h"
-#include <stdio.h>
 #include <unistd.h>
 
 static char	*read_file(int fd)
@@ -59,7 +58,7 @@ char	*open_and_read_file(char *filename)
 	return (file);
 }
 
-int	parse_line(char *line, t_data *list, t_camera *cam, t_light_list *lights)
+int	parse_line(char *line, t_data *list, t_camera *cam, t_mlx *mlx)
 {
 	char		**params;
 	char		id;
@@ -68,12 +67,12 @@ int	parse_line(char *line, t_data *list, t_camera *cam, t_light_list *lights)
 	if (params == 0)
 		return (1);
 	id = params[0][0];
-	if ((id == 'A' && handle_ambient(params, lights) == 1)
-		|| (id == 'C' && handle_camera(params, cam) == 1)
-		|| (id == 'L' && handle_light(params, lights) == 1)
-		|| (id == 'c' && handle_cylinder(params, list->cylinders) == 1)
-		|| (id == 'p' && handle_plane(params, list->planes) == 1)
-		|| (id == 's' && handle_sphere(params, list->spheres) == 1))
+	if ((id == 'A' && handle_ambient(params, list->lights) == 1)
+		|| (id == 'C' && handle_camera(params, cam, mlx) == 1)
+		|| (id == 'L' && handle_light(params, list->lights) == 1)
+		|| (id == 'c' && handle_cylinder(params, list->cylinders, mlx) == 1)
+		|| (id == 'p' && handle_plane(params, list->planes, mlx) == 1)
+		|| (id == 's' && handle_sphere(params, list->spheres, mlx) == 1))
 		return (ft_free_split(params), 1);
 	ft_free_split(params);
 	return (0);

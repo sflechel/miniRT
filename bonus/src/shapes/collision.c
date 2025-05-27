@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/26 17:58:09 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/27 15:13:23 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ int	get_closest_collision(t_data *shapes, t_ray ray, t_col *col)
 	*col = closest_shape;
 	col->pos_world = vector_sum(ray.origin,
 			scalar_mult(ray.direction, closest_shape.pos));
-	get_normal(shapes, closest_shape.type, closest_shape.index, col);
-	return (1);
+	get_normal(shapes, col);
+	return (closest_shape.pos);
 }

@@ -6,14 +6,16 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/27 10:35:20 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/27 14:41:44 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "math_utils.h"
 #include "minirt.h"
+#include "mlx.h"
 #include <fcntl.h>
+#include <stdlib.h>
 
 int	parse_rgba(char *str, t_color *color)
 {
@@ -62,16 +64,21 @@ int	parse_float(char *str, float *f)
 	return (0);
 }
 
-int	parse_file(char *str, int *fd)
+int	parse_file(char *str, t_image **img, t_mlx *mlx)
 {
 	if (ft_strcmp(str, "0") == 0)
 	{
-		*fd = -1;
+		*img = 0;
 		return (0);
 	}
-	*fd = open(str, O_RDONLY);
-	if (*fd == -1)
-		return (print_perror_1(ERR_NO_OPEN, str));
+	*img = malloc(sizeof(t_image));
+	if (*img == 0)
+		return (1);
+	if (mlx_xpm_file_to_image(mlx, str, &(*img)->height, &(*img)->len_line) == 0)
+	{
+		print_perror_1(ERR_NO_OPEN, str);
+		return (free_1_return_1(*img));
+	}
 	return (0);
 }
 

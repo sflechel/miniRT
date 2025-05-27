@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:34:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/23 15:10:39 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:40:12 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,11 @@ t_vec3	vector_mult(t_vec3 term1, t_vec3 term2)
 	output.y = term1.y * term2.y;
 	output.z = term1.z * term2.z;
 	return (output);
+}
+
+int	vector_equal(t_vec3 vec1, t_vec3 vec2)
+{
+	if (vec1.x == vec2.x && vec1.y == vec2.y && vec1.z == vec2.z)
+		return (1);
+	return (0);
 }
