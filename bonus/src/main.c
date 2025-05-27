@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/26 17:51:07 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/27 15:05:44 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,23 @@ int	free_mlx(t_mlx *mlx)
 	return (1);
 }
 
-int	init_mlx(t_mlx *mlx, t_camera *cam)
+int	init_mlx(t_mlx *mlx)
 {
+	const float	aspect_ratio = 16. / 9.;
+
 	mlx->mlx = mlx_init();
 	if (mlx->mlx == 0)
 		return (print_error_1(ERR_INIT_MLX));
+	mlx->img.height = SCREEN_HEIGHT;
+	mlx->img.width = mlx->img.height * aspect_ratio;
 	mlx->window = mlx_new_window(mlx->mlx,
-			cam->img_width, cam->img_heigth, "miniRT");
+			mlx->img.width, mlx->img.height, "miniRT");
 	if (mlx->window == 0)
 	{
 		print_error_1(ERR_INIT_WINDOW);
 		return (free_1_return_1(mlx->mlx));
 	}
-	mlx->img.img = mlx_new_image(mlx->mlx, cam->img_width, cam->img_heigth);
+	mlx->img.img = mlx_new_image(mlx->mlx, mlx->img.width, mlx->img.height);
 	if (mlx->img.img == 0)
 	{
 		mlx_destroy_window(mlx->mlx, mlx->window);
@@ -56,24 +60,23 @@ int	main(int ac, char **av)
 {
 	t_camera		camera;
 	t_mlx			mlx;
-	t_data			shapes;
-	t_light_list	*lights;
-	t_hook_data		data;
+	t_data			data;
+	t_hook_data		hook_data;
 
 	if (ac != 2)
 		return (print_error_1(ERR_INVALID_NB_FILES));
-	if (parsing(av[1], &shapes, &camera, &lights) == 1
-		|| init_mlx(&mlx, &camera) == 1)
+	if (init_mlx(&mlx) == 1
+		|| parsing(av[1], &data, &camera, &mlx) == 1)
 		return (EXIT_FAILURE);
-	data = (t_hook_data){&mlx, &camera};
-	handle_hooks(&data);
+	hook_data = (t_hook_data){&mlx, &camera};
+	handle_hooks(&hook_data);
 	while (mlx.end == DONT_END)
 	{
 		((t_xvar *)(mlx.mlx))->end_loop = 0;
-		scan_viewport(&camera, &shapes, lights, &mlx);
+		scan_viewport(&camera, &data, &mlx);
 		mlx_put_image_to_window(mlx.mlx, mlx.window, mlx.img.img, 0, 0);
 		mlx_loop(mlx.mlx);
 	}
 	free_mlx(&mlx);
-	return (free_3_return_0(shapes.planes, shapes.spheres, shapes.cylinders));
+	return (free_3_return_0(data.planes, data.spheres, data.cylinders));
 }

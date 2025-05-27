@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:21:34 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 18:24:25 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:40:37 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_vec3	ortho_proj(t_vec3 projected, t_vec3 line);
 t_vec3	vector_mult(t_vec3 term1, t_vec3 term2);
 t_vec3	vector_subtraction(t_vec3 minuend, t_vec3 subtrahend);
 t_vec3	vector_sum(t_vec3 term1, t_vec3 term2);
+int		vector_equal(t_vec3 vec1, t_vec3 vec2);
 
 //vec_3_to_float.c
 float	dot_product(t_vec3 vec1, t_vec3 vec2);

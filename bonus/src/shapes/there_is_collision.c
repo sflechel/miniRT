@@ -6,13 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:19:38 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/26 16:50:36 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/27 13:59:04 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "shapes.h"
-#include <stdio.h>
 
 static int	cylinder_collision(t_cylinder_list *list, t_ray ray, t_col cam_col)
 {
@@ -50,7 +49,6 @@ static int	plane_collision(t_plane_list *list, t_ray ray, t_col cam_col)
 	int			i;
 
 	i = 0;
-	//printf("%d\n", (int)cam_col.type);
 	while (i < list->nb_shapes)
 	{
 		if (same_type && i == cam_col.index)

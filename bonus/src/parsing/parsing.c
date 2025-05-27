@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 11:06:23 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/27 13:51:42 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,23 +95,21 @@ int	alloc_lists(char **lines, t_data *list, t_light_list **lights)
 	return (0);
 }
 
-int	fill_list_shapes(char **lines, t_data *list, t_camera *cam,
-		t_light_list *lights)
+int	fill_list_shapes(char **lines, t_data *list, t_camera *cam, t_mlx *mlx)
 {
 	int	i;
 
 	i = 0;
 	while (lines[i])
 	{
-		if (parse_line(lines[i], list, cam, lights) == 1)
+		if (parse_line(lines[i], list, cam, mlx) == 1)
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
-int	parsing(char *filename, t_data *list, t_camera *cam,
-		t_light_list **lights)
+int	parsing(char *filename, t_data *list, t_camera *cam, t_mlx *mlx)
 {
 	char	*file;
 	char	**lines;
@@ -123,10 +121,10 @@ int	parsing(char *filename, t_data *list, t_camera *cam,
 	free(file);
 	if (lines == 0)
 		return (1);
-	if (alloc_lists(lines, list, lights) == 1)
+	if (alloc_lists(lines, list, &list->lights) == 1)
 		return (ft_free_split(lines), 1);
-	if (fill_list_shapes(lines, list, cam, *lights) == 1)
-		return (ft_free_split(lines), free(list->planes), free(list->spheres), free(list->cylinders), free(*lights), 1);
+	if (fill_list_shapes(lines, list, cam, mlx) == 1)
+		return (ft_free_split(lines), free(list->planes), free(list->spheres), free(list->cylinders), free(list->lights), 1);
 	ft_free_split(lines);
 	return (0);
 }

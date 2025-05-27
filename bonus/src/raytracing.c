@@ -6,15 +6,10 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/05/27 09:40:19 by sflechel         ###   ########.fr       */
-=======
-/*   Updated: 2025/05/26 16:52:56 by edarnand         ###   ########.fr       */
->>>>>>> 36a248ec4b7c1d076870c9f2004cb9455f14ff0c
+/*   Updated: 2025/05/27 15:00:11 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "math_utils.h"
 #include "minirt.h"
 
@@ -39,7 +34,7 @@ t_color	shading(t_data *shapes, t_col col, t_light light)
 
 	light_ray.origin = col.pos_world;
 	light_ray.direction = vector_subtraction(light.pos, light_ray.origin);
-	if (there_is_collision(shapes, light_ray))
+	if (there_is_collision(shapes, light_ray, col))
 		pixel_color = (t_color){{0, 0, 0, 0}};
 	else
 	{
@@ -53,23 +48,23 @@ t_color	shading(t_data *shapes, t_col col, t_light light)
 	return (pixel_color);
 }
 
-t_color	cast_ray(t_ray ray, t_data *shapes, t_light_list *lights)
+t_color	cast_ray(t_ray ray, t_data *lists)
 {
 	t_color	pixel_color;
 	float	col_ray;
 	t_col	col;
 	int		i;
 
-	col_ray = get_closest_collision(shapes, ray, &col);
+	col_ray = get_closest_collision(lists, ray, &col);
 	if (col_ray < 0)
 		return (background_color(ray));
-	ft_memset(&pixel_color, 0, sizeof(t_color));
+	pixel_color = (t_color){{0, 0, 0, 0}};
 	i = 0;
-	while (i < lights->nb_lights)
+	while (i < lists->lights->nb_lights)
 	{
-		pixel_color = color_sum(pixel_color, shading(shapes, col, lights->lights[i]));
+		pixel_color = color_sum(pixel_color, shading(lists, col, lists->lights->lights[i]));
 		i++;
 	}
-	pixel_color = color_sum(pixel_color, color_mult(col.color, lights->ambient));
+	pixel_color = color_sum(pixel_color, color_mult(col.color, lists->lights->ambient));
 	return (pixel_color);
 }

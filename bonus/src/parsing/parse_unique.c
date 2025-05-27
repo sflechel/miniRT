@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:18:16 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/27 09:28:52 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/27 14:40:34 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	handle_ambient(char **line, t_light_list *lights)
 	return (0);
 }
 
-int	handle_camera(char **line, t_camera *cam)
+int	handle_camera(char **line, t_camera *cam, t_mlx *mlx)
 {
 	const int	len = ptr_array_len(line);
 	t_vec3		cam_axis;
@@ -46,7 +46,7 @@ int	handle_camera(char **line, t_camera *cam)
 		ft_dprintf(STDERR_FILENO, " in the camera\n");
 		return (1);
 	}
-	init_camera(cam, &cam_axis);
+	init_camera(cam, &cam_axis, mlx);
 	return (0);
 }
 

@@ -36,6 +36,7 @@ SRC =	hook/hook_key.c\
 		shapes/collision.c\
 		shapes/there_is_collision.c\
 		shapes/normals.c\
+		shapes/texture.c\
 		scanning.c\
 		raytracing.c\
 		rotation.c\
