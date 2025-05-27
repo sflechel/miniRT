@@ -6,12 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 15:00:11 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/27 17:48:43 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
 #include "minirt.h"
+#include "shapes.h"
 
 t_color	background_color(t_ray ray)
 {
@@ -24,6 +25,29 @@ t_color	background_color(t_ray ray)
 	background = color_scaling(white, 1 - lerp);
 	background = color_sum(background, color_scaling(blue, lerp));
 	return (background);
+}
+
+t_vec3 get_light_ray_reflected(t_col col, t_ray light_ray)
+{
+	const t_vec3	reflect_proj = ortho_proj(light_ray.direction, col.normal);
+	const t_vec3	mult_by_2 = scalar_mult(reflect_proj, 2);
+	const t_vec3	reflected = vector_subtraction(mult_by_2, light_ray.direction);
+	
+	return (reflected);
+}
+
+t_color	calc_specular(t_col col, t_ray light_ray)
+{
+	
+	const t_vec3	reflected = get_light_ray_reflected(col, light_ray);
+	const float		specular_constant = 0.5;
+	float			angle;
+
+	angle = dot_product(reflected, col.normal);
+	angle *= angle;
+	angle *= angle;
+	angle *= angle;
+	return (color_scaling((t_color){{255, 255, 255, 0}}, angle * specular_constant));
 }
 
 t_color	shading(t_data *shapes, t_col col, t_light light)
@@ -43,7 +67,10 @@ t_color	shading(t_data *shapes, t_col col, t_light light)
 		if (intensity < 0)
 			pixel_color = (t_color){{0, 0, 0, 0}};
 		else
+		{
 			pixel_color = color_mult(col.color, color_scaling(light.color, intensity));
+			pixel_color = color_sum(pixel_color, calc_specular(col, light_ray));
+		}
 	}
 	return (pixel_color);
 }
@@ -51,12 +78,10 @@ t_color	shading(t_data *shapes, t_col col, t_light light)
 t_color	cast_ray(t_ray ray, t_data *lists)
 {
 	t_color	pixel_color;
-	float	col_ray;
 	t_col	col;
 	int		i;
 
-	col_ray = get_closest_collision(lists, ray, &col);
-	if (col_ray < 0)
+	if (get_closest_collision(lists, ray, &col) == -1)
 		return (background_color(ray));
 	pixel_color = (t_color){{0, 0, 0, 0}};
 	i = 0;
