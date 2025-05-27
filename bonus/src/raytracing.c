@@ -6,13 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 15:13:37 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/27 17:48:43 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
 #include "minirt.h"
-#include "libft.h"
 #include "shapes.h"
 
 t_color	background_color(t_ray ray)
@@ -37,14 +36,18 @@ t_vec3 get_light_ray_reflected(t_col col, t_ray light_ray)
 	return (reflected);
 }
 
-float	calc_specular(t_col col, t_ray light_ray, t_ray ray)
+t_color	calc_specular(t_col col, t_ray light_ray)
 {
 	
 	const t_vec3	reflected = get_light_ray_reflected(col, light_ray);
-	const float		specular_constant = 0.1;
-	const float		dot = dot_product(reflected, ray.direction);
-	
-	return (dot * dot * specular_constant);
+	const float		specular_constant = 0.5;
+	float			angle;
+
+	angle = dot_product(reflected, col.normal);
+	angle *= angle;
+	angle *= angle;
+	angle *= angle;
+	return (color_scaling((t_color){{255, 255, 255, 0}}, angle * specular_constant));
 }
 
 t_color	shading(t_data *shapes, t_col col, t_light light)
@@ -64,7 +67,10 @@ t_color	shading(t_data *shapes, t_col col, t_light light)
 		if (intensity < 0)
 			pixel_color = (t_color){{0, 0, 0, 0}};
 		else
+		{
 			pixel_color = color_mult(col.color, color_scaling(light.color, intensity));
+			pixel_color = color_sum(pixel_color, calc_specular(col, light_ray));
+		}
 	}
 	return (pixel_color);
 }
