@@ -6,79 +6,50 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/25 14:36:05 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/26 16:52:20 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
 #include "minirt.h"
+#include "shapes.h"
+
+int	min_and_greater_0(t_col *cols, int nb, t_col *closest)
+{
+	int		i;
+	float	dist;
+
+	i = 0;
+	dist = -1;
+	while (i < nb)
+	{
+		if ((dist > cols[i].pos && cols[i].pos > 0) || dist == -1)
+		{
+			dist = cols[i].pos;
+			*closest = cols[i];
+		}
+		i++;
+	}
+	if (dist == -1)
+		return (1);
+	return (0);
+}
 
 float	get_closest_collision(t_data *shapes, t_ray ray, t_col *col)
 {
-	t_col_info	current_closest;
-	t_col_info	closest_shape;
+	t_col	closest[5];
+	t_col	closest_shape;
 
-	current_closest = plane_get_closest_collision(shapes->planes, ray);
-	closest_shape = sphere_get_closest_collision(shapes->spheres, ray);
-	if (closest_shape.pos > 0 && closest_shape.pos < current_closest.pos)
-		current_closest = closest_shape;
-	closest_shape = cylinder_get_closest_collision(shapes->cylinders, ray);
-	if (closest_shape.pos > 0 && closest_shape.pos < current_closest.pos)
-		current_closest = closest_shape;
-	closest_shape = cap_up_get_closest_collision(shapes->cylinders, ray);
-	if (closest_shape.pos > 0 && closest_shape.pos < current_closest.pos)
-		current_closest = closest_shape;
-	closest_shape = cap_down_get_closest_collision(shapes->cylinders, ray);
-	if (closest_shape.pos > 0 && closest_shape.pos < current_closest.pos)
-		current_closest = closest_shape;
-	if (current_closest.pos < 0)
+	closest[0] = plane_get_closest_collision(shapes->planes, ray);
+	closest[1] = sphere_get_closest_collision(shapes->spheres, ray);
+	closest[2] = cylinder_get_closest_collision(shapes->cylinders, ray);
+	closest[3] = cap_up_get_closest_collision(shapes->cylinders, ray);
+	closest[4] = cap_down_get_closest_collision(shapes->cylinders, ray);
+	if (min_and_greater_0(closest, 5, &closest_shape) == 1)
 		return (-1);
+	*col = closest_shape;
 	col->pos_world = vector_sum(ray.origin,
-			scalar_mult(ray.direction, current_closest.pos));
-	get_normal(shapes, current_closest.type, current_closest.index, col);
-	return (current_closest.pos);
-}
-
-int	there_is_collision(t_data *shapes, t_ray ray)
-{
-	float	col;
-	int		i;
-
-	i = 0;
-	while (i < shapes->planes->nb_shapes)
-	{
-		col = plane_get_collision(&shapes->planes->array[i], ray);
-		if (col >= 0)
-			return (1);
-		i++;
-	}
-	while (i < shapes->spheres->nb_shapes)
-	{
-		col = sphere_get_collision(&shapes->spheres->array[i], ray);
-		if (col >= 0)
-			return (1);
-		i++;
-	}
-	while (i < shapes->cylinders->nb_shapes)
-	{
-		col = cylinder_get_collision(&shapes->cylinders->array[i], ray);
-		if (col >= 0)
-			return (1);
-		i++;
-	}
-	while (i < shapes->cylinders->nb_shapes)
-	{
-		col = cap_up_get_collision(&shapes->cylinders->array[i], ray);
-		if (col >= 0)
-			return (1);
-		i++;
-	}
-	while (i < shapes->cylinders->nb_shapes)
-	{
-		col = cap_down_get_collision(&shapes->cylinders->array[i], ray);
-		if (col >= 0)
-			return (1);
-		i++;
-	}
-	return (0);
+			scalar_mult(ray.direction, closest_shape.pos));
+	get_normal(shapes, closest_shape.type, closest_shape.index, col);
+	return (closest_shape.pos);
 }
