@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/26 16:52:20 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:58:09 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	min_and_greater_0(t_col *cols, int nb, t_col *closest)
 	return (0);
 }
 
-float	get_closest_collision(t_data *shapes, t_ray ray, t_col *col)
+int	get_closest_collision(t_data *shapes, t_ray ray, t_col *col)
 {
 	t_col	closest[5];
 	t_col	closest_shape;
@@ -51,5 +51,5 @@ float	get_closest_collision(t_data *shapes, t_ray ray, t_col *col)
 	col->pos_world = vector_sum(ray.origin,
 			scalar_mult(ray.direction, closest_shape.pos));
 	get_normal(shapes, closest_shape.type, closest_shape.index, col);
-	return (closest_shape.pos);
+	return (1);
 }
