@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/26 15:38:51 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:06:23 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,26 @@ static t_id	is_valid_id(char *line)
 int	verify_uniques(char **lines)
 {
 	int		i;
-	t_id	id;
-	char	acl[3];
+	char	id;
+	char	acl[2];
 
 	i = 0;
-	ft_memset(&acl, 0, sizeof(char) * 3);
+	ft_memset(&acl, 0, sizeof(char) * 2);
 	while (lines[i])
 	{
 		id = is_valid_id(lines[i]);
-		if (id == ID_AMBIENT || id == ID_CAMERA || id == ID_LIGHT)
+		if (id == ID_AMBIENT || id == ID_CAMERA)
 			acl[(int)id] += 1;
 		else if (id == ID_ERROR)
 			return (print_error_1(ERR_INVALID_ID));
 		i++;
 	}
-	if (acl[0] != 1 || acl[1] != 1 || acl[2] != 1)
+	if (acl[0] != 1 || acl[1] != 1)
 		return (print_error_1(ERR_INVALID_UNIQUES));
 	return (0);
 }
 
-int	count_shapes(char **lines, t_id id)
+int	count_objects(char **lines, t_id id)
 {
 	int	count;
 	int	i;
@@ -71,11 +71,12 @@ int	count_shapes(char **lines, t_id id)
 	return (count);
 }
 
-int	alloc_list_shapes(char **lines, t_data *list)
+int	alloc_lists(char **lines, t_data *list, t_light_list **lights)
 {
-	const int	nb_spheres = count_shapes(lines, ID_SPHERE);
-	const int	nb_cylinders = count_shapes(lines, ID_CYLINDER);
-	const int	nb_planes = count_shapes(lines, ID_PLANE);
+	const int	nb_spheres = count_objects(lines, ID_SPHERE);
+	const int	nb_cylinders = count_objects(lines, ID_CYLINDER);
+	const int	nb_planes = count_objects(lines, ID_PLANE);
+	const int	nb_lights = count_objects(lines, ID_LIGHT);
 
 	if (verify_uniques(lines) == 1)
 		return (1);
@@ -84,23 +85,25 @@ int	alloc_list_shapes(char **lines, t_data *list)
 	list->spheres = malloc(sizeof(t_sphere_list)
 			+ sizeof(t_sphere) * nb_spheres);
 	list->planes = malloc(sizeof(t_plane_list) + sizeof(t_plane) * nb_planes);
-	if (list->cylinders == 0 || list->spheres == 0 || list->planes == 0)
-		return (free_3_return_1(list->planes, list->spheres, list->cylinders));
+	*lights = malloc(sizeof(t_light_list) + sizeof(t_light) * nb_lights);
+	if (list->cylinders == 0 || list->spheres == 0 || list->planes == 0 || *lights == 0)
+		return (free_4_return_1(*lights, list->planes, list->spheres, list->cylinders));
 	list->cylinders->nb_shapes = 0;
 	list->spheres->nb_shapes = 0;
 	list->planes->nb_shapes = 0;
+	(*lights)->nb_lights = 0;
 	return (0);
 }
 
 int	fill_list_shapes(char **lines, t_data *list, t_camera *cam,
-		t_light *light)
+		t_light_list *lights)
 {
 	int	i;
 
 	i = 0;
 	while (lines[i])
 	{
-		if (parse_line(lines[i], list, cam, light) == 1)
+		if (parse_line(lines[i], list, cam, lights) == 1)
 			return (1);
 		i++;
 	}
@@ -108,7 +111,7 @@ int	fill_list_shapes(char **lines, t_data *list, t_camera *cam,
 }
 
 int	parsing(char *filename, t_data *list, t_camera *cam,
-		t_light *light)
+		t_light_list **lights)
 {
 	char	*file;
 	char	**lines;
@@ -120,10 +123,10 @@ int	parsing(char *filename, t_data *list, t_camera *cam,
 	free(file);
 	if (lines == 0)
 		return (1);
-	if (alloc_list_shapes(lines, list) == 1)
+	if (alloc_lists(lines, list, lights) == 1)
 		return (ft_free_split(lines), 1);
-	if (fill_list_shapes(lines, list, cam, light) == 1)
-		return (ft_free_split(lines), free(list->planes), free(list->spheres), free(list->cylinders), 1);
+	if (fill_list_shapes(lines, list, cam, *lights) == 1)
+		return (ft_free_split(lines), free(list->planes), free(list->spheres), free(list->cylinders), free(*lights), 1);
 	ft_free_split(lines);
 	return (0);
 }

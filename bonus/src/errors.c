@@ -6,12 +6,13 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:06:11 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/26 15:19:11 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/27 10:34:25 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minirt.h"
+#include <stdio.h>
 #include <unistd.h>
 
 int	print_error_1(t_error id)
@@ -20,7 +21,7 @@ int	print_error_1(t_error id)
 
 	ft_dprintf(e, "Error\n");
 	if (id == ERR_INVALID_UNIQUES)
-		ft_dprintf(e, "Invalid amount of uniques (cam, light, ambient)\n");
+		ft_dprintf(e, "Invalid amount of uniques (cam or ambient)\n");
 	else if (id == ERR_INVALID_ID)
 		ft_dprintf(e, "Invalid id\n");
 	else if (id == ERR_INIT_MLX)
@@ -43,5 +44,15 @@ void	*print_strerror_null(t_error id, char *str)
 		ft_dprintf(e, "%s must end in .rt\n", str);
 	else if (id == ERR_NO_OPEN)
 		ft_dprintf(e, "%s could not be opened\n", str);
+	return (0);
+}
+
+int	print_perror_1(t_error id, char *str)
+{
+	const int	e = STDERR_FILENO;
+
+	ft_dprintf(e, "Error\n");
+	if (id == ERR_OPEN_FAIL)
+		perror(str);
 	return (0);
 }

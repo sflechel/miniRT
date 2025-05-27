@@ -6,15 +6,14 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 11:59:16 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/27 12:04:17 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
 #include "minirt.h"
+#include "libft.h"
 #include "shapes.h"
-#include <stdio.h>
-#include <math.h>
 
 t_color	background_color(t_ray ray)
 {
@@ -34,13 +33,13 @@ t_vec3 get_light_ray_reflected(t_col col, t_ray light_ray)
 	const t_vec3	reflect_proj = ortho_proj(light_ray.direction, col.normal);
 	const t_vec3	mult_by_2 = scalar_mult(reflect_proj, 2);
 	const t_vec3	reflected = vector_subtraction(mult_by_2, light_ray.direction);
-
+	
 	return (reflected);
 }
 
 float	calc_specular(t_col col, t_ray light_ray, t_ray ray)
 {
-
+	
 	const t_vec3	reflected = get_light_ray_reflected(col, light_ray);
 	const float		specular_constant = 0.1;
 	const float		dot = dot_product(reflected, ray.direction);
@@ -48,43 +47,43 @@ float	calc_specular(t_col col, t_ray light_ray, t_ray ray)
 	return (dot * dot * specular_constant);
 }
 
-t_color	shading(t_data *shapes, t_col col, t_ray light_ray, t_light light, t_ray ray)
+t_color	shading(t_data *shapes, t_col col, t_light light)
 {
-	float			intensity;
-	t_color			ambient;
-	t_color			pixel_color;
+	float	intensity;
+	t_color	pixel_color;
+	t_ray	light_ray;
 
-	if (there_is_collision(shapes, light_ray, col))
+	light_ray.origin = col.pos_world;
+	light_ray.direction = vector_subtraction(light.pos, light_ray.origin);
+	if (there_is_collision(shapes, light_ray))
 		pixel_color = (t_color){{0, 0, 0, 0}};
 	else
 	{
 		light_ray.direction = vector_normalization(light_ray.direction);
-		intensity = light.brightness * dot_product(light_ray.direction, col.normal);
+		intensity = dot_product(light_ray.direction, col.normal);
 		if (intensity < 0)
 			pixel_color = (t_color){{0, 0, 0, 0}};
 		else
-		{
-			pixel_color = color_scaling(col.color, intensity);
-
-
-		}
+			pixel_color = color_mult(col.color, color_scaling(light.color, intensity));
 	}
-	ambient = color_mult(col.color, light.ambient);
-	pixel_color = color_sum(pixel_color, ambient);
-	(void)ray;
 	return (pixel_color);
 }
 
-t_color	cast_ray(t_ray ray, t_data *shapes, t_light light)
+t_color	cast_ray(t_ray ray, t_data *shapes, t_light_list *lights)
 {
 	t_color	pixel_color;
 	t_col	col;
-	t_ray	light_ray;
+	int		i;
 
 	if (get_closest_collision(shapes, ray, &col) == -1)
 		return (background_color(ray));
-	light_ray.origin = col.pos_world;
-	light_ray.direction = vector_subtraction(light.pos, light_ray.origin);
-	pixel_color = shading(shapes, col, light_ray, light, ray);
+	ft_memset(&pixel_color, 0, sizeof(t_color));
+	i = 0;
+	while (i < lights->nb_lights)
+	{
+		pixel_color = color_sum(pixel_color, shading(shapes, col, lights->lights[i]));
+		i++;
+	}
+	pixel_color = color_sum(pixel_color, color_mult(col.color, lights->ambient));
 	return (pixel_color);
 }

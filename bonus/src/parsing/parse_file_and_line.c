@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:32:09 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/26 14:46:38 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:59:59 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*open_and_read_file(char *filename)
 	return (file);
 }
 
-int	parse_line(char *line, t_data *list, t_camera *cam, t_light *light)
+int	parse_line(char *line, t_data *list, t_camera *cam, t_light_list *lights)
 {
 	char		**params;
 	char		id;
@@ -68,9 +68,9 @@ int	parse_line(char *line, t_data *list, t_camera *cam, t_light *light)
 	if (params == 0)
 		return (1);
 	id = params[0][0];
-	if ((id == 'A' && handle_ambient(params, light) == 1)
+	if ((id == 'A' && handle_ambient(params, lights) == 1)
 		|| (id == 'C' && handle_camera(params, cam) == 1)
-		|| (id == 'L' && handle_light(params, light) == 1)
+		|| (id == 'L' && handle_light(params, lights) == 1)
 		|| (id == 'c' && handle_cylinder(params, list->cylinders) == 1)
 		|| (id == 'p' && handle_plane(params, list->planes) == 1)
 		|| (id == 's' && handle_sphere(params, list->spheres) == 1))

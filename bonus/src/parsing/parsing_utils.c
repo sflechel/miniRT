@@ -6,12 +6,14 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/23 19:05:46 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/27 10:35:20 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "math_utils.h"
+#include "minirt.h"
+#include <fcntl.h>
 
 int	parse_rgba(char *str, t_color *color)
 {
@@ -60,11 +62,24 @@ int	parse_float(char *str, float *f)
 	return (0);
 }
 
+int	parse_file(char *str, int *fd)
+{
+	if (ft_strcmp(str, "0") == 0)
+	{
+		*fd = -1;
+		return (0);
+	}
+	*fd = open(str, O_RDONLY);
+	if (*fd == -1)
+		return (print_perror_1(ERR_NO_OPEN, str));
+	return (0);
+}
+
 int	verif_len(int len, int target)
 {
 	if (len != target)
 	{
-		ft_dprintf(STDERR_FILENO, 
+		ft_dprintf(STDERR_FILENO,
 			"Error\n%d params needed but you have %d", target, len);
 		return (1);
 	}
