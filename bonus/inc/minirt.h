@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/26 15:13:46 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:25:47 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,16 @@
 
 typedef struct s_light
 {
-	t_color	ambient;
 	t_vec3	pos;
-	float	brightness;
+	t_color	color;
 }	t_light;
+
+typedef struct s_light_list
+{
+	t_color	ambient;
+	int		nb_lights;
+	t_light	lights[];
+}	t_light_list;
 
 struct s_ray
 {
@@ -84,10 +90,10 @@ void	update_camera(t_camera *cam);
 
 //scanning.h
 void	scan_viewport(t_camera *camera, t_data *shapes,
-			t_light light, t_mlx *mlx);
+			t_light_list *lights, t_mlx *mlx);
 
 //raytracing.h
-t_color	cast_ray(t_ray ray, t_data *shapes, t_light light);
+t_color	cast_ray(t_ray ray, t_data *shapes, t_light_list *lights);
 
 //rotation.c
 void	rotation(t_vec3 *vec, t_vec3 rot);

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/26 15:14:33 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:51:07 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ int	main(int ac, char **av)
 	t_camera		camera;
 	t_mlx			mlx;
 	t_data			shapes;
-	t_light			light;
+	t_light_list	*lights;
 	t_hook_data		data;
 
 	if (ac != 2)
 		return (print_error_1(ERR_INVALID_NB_FILES));
-	if (parsing(av[1], &shapes, &camera, &light) == 1
+	if (parsing(av[1], &shapes, &camera, &lights) == 1
 		|| init_mlx(&mlx, &camera) == 1)
 		return (EXIT_FAILURE);
 	data = (t_hook_data){&mlx, &camera};
@@ -70,7 +70,7 @@ int	main(int ac, char **av)
 	while (mlx.end == DONT_END)
 	{
 		((t_xvar *)(mlx.mlx))->end_loop = 0;
-		scan_viewport(&camera, &shapes, light, &mlx);
+		scan_viewport(&camera, &shapes, lights, &mlx);
 		mlx_put_image_to_window(mlx.mlx, mlx.window, mlx.img.img, 0, 0);
 		mlx_loop(mlx.mlx);
 	}

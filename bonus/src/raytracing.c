@@ -6,11 +6,14 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/25 12:40:03 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/27 09:29:19 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+#include "math_utils.h"
 #include "minirt.h"
+#include <stdio.h>
 
 t_color	background_color(t_ray ray)
 {
@@ -25,40 +28,45 @@ t_color	background_color(t_ray ray)
 	return (background);
 }
 
-t_color	shading(t_data *shapes, t_col col, t_ray light_ray, t_light light)
+t_color	shading(t_data *shapes, t_col col, t_light light)
 {
-	float			intensity;
-	t_color			ambient;
-	t_color			pixel_color;
+	float	intensity;
+	t_color	pixel_color;
+	t_ray	light_ray;
 
+	light_ray.origin = col.pos_world;
+	light_ray.direction = vector_subtraction(light.pos, light_ray.origin);
 	if (there_is_collision(shapes, light_ray))
 		pixel_color = (t_color){{0, 0, 0, 0}};
 	else
 	{
 		light_ray.direction = vector_normalization(light_ray.direction);
-		intensity = light.brightness * dot_product(light_ray.direction, col.normal);
+		intensity = dot_product(light_ray.direction, col.normal);
 		if (intensity < 0)
 			pixel_color = (t_color){{0, 0, 0, 0}};
 		else
-			pixel_color = color_scaling(col.color, intensity);
+			pixel_color = color_mult(col.color, color_scaling(light.color, intensity));
 	}
-	ambient = color_mult(col.color, light.ambient);
-	pixel_color = color_sum(pixel_color, ambient);
 	return (pixel_color);
 }
 
-t_color	cast_ray(t_ray ray, t_data *shapes, t_light light)
+t_color	cast_ray(t_ray ray, t_data *shapes, t_light_list *lights)
 {
 	t_color	pixel_color;
 	float	col_ray;
 	t_col	col;
-	t_ray	light_ray;
+	int		i;
 
 	col_ray = get_closest_collision(shapes, ray, &col);
 	if (col_ray < 0)
 		return (background_color(ray));
-	light_ray.origin = col.pos_world;
-	light_ray.direction = vector_subtraction(light.pos, light_ray.origin);
-	pixel_color = shading(shapes, col, light_ray, light);
+	ft_memset(&pixel_color, 0, sizeof(t_color));
+	i = 0;
+	while (i < lights->nb_lights)
+	{
+		pixel_color = color_sum(pixel_color, shading(shapes, col, lights->lights[i]));
+		i++;
+	}
+	pixel_color = color_sum(pixel_color, color_mult(col.color, lights->ambient));
 	return (pixel_color);
 }

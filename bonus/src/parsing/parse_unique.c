@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:18:16 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/23 19:11:40 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/27 09:28:52 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "libft.h"
 #include <stdio.h>
 
-int	handle_ambient(char **line, t_light *light)
+int	handle_ambient(char **line, t_light_list *lights)
 {
 	const int	len = ptr_array_len(line);
 	float		ambient_intensity;
@@ -23,12 +23,12 @@ int	handle_ambient(char **line, t_light *light)
 	printf("parse the ambient\n");
 	if ((verif_len(len, 3) == 1)
 		|| parse_form_range(line[1], &ambient_intensity, 0, 1) == 1
-		|| parse_rgba(line[2], &light->ambient) == 1)
+		|| parse_rgba(line[2], &lights->ambient) == 1)
 	{
 		ft_dprintf(STDERR_FILENO, " in the ambient\n");
 		return (1);
 	}
-	light->ambient = color_scaling(light->ambient, ambient_intensity);
+	lights->ambient = color_scaling(lights->ambient, ambient_intensity);
 	return (0);
 }
 
@@ -50,18 +50,24 @@ int	handle_camera(char **line, t_camera *cam)
 	return (0);
 }
 
-int	handle_light(char **line, t_light *light)
+int	handle_light(char **line, t_light_list *lights)
 {
 	const int	len = ptr_array_len(line);
+	float		light_intensity;
+	t_light		*light;
 
+	light = &lights->lights[lights->nb_lights];
 	printf("parse the light\n");
-	if (verif_len(len, 3) == 1)
+	if (verif_len(len, 4) == 1)
 		return (1);
 	if (parse_vector3(line[1], &light->pos) == 1
-		|| parse_form_range(line[2], &light->brightness, 0, 1) == 1)
+		|| parse_form_range(line[2], &light_intensity, 0, 1) == 1
+		|| parse_rgba(line[3], &light->color) == 1)
 	{
 		ft_dprintf(STDERR_FILENO, " in the light\n");
 		return (1);
 	}
+	light->color = color_scaling(light->color, light_intensity);
+	lights->nb_lights++;
 	return (0);
 }

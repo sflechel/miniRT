@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:06:11 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/26 15:19:11 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:52:35 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	print_error_1(t_error id)
 
 	ft_dprintf(e, "Error\n");
 	if (id == ERR_INVALID_UNIQUES)
-		ft_dprintf(e, "Invalid amount of uniques (cam, light, ambient)\n");
+		ft_dprintf(e, "Invalid amount of uniques (cam or ambient)\n");
 	else if (id == ERR_INVALID_ID)
 		ft_dprintf(e, "Invalid id\n");
 	else if (id == ERR_INIT_MLX)

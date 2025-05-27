@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:02:03 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/26 15:01:42 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:01:58 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ typedef enum e_id
 
 //parsing.c
 int		parsing(char *filename, t_data *list, t_camera *cam,
-			t_light *light);
+			t_light_list **lights);
 
 //parse_file_and_line
 char	*open_and_read_file(char *filename);
-int		parse_line(char *line, t_data *list, t_camera *cam, t_light *light);
+int		parse_line(char *line, t_data *list, t_camera *cam, t_light_list *lights);
 
 //parse_shape
 int		handle_cylinder(char **line, t_cylinder_list *list);
@@ -42,9 +42,9 @@ int		handle_plane(char **line, t_plane_list *list);
 int		handle_sphere(char **line, t_sphere_list *list);
 
 //parse_unique
-int		handle_ambient(char **line, t_light *light);
+int		handle_ambient(char **line, t_light_list *lights);
 int		handle_camera(char **line, t_camera *cam);
-int		handle_light(char **line, t_light *light);
+int		handle_light(char **line, t_light_list *lights);
 
 //parsing_utils
 int		parse_rgba(char *str, t_color *color);
