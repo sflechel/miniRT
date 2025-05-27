@@ -6,10 +6,11 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/26 15:11:46 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:04:49 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minirt.h"
 #include "math_utils.h"
 #include "shapes.h"
 
@@ -33,31 +34,34 @@ t_vec3	sphere_get_normal(t_sphere *sphere, t_vec3 col)
 	return (normal);
 }
 
-void	get_normal(t_data *shapes, t_type type, int i, t_col *col)
+void	get_normal(t_data *shapes, t_col *col, t_ray ray)
 {
-	if (type == TYPE_PLANE)
+	if (col->type == TYPE_PLANE)
 	{
 		col->normal = shapes->planes->array[i].normal;
-		col->color = shapes->planes->array[i].color;
+		if (shapes->planes->array[i].fd_cmap != -1)
+			col->color = plane_get_texture(col, shapes->planes->array[i].fd_cmap);
+		else
+			col->color = shapes->planes->array[i].color;
 	}
-	else if (type == TYPE_SPHERE)
+	else if (col->type == TYPE_SPHERE)
 	{
 		col->normal = sphere_get_normal(&shapes->spheres->array[i],
 				col->pos_world);
 		col->color = shapes->spheres->array[i].color;
 	}
-	else if (type == TYPE_CYLINDER)
+	else if (col->type == TYPE_CYLINDER)
 	{
 		col->normal = cylinder_get_normal(
 				&shapes->cylinders->array[i], col->pos_world);
 		col->color = shapes->cylinders->array[i].color;
 	}
-	else if (type == TYPE_CAP_UP)
+	else if (col->type == TYPE_CAP_UP)
 	{
 		col->normal = shapes->cylinders->array[i].axis;
 		col->color = shapes->cylinders->array[i].color;
 	}
-	else if (type == TYPE_CAP_DOWN)
+	else if (col->type == TYPE_CAP_DOWN)
 	{
 		col->normal = scalar_mult(shapes->cylinders->array[i].axis, -1);
 		col->color = shapes->cylinders->array[i].color;

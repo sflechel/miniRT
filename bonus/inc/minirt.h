@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/26 18:25:47 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/27 10:34:46 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ typedef enum e_error
 	ERR_INIT_MLX,
 	ERR_INIT_WINDOW,
 	ERR_INIT_IMG,
-	ERR_INVALID_NB_FILES
+	ERR_INVALID_NB_FILES,
+	ERR_OPEN_FAIL
 }	t_error;
 
 //camera.c
@@ -108,5 +109,6 @@ void	init_camera(t_camera *cam, t_vec3 *cam_axis);
 //errors.c
 int		print_error_1(t_error id);
 void	*print_strerror_null(t_error id, char *str);
+int		print_perror_1(t_error id, char *str);
 
 #endif //MINIRT_H

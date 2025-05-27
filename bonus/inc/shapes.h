@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/26 15:12:09 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/27 10:01:54 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef enum e_type
 
 typedef struct s_sphere
 {
+	int		fd_cmap;
 	float	radius;
 	t_vec3	pos;
 	t_color	color;
@@ -37,6 +38,7 @@ typedef struct s_sphere
 
 typedef struct s_plane
 {
+	int		fd_cmap;
 	t_vec3	pos;
 	t_vec3	normal;
 	t_color	color;
@@ -44,6 +46,7 @@ typedef struct s_plane
 
 typedef struct s_cylinder
 {
+	int		fd_cmap;
 	float	radius;
 	float	height;
 	t_vec3	pos;

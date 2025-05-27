@@ -6,14 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 09:29:19 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/27 09:40:19 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "math_utils.h"
 #include "minirt.h"
-#include <stdio.h>
 
 t_color	background_color(t_ray ray)
 {
