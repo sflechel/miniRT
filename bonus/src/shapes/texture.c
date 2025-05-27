@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 10:58:39 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 17:48:14 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/27 17:56:10 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_color	plane_get_texture(const t_col *col, const t_plane *plane)
 	if (vector_equal(u, (t_vec3){0, 0, 0}) == 1)
 		u = cross_product(plane->normal, (t_vec3){1, 0, 0});
 	v = cross_product(plane->normal, u);
+	u = scalar_mult(u,  32);
+	v = scalar_mult(v,  32);
 	u_coord = (int)dot_product(col->pos_world, u) % plane->txtr->width / 4;
 	v_coord = (int)dot_product(col->pos_world, v) % plane->txtr->height / 4;
 	if (u_coord < 0)
