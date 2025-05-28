@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:34:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 11:40:12 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/28 16:06:39 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,16 @@ t_vec3	vector_mult(t_vec3 term1, t_vec3 term2)
 	output.x = term1.x * term2.x;
 	output.y = term1.y * term2.y;
 	output.z = term1.z * term2.z;
+	return (output);
+}
+
+t_vec3	vector_division(t_vec3 term1, t_vec3 term2)
+{
+	t_vec3	output;
+
+	output.x = term1.x / term2.x;
+	output.y = term1.y / term2.y;
+	output.z = term1.z / term2.z;
 	return (output);
 }
 

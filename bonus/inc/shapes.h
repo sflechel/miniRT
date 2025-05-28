@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/28 13:50:44 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/28 16:01:55 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ typedef struct s_cylinder_col
 }	t_cylinder_col;
 
 //collision.c
-int	get_closest_collision(t_data *shapes, t_ray ray, t_col *col);
+int		get_closest_collision(t_data *shapes, t_ray ray, t_col *col);
 
 //there_is_collision
 int		there_is_collision(t_data *shapes, t_ray ray, t_col cam_col);
@@ -121,6 +121,7 @@ float	sphere_get_collision(t_sphere *sphere, t_ray ray);
 float	plane_get_collision(t_plane *plane, t_ray ray);
 float	cap_up_get_collision(t_cylinder *cylinder, t_ray ray);
 float	cap_down_get_collision(t_cylinder *cylinder, t_ray ray);
+float	hyper_get_collision(t_hyper *hyper, t_ray ray);
 
 //collision_shapes_closest.c
 t_col	plane_get_closest_collision(t_plane_list *planes, t_ray ray);
@@ -128,12 +129,13 @@ t_col	sphere_get_closest_collision(t_sphere_list *spheres, t_ray ray);
 t_col	cylinder_get_closest_collision(t_cylinder_list *cylinders, t_ray ray);
 t_col	cap_up_get_closest_collision(t_cylinder_list *cylinders, t_ray ray);
 t_col	cap_down_get_closest_collision(t_cylinder_list *cylinders, t_ray ray);
+t_col	hyper_get_closest_collision(t_hyper_list *hyper, t_ray ray);
 
 //normals.c
 void	get_normal(t_data *shapes, t_col *col);
 t_vec3	cylinder_get_normal(t_cylinder *shape, t_vec3 col);
 t_vec3	sphere_get_normal(t_sphere *shape, t_vec3 col);
-t_vec3	plane_get_normal(t_plane *shape, t_vec3 col);
+t_vec3	hyper_get_normal(t_hyper *shape, t_vec3 col);
 
 //texture.c
 t_color	plane_get_texture(const t_col *col, const t_plane *plane);

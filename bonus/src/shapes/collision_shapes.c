@@ -6,12 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:39:23 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/25 14:09:00 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/28 17:00:22 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
 #include "minirt.h"
+#include "shapes.h"
 #include <math.h>
 
 float	sphere_get_collision(t_sphere *sphere, t_ray ray)
@@ -111,4 +112,72 @@ float	cap_down_get_collision(t_cylinder *cylinder, t_ray ray)
 	if (dot_product(col, col) < cylinder->radius * cylinder->radius)
 		return (intersection);
 	return (-1);
+}
+
+//float hyper_get_collision(t_hyper *hyper, t_ray ray)
+//{
+//	float a = 2.0f;
+//	float b = 3.0f;
+//	float c = 1.5f;
+
+//	hyper->param.x = 1.0f / (a * a);
+//	hyper->param.y = 1.0f / (b * b);
+//	hyper->param.z = -1.0f / (c * c);
+
+//    const float A = ray.direction.x * ray.direction.x * hyper->param.x
+//                  + ray.direction.y * ray.direction.y * hyper->param.y
+//                  + ray.direction.z * ray.direction.z * hyper->param.z;
+
+//    const float B = 2.0f * (
+//        ray.origin.x * ray.direction.x * hyper->param.x
+//      + ray.origin.y * ray.direction.y * hyper->param.y
+//      + ray.origin.z * ray.direction.z * hyper->param.z
+//    );
+
+//    const float C = ray.origin.x * ray.origin.x * hyper->param.x
+//                  + ray.origin.y * ray.origin.y * hyper->param.y
+//                  + ray.origin.z * ray.origin.z * hyper->param.z
+//                  - 1.0f;
+
+//    const float delta = B * B - 4.0f * A * C;
+
+//    if (delta < 0)
+//        return -1;
+
+//    const float sqrt_delta = sqrtf(delta);
+
+//    float t1 = (-B - sqrt_delta) / (2.0f * A);
+//    float t2 = (-B + sqrt_delta) / (2.0f * A);
+
+//    // Return smallest positive t
+//    if (t1 > 0 && t2 > 0)
+//        return fminf(t1, t2);
+//    else if (t1 > 0)
+//        return t1;
+//    else if (t2 > 0)
+//        return t2;
+
+//    return -1;
+//}
+
+
+float	hyper_get_collision(t_hyper *hyper, t_ray ray)
+{
+	float A = 2.0f;
+	float B = 3.0f;
+	float C = 1.5f;
+
+	hyper->param.x = 1.0f / (A * A);
+	hyper->param.y = 1.0f / (B * B);
+	hyper->param.z = -1.0f / (C * C);
+
+	const float	a = dot_product(vector_mult(ray.direction, ray.direction), hyper->param);
+	const float	c = dot_product(vector_mult(ray.origin, ray.origin), hyper->param) - 1;
+	const float	h = dot_product(vector_mult(ray.origin, ray.direction), hyper->param);
+	const float	delta = h * h - a * c;
+	const float	t = (-h - sqrtf(delta)) / a;
+
+	if (t < 0)
+		return (-1);
+	return (t);
 }

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 15:13:23 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/28 16:31:00 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	min_and_greater_0(t_col *cols, int nb, t_col *closest)
 
 int	get_closest_collision(t_data *shapes, t_ray ray, t_col *col)
 {
-	t_col	closest[5];
+	t_col	closest[6];
 	t_col	closest_shape;
 
 	closest[0] = plane_get_closest_collision(shapes->planes, ray);
@@ -45,7 +45,8 @@ int	get_closest_collision(t_data *shapes, t_ray ray, t_col *col)
 	closest[2] = cylinder_get_closest_collision(shapes->cylinders, ray);
 	closest[3] = cap_up_get_closest_collision(shapes->cylinders, ray);
 	closest[4] = cap_down_get_closest_collision(shapes->cylinders, ray);
-	if (min_and_greater_0(closest, 5, &closest_shape) == 1)
+	closest[5] = hyper_get_closest_collision(shapes->hypers, ray);
+	if (min_and_greater_0(closest, 6, &closest_shape) == 1)
 		return (-1);
 	*col = closest_shape;
 	col->pos_world = vector_sum(ray.origin,
