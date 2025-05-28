@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 14:13:07 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/28 16:19:20 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/28 17:19:38 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,21 +152,21 @@ t_col	cap_down_get_closest_collision(t_cylinder_list *cylinders, t_ray ray)
 	col.type = TYPE_CAP_DOWN;
 	return (col);
 }
-#include "stdio.h"
-t_col	hyper_get_closest_collision(t_hyper_list *hyper, t_ray ray)
+
+t_col	hyper_get_closest_collision(t_hyper_list *hypers, t_ray ray)
 {
 	t_col	col;
 	float	closest_col;
 	float	curr_col;
 	int		i;
 
-	closest_col = hyper_get_collision(&hyper->array[0], ray);
+	closest_col = hyper_get_collision(&hypers->array[0], ray);
 	col.index = 0;
 	col.pos = -1;
 	i = 1;
-	while (i < hyper->nb_shapes)
+	while (i < hypers->nb_shapes)
 	{
-		curr_col = hyper_get_collision(&hyper->array[i], ray);
+		curr_col = hyper_get_collision(&hypers->array[i], ray);
 		if (curr_col > 0 && (curr_col < closest_col || closest_col <= 0))
 		{
 			col.index = i;

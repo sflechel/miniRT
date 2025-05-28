@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 15:05:44 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/28 17:14:31 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ int	main(int ac, char **av)
 		mlx_loop(mlx.mlx);
 	}
 	free_mlx(&mlx);
-	return (free_3_return_0(data.planes, data.spheres, data.cylinders));
+	free(data.hypers);
+	return (free_4_return_0(data.planes, data.spheres, data.cylinders, data.lights));
 }

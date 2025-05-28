@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/28 13:38:45 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/28 17:13:11 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,11 @@ int	alloc_lists(char **lines, t_data *list, t_light_list **lights)
 	list->planes = malloc(sizeof(t_plane_list) + sizeof(t_plane) * nb_planes);
 	list->hypers = malloc(sizeof(t_hyper_list) + sizeof(t_hyper) * nb_hypers);
 	*lights = malloc(sizeof(t_light_list) + sizeof(t_light) * nb_lights);
-	if (list->cylinders == 0 || list->spheres == 0 || list->planes == 0 || *lights == 0)
+	if (list->cylinders == 0 || list->spheres == 0 || list->planes == 0 || *lights == 0 || list->hypers == 0)
+	{
+		free(list->hypers);
 		return (free_4_return_1(*lights, list->planes, list->spheres, list->cylinders));
+	}	
 	list->cylinders->nb_shapes = 0;
 	list->spheres->nb_shapes = 0;
 	list->planes->nb_shapes = 0;
