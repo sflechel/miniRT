@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/27 17:24:16 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/28 10:54:51 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	parse_file(char *str, t_image **img, t_mlx *mlx)
 	*img = ft_calloc(1, sizeof(t_image));
 	if (*img == 0)
 		return (1);
-	(*img)->img = mlx_xpm_file_to_image(mlx->mlx, str, &(*img)->height, &(*img)->width);
+	(*img)->img = mlx_xpm_file_to_image(mlx->mlx, str, &(*img)->width, &(*img)->height);
 	if ((*img)->img == 0)
 	{
 		print_perror_1(ERR_NO_OPEN, str);

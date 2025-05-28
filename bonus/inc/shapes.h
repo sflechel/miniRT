@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 15:09:03 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/28 16:38:06 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_cylinder
 	float	height;
 	t_vec3	pos;
 	t_vec3	axis;
+	t_vec3	txtr_origin;
 	t_color	color;
 }	t_cylinder;
 
@@ -94,7 +95,7 @@ typedef struct s_cylinder_col
 }	t_cylinder_col;
 
 //collision.c
-int	get_closest_collision(t_data *shapes, t_ray ray, t_col *col);
+int		get_closest_collision(t_data *shapes, t_ray ray, t_col *col);
 
 //there_is_collision
 int		there_is_collision(t_data *shapes, t_ray ray, t_col cam_col);
@@ -121,5 +122,7 @@ t_vec3	plane_get_normal(t_plane *shape, t_vec3 col);
 
 //texture.c
 t_color	plane_get_texture(const t_col *col, const t_plane *plane);
+t_color	sphere_get_texture(const t_col *col, const t_sphere *sphere);
+t_color	cylinder_get_texture(const t_col *col, const t_cylinder *cylinder);
 
 #endif
