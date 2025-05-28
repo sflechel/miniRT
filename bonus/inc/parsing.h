@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:02:03 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/27 14:41:29 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/28 13:13:08 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef enum e_id
 	ID_CYLINDER,
 	ID_SPHERE,
 	ID_PLANE,
+	ID_HYPERBOLOIDE,
 	ID_ERROR
 }	t_id;
 

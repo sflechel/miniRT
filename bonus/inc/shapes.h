@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 15:09:03 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/28 13:14:53 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef enum e_type
 	TYPE_CYLINDER,
 	TYPE_CAP_UP,
 	TYPE_CAP_DOWN,
+	TYPE_HYPERBOLOIDE,
 }	t_type;
 
 typedef struct s_sphere
@@ -55,6 +56,14 @@ typedef struct s_cylinder
 	t_color	color;
 }	t_cylinder;
 
+typedef struct s_hyperboloide
+{
+	t_image	*txtr;
+	t_vec3	pos;
+	t_color	color;
+}	t_hyperboloide;
+
+
 typedef struct s_plane_list
 {
 	int		nb_shapes;
@@ -72,6 +81,12 @@ typedef struct s_sphere_list
 	int			nb_shapes;
 	t_sphere	array[];
 }	t_sphere_list;
+
+typedef struct s_hyperboloide_list
+{
+	int				nb_shapes;
+	t_hyperboloide	array[];
+}	t_hyperboloide_list;
 
 typedef struct s_col
 {

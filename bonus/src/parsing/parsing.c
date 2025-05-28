@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 13:51:42 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/28 13:24:05 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static t_id	is_valid_id(char *line)
 		return (ID_CYLINDER);
 	if (ft_strncmp(line, "pl ", 3) == 0)
 		return (ID_PLANE);
+	if (ft_strncmp(line, "hy ", 3) == 0)
+		return (ID_HYPERBOLOIDE);
 	return (ID_ERROR);
 }
 
@@ -37,20 +39,20 @@ int	verify_uniques(char **lines)
 {
 	int		i;
 	char	id;
-	char	acl[2];
+	char	acl[3];
 
 	i = 0;
-	ft_memset(&acl, 0, sizeof(char) * 2);
+	ft_memset(&acl, 0, sizeof(char) * 3);
 	while (lines[i])
 	{
 		id = is_valid_id(lines[i]);
-		if (id == ID_AMBIENT || id == ID_CAMERA)
+		if (id == ID_AMBIENT || id == ID_CAMERA || id == ID_LIGHT)
 			acl[(int)id] += 1;
 		else if (id == ID_ERROR)
 			return (print_error_1(ERR_INVALID_ID));
 		i++;
 	}
-	if (acl[0] != 1 || acl[1] != 1)
+	if (acl[0] != 1 || acl[1] != 1 || acl[2] < 1)
 		return (print_error_1(ERR_INVALID_UNIQUES));
 	return (0);
 }
