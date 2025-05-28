@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 10:58:39 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/28 16:39:08 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/28 18:55:00 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ t_color	sphere_get_texture(const t_col *col, const t_sphere *sphere)
 	txtr_color.rgba = *(int *)(sphere->txtr->addr + (v_coord * sphere->txtr->len_line + u_coord * sphere->txtr->bpp / 8));
 	return (txtr_color);
 }
-
+#include <stdio.h>
 t_color	cylinder_get_texture(const t_col *col, const t_cylinder *cylinder)
 {
-	const t_vec3	p = vector_subtraction(col->pos_world, cylinder->pos);
+	const t_vec3	p = vector_subtraction(cylinder->pos, col->pos_world);
 	const t_vec3	p_proj = ortho_proj(p, cylinder->axis);
-	const float		height = 0.5 + (0.5 * get_norm(p_proj) / cylinder->height);
+	const float		height = dot_product(p, cylinder->axis) / cylinder->height + 0.5;
 	const t_vec3	p_perp = vector_subtraction(p_proj, p);
 	float			azimut;
 	int				u_coord;
@@ -63,7 +63,8 @@ t_color	cylinder_get_texture(const t_col *col, const t_cylinder *cylinder)
 	t_color			txtr_color;
 
 	azimut = get_norm(vector_subtraction(cylinder->txtr_origin, p_perp));
-	azimut = 0.5 - (2 * atan2f(azimut, 2 * cylinder->radius) / M_PI);
+	azimut = (2 * asinf(azimut / (2 * cylinder->radius))) / M_PI;
+	printf("%f\n", azimut);
 	u_coord = azimut * cylinder->txtr->width;
 	v_coord = height * cylinder->txtr->height;
 	txtr_color.rgba = *(int *)(cylinder->txtr->addr + (v_coord * cylinder->txtr->len_line + u_coord * cylinder->txtr->bpp / 8));
