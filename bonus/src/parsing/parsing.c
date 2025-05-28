@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/28 13:24:05 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/28 13:38:45 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_id	is_valid_id(char *line)
 	if (ft_strncmp(line, "pl ", 3) == 0)
 		return (ID_PLANE);
 	if (ft_strncmp(line, "hy ", 3) == 0)
-		return (ID_HYPERBOLOIDE);
+		return (ID_HYPER);
 	return (ID_ERROR);
 }
 
@@ -79,6 +79,7 @@ int	alloc_lists(char **lines, t_data *list, t_light_list **lights)
 	const int	nb_cylinders = count_objects(lines, ID_CYLINDER);
 	const int	nb_planes = count_objects(lines, ID_PLANE);
 	const int	nb_lights = count_objects(lines, ID_LIGHT);
+	const int	nb_hypers = count_objects(lines, ID_HYPER);
 
 	if (verify_uniques(lines) == 1)
 		return (1);
@@ -87,12 +88,14 @@ int	alloc_lists(char **lines, t_data *list, t_light_list **lights)
 	list->spheres = malloc(sizeof(t_sphere_list)
 			+ sizeof(t_sphere) * nb_spheres);
 	list->planes = malloc(sizeof(t_plane_list) + sizeof(t_plane) * nb_planes);
+	list->hypers = malloc(sizeof(t_hyper_list) + sizeof(t_hyper) * nb_hypers);
 	*lights = malloc(sizeof(t_light_list) + sizeof(t_light) * nb_lights);
 	if (list->cylinders == 0 || list->spheres == 0 || list->planes == 0 || *lights == 0)
 		return (free_4_return_1(*lights, list->planes, list->spheres, list->cylinders));
 	list->cylinders->nb_shapes = 0;
 	list->spheres->nb_shapes = 0;
 	list->planes->nb_shapes = 0;
+	list->hypers->nb_shapes = 0;
 	(*lights)->nb_lights = 0;
 	return (0);
 }
@@ -126,7 +129,7 @@ int	parsing(char *filename, t_data *list, t_camera *cam, t_mlx *mlx)
 	if (alloc_lists(lines, list, &list->lights) == 1)
 		return (ft_free_split(lines), 1);
 	if (fill_list_shapes(lines, list, cam, mlx) == 1)
-		return (ft_free_split(lines), free(list->planes), free(list->spheres), free(list->cylinders), free(list->lights), 1);
+		return (ft_free_split(lines), free(list->planes), free(list->spheres), free(list->cylinders), free(list->lights), free(list->hypers), 1);
 	ft_free_split(lines);
 	return (0);
 }

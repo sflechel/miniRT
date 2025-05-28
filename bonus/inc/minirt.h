@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 15:04:00 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/28 13:35:52 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_data
 	t_plane_list	*planes;
 	t_sphere_list	*spheres;
 	t_cylinder_list	*cylinders;
+	t_hyper_list	*hypers;
 }	t_data;
 
 struct s_ray
