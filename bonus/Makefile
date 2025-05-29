@@ -25,6 +25,8 @@ SRC =	hook/hook_key.c\
 		math_utils/vec3_scalar_ops.c\
 		math_utils/vec3_to_float_ops.c\
 		math_utils/vec3_vector_ops.c\
+		math_utils/matrix.c\
+		math_utils/rotation.c\
 		math_utils/gradient.c\
 		parsing/parse_file_and_line.c\
 		parsing/parse_shape.c\
@@ -40,7 +42,6 @@ SRC =	hook/hook_key.c\
 		shapes/texture.c\
 		scanning.c\
 		raytracing.c\
-		rotation.c\
 		camera.c\
 		main.c\
 		errors.c\

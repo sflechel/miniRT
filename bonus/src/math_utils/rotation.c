@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:22:32 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 15:50:23 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/29 17:31:25 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_mat_3x3	axis_angle_to_rotation_matrix(t_vec3 axis_from, t_vec3 axis_to)
 
 	output.x.x = ncos * a.x * a.x + cosa;
 	output.x.y = ncos * a.x * a.y - a.z * sina;
-	output.x.x = ncos * a.x * a.z + a.y * sina;
+	output.x.z = ncos * a.x * a.z + a.y * sina;
 	output.y.x = ncos * a.x * a.y + a.z * sina;
 	output.y.y = ncos * a.y * a.y + cosa;
 	output.y.z = ncos * a.y * a.z - a.x * sina;

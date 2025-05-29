@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:42:19 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/29 16:43:40 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/29 18:09:58 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,12 @@ int	handle_hyper(char **line, t_hyper_list *list, t_mlx *mlx)
 
 	hyper = &list->array[list->nb_shapes];
 	printf("parse the hyper\n");
-	if (verif_len(len, 5) == 1
+	if (verif_len(len, 6) == 1
 		|| parse_vector3(line[1], &hyper->pos) == 1
-		|| parse_vector3(line[2], &hyper->param) == 1
-		|| parse_rgba(line[3], &hyper->color) == 1
-		|| parse_file(line[4], &hyper->txtr, mlx) == 1)
+		|| parse_vector3_normalised(line[2], &hyper->axis) == 1
+		|| parse_vector3(line[3], &hyper->param) == 1
+		|| parse_rgba(line[4], &hyper->color) == 1
+		|| parse_file(line[5], &hyper->txtr, mlx) == 1)
 	{
 		ft_dprintf(STDERR_FILENO, " in a hyper\n");
 		return (1);

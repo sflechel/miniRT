@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:39:23 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/29 15:59:56 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/29 18:09:53 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,12 +116,13 @@ float	cap_down_get_collision(t_cylinder *cylinder, t_ray ray)
 
 float	hyper_get_collision(t_hyper *hyper, t_ray ray)
 {
-	const t_vec3	ray_orgigin = vector_sum(ray.origin, hyper->pos); 
-	const float	a = dot_product(vector_mult(ray.direction, ray.direction), hyper->param);
-	const float	c = -1 + dot_product(vector_mult(ray_orgigin, ray_orgigin), hyper->param);
-	const float	h = dot_product(vector_mult(ray_orgigin, ray.direction), hyper->param);
-	const float	delta = h * h - a * c;
-	float	t;
+	const t_vec3	ray_origin = vector_sum(ray.origin, hyper->pos);
+	const t_vec3	ray_dir = matrix_mult_vec3( axis_angle_to_rotation_matrix((t_vec3){0,1,0}, hyper->axis), ray.direction);
+	const float		a = dot_product(vector_mult(ray_dir, ray_dir), hyper->param);
+	const float		c = -1 + dot_product(vector_mult(ray_origin, ray_origin), hyper->param);
+	const float		h = dot_product(vector_mult(ray_origin, ray_dir), hyper->param);
+	const float		delta = h * h - a * c;
+	float			t;
 
 	if (delta < 0)
         return -1;

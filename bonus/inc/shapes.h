@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 16:33:01 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/29 17:18:42 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_hyper
 	t_image	*txtr;
 	t_vec3	pos;
 	t_vec3	param;
+	t_vec3	axis;
 	t_color	color;
 }	t_hyper;
 

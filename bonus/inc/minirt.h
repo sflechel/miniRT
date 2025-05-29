@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 14:00:25 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/29 17:16:17 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,6 @@ void	scan_viewport(t_camera *camera, t_data *lists, t_mlx *mlx);
 
 //raytracing.h
 t_color	cast_ray(t_ray ray, t_data *lists);
-
-//rotation.c
-void	rotation(t_vec3 *vec, t_vec3 rot);
-void	rotation_x(t_vec3 *vec, float angle);
-void	rotation_y(t_vec3 *vec, float angle);
-void	rotation_z(t_vec3 *vec, float angle);
 
 //camera.c
 void	update_camera(t_camera *cam);
