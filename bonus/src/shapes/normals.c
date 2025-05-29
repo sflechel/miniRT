@@ -6,13 +6,14 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 14:01:38 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:41:10 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "math_utils.h"
 #include "shapes.h"
+#include <stdio.h>
 
 t_vec3	cylinder_get_normal(t_cylinder *cylinder, t_vec3 col)
 {
@@ -36,16 +37,10 @@ t_vec3	sphere_get_normal(t_sphere *sphere, t_vec3 col)
 
 t_vec3	hyper_get_normal(t_hyper *hyper, t_vec3 col)
 {
-	t_vec3	normal;
-	float	norm;
-	
-	t_vec3 sqrt = scalar_mult(col, 2);
-	sqrt.z = -sqrt.z;
-	normal = vector_division(sqrt, vector_mult(hyper->param, hyper->param));
-	norm = get_norm(normal);
-	if (norm == 0)
-		return (t_vec3){0,0,0};
-	return (scalar_division(normal, norm));
+	const t_vec3 gradient = quadric_get_gradient(hyper->param);
+	const t_vec3 normal = vector_normalization(vector_mult(col, gradient));
+
+	return (normal);
 }
 
 void	get_normal(t_data *shapes, t_col *col)
@@ -95,6 +90,9 @@ void	get_normal(t_data *shapes, t_col *col)
 	else if (col->type == TYPE_HYPER)
 	{
 		col->normal = hyper_get_normal(&shapes->hypers->array[col->index], col->pos_world);
-		col->color = shapes->hypers->array[col->index].color;
+		if (shapes->hypers->array[col->index].txtr != 0)
+			col->color = ellipsoid_get_texture(col, &shapes->hypers->array[col->index]);
+		else
+			col->color = shapes->hypers->array[col->index].color;
 	}
 }

@@ -25,6 +25,7 @@ SRC =	hook/hook_key.c\
 		math_utils/vec3_scalar_ops.c\
 		math_utils/vec3_to_float_ops.c\
 		math_utils/vec3_vector_ops.c\
+		math_utils/gradient.c\
 		parsing/parse_file_and_line.c\
 		parsing/parse_shape.c\
 		parsing/parse_unique.c\

@@ -6,14 +6,13 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 10:58:39 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 13:58:15 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:41:19 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
 #include "shapes.h"
 #include "minirt.h"
-#include <math.h>
 
 t_color	plane_get_texture(const t_col *col, const t_plane *plane)
 {
@@ -93,5 +92,17 @@ t_color	cylinder_get_texture(const t_col *col, const t_cylinder *cylinder)
 	u_coord = azimut * cylinder->txtr->width;
 	v_coord = height * cylinder->txtr->height;
 	txtr_color.rgba = *(int *)(cylinder->txtr->addr + (v_coord * cylinder->txtr->len_line + u_coord * cylinder->txtr->bpp / 8));
+	return (txtr_color);
+}
+
+t_color	ellipsoid_get_texture(const t_col *col, const t_hyper *hyper)
+{
+	const float	latitude = 0.5 - asinf(col->normal.y) / M_PI;
+	const float	longitude = 0.5 - atan2f(col->normal.z, col->normal.x) / (2 * M_PI);
+	const int	u_coord = longitude * hyper->txtr->width;
+	const int	v_coord = latitude * hyper->txtr->height;
+	t_color		txtr_color;
+
+	txtr_color.rgba = *(int *)(hyper->txtr->addr + (v_coord * hyper->txtr->len_line + u_coord * hyper->txtr->bpp / 8));
 	return (txtr_color);
 }
