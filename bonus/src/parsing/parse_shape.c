@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:42:19 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/29 16:39:15 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:43:40 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ int	handle_hyper(char **line, t_hyper_list *list, t_mlx *mlx)
 		ft_dprintf(STDERR_FILENO, " in a hyper\n");
 		return (1);
 	}
-	if (hyper->txtr != 0)
-		printf("CCCCCCCCCCCAAAAAAAAAAAAAAAAAA\n");
 	hyper->param.x = 1.0f / (hyper->param.x * hyper->param.x);
 	hyper->param.y = 1.0f / (hyper->param.y * hyper->param.y);
 	hyper->param.z = 1.0f / (hyper->param.z * hyper->param.z);

@@ -6,13 +6,14 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 10:58:39 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 16:41:19 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:45:17 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
 #include "shapes.h"
 #include "minirt.h"
+#include <math.h>
 
 t_color	plane_get_texture(const t_col *col, const t_plane *plane)
 {
@@ -88,7 +89,7 @@ t_color	cylinder_get_texture(const t_col *col, const t_cylinder *cylinder)
 	azimut = dot_product(p_perp, cylinder->txtr_origin) / (cylinder->radius * cylinder->radius);
 	azimut = 0.5 * acosf(azimut) / M_PI;
 	if (dot_product(p_perp, cylinder->txtr_origin_rot) < 0)
-		azimut  = 1 - azimut;
+		azimut = 1 - azimut;
 	u_coord = azimut * cylinder->txtr->width;
 	v_coord = height * cylinder->txtr->height;
 	txtr_color.rgba = *(int *)(cylinder->txtr->addr + (v_coord * cylinder->txtr->len_line + u_coord * cylinder->txtr->bpp / 8));
