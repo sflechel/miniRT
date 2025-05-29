@@ -6,12 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:39:23 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/25 14:09:00 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/28 18:18:07 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
 #include "minirt.h"
+#include "shapes.h"
 #include <math.h>
 
 float	sphere_get_collision(t_sphere *sphere, t_ray ray)
@@ -111,4 +112,20 @@ float	cap_down_get_collision(t_cylinder *cylinder, t_ray ray)
 	if (dot_product(col, col) < cylinder->radius * cylinder->radius)
 		return (intersection);
 	return (-1);
+}
+
+float	hyper_get_collision(t_hyper *hyper, t_ray ray)
+{
+	const float	a = dot_product(vector_mult(ray.direction, ray.direction), hyper->param);
+	const float	c = dot_product(vector_mult(ray.origin, ray.origin), hyper->param) - 1;
+	const float	h = dot_product(vector_mult(ray.origin, ray.direction), hyper->param);
+	const float	delta = h * h - a * c;
+	float	t;
+
+	if (delta < 0)
+        return -1;
+	t = (-h - sqrtf(delta)) / a;
+	if (t < 0)
+		return (-1);
+	return (t);
 }

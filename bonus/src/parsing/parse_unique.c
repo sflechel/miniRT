@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:18:16 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/27 14:40:34 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/28 13:25:04 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	handle_light(char **line, t_light_list *lights)
 	t_light		*light;
 
 	light = &lights->lights[lights->nb_lights];
-	printf("parse the light\n");
+	printf("parse a light\n");
 	if (verif_len(len, 4) == 1)
 		return (1);
 	if (parse_vector3(line[1], &light->pos) == 1

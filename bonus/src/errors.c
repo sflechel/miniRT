@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:06:11 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 10:34:25 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/28 13:18:57 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	print_error_1(t_error id)
 
 	ft_dprintf(e, "Error\n");
 	if (id == ERR_INVALID_UNIQUES)
-		ft_dprintf(e, "Invalid amount of uniques (cam or ambient)\n");
+		ft_dprintf(e,
+			"One cam, one ambiante, and at least one light nedded\n");
 	else if (id == ERR_INVALID_ID)
 		ft_dprintf(e, "Invalid id\n");
 	else if (id == ERR_INIT_MLX)

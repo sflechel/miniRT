@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 15:13:23 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/28 18:01:58 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,31 @@
 #include "minirt.h"
 #include "shapes.h"
 
-int	min_and_greater_0(t_col *cols, int nb, t_col *closest)
+static void	set_closest(t_col *arr, int nb_col)
+{
+	int i;
+
+	i = 0;
+	while (i < nb_col)
+	{
+		arr[i].pos = -1;
+		i++;
+	}
+}
+
+int	min_and_greater_0(t_col *col_arr, int nb_col, t_col *closest)
 {
 	int		i;
 	float	dist;
 
 	i = 0;
 	dist = -1;
-	while (i < nb)
+	while (i < nb_col)
 	{
-		if ((dist > cols[i].pos && cols[i].pos > 0) || dist == -1)
+		if ((dist > col_arr[i].pos && col_arr[i].pos > 0) || dist == -1)
 		{
-			dist = cols[i].pos;
-			*closest = cols[i];
+			dist = col_arr[i].pos;
+			*closest = col_arr[i];
 		}
 		i++;
 	}
@@ -37,15 +49,23 @@ int	min_and_greater_0(t_col *cols, int nb, t_col *closest)
 
 int	get_closest_collision(t_data *shapes, t_ray ray, t_col *col)
 {
-	t_col	closest[5];
+	t_col	closest[6];
 	t_col	closest_shape;
 
-	closest[0] = plane_get_closest_collision(shapes->planes, ray);
-	closest[1] = sphere_get_closest_collision(shapes->spheres, ray);
-	closest[2] = cylinder_get_closest_collision(shapes->cylinders, ray);
-	closest[3] = cap_up_get_closest_collision(shapes->cylinders, ray);
-	closest[4] = cap_down_get_closest_collision(shapes->cylinders, ray);
-	if (min_and_greater_0(closest, 5, &closest_shape) == 1)
+	set_closest(closest, 6);
+	if (shapes->planes->nb_shapes > 0)
+		closest[0] = plane_get_closest_collision(shapes->planes, ray);
+	if (shapes->spheres->nb_shapes > 0)
+		closest[1] = sphere_get_closest_collision(shapes->spheres, ray);
+	if (shapes->cylinders->nb_shapes > 0)
+		closest[2] = cylinder_get_closest_collision(shapes->cylinders, ray);
+	if (shapes->cylinders->nb_shapes > 0)
+		closest[3] = cap_up_get_closest_collision(shapes->cylinders, ray);
+	if (shapes->cylinders->nb_shapes > 0)
+		closest[4] = cap_down_get_closest_collision(shapes->cylinders, ray);
+	if (shapes->hypers->nb_shapes > 0)
+		closest[5] = hyper_get_closest_collision(shapes->hypers, ray);
+	if (min_and_greater_0(closest, 6, &closest_shape) == 1)
 		return (-1);
 	*col = closest_shape;
 	col->pos_world = vector_sum(ray.origin,

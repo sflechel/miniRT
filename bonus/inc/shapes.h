@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 13:56:14 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/29 14:00:46 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef enum e_type
 	TYPE_CYLINDER,
 	TYPE_CAP_UP,
 	TYPE_CAP_DOWN,
+	TYPE_HYPER,
 }	t_type;
 
 typedef struct s_sphere
@@ -57,6 +58,15 @@ typedef struct s_cylinder
 	t_color	color;
 }	t_cylinder;
 
+typedef struct s_hyper
+{
+	t_image	*txtr;
+	t_vec3	pos;
+	t_vec3	param;
+	t_color	color;
+}	t_hyper;
+
+
 typedef struct s_plane_list
 {
 	int		nb_shapes;
@@ -74,6 +84,12 @@ typedef struct s_sphere_list
 	int			nb_shapes;
 	t_sphere	array[];
 }	t_sphere_list;
+
+typedef struct s_hyper_list
+{
+	int				nb_shapes;
+	t_hyper	array[];
+}	t_hyper_list;
 
 typedef struct s_col
 {
@@ -107,6 +123,7 @@ float	sphere_get_collision(t_sphere *sphere, t_ray ray);
 float	plane_get_collision(t_plane *plane, t_ray ray);
 float	cap_up_get_collision(t_cylinder *cylinder, t_ray ray);
 float	cap_down_get_collision(t_cylinder *cylinder, t_ray ray);
+float	hyper_get_collision(t_hyper *hyper, t_ray ray);
 
 //collision_shapes_closest.c
 t_col	plane_get_closest_collision(t_plane_list *planes, t_ray ray);
@@ -114,12 +131,13 @@ t_col	sphere_get_closest_collision(t_sphere_list *spheres, t_ray ray);
 t_col	cylinder_get_closest_collision(t_cylinder_list *cylinders, t_ray ray);
 t_col	cap_up_get_closest_collision(t_cylinder_list *cylinders, t_ray ray);
 t_col	cap_down_get_closest_collision(t_cylinder_list *cylinders, t_ray ray);
+t_col	hyper_get_closest_collision(t_hyper_list *hyper, t_ray ray);
 
 //normals.c
 void	get_normal(t_data *shapes, t_col *col);
 t_vec3	cylinder_get_normal(t_cylinder *shape, t_vec3 col);
 t_vec3	sphere_get_normal(t_sphere *shape, t_vec3 col);
-t_vec3	plane_get_normal(t_plane *shape, t_vec3 col);
+t_vec3	hyper_get_normal(t_hyper *shape, t_vec3 col);
 
 //texture.c
 t_color	plane_get_texture(const t_col *col, const t_plane *plane);

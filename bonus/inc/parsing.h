@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:02:03 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/27 14:41:29 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/28 13:53:13 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef enum e_id
 	ID_CYLINDER,
 	ID_SPHERE,
 	ID_PLANE,
+	ID_HYPER,
 	ID_ERROR
 }	t_id;
 
@@ -39,6 +40,7 @@ int		parse_line(char *line, t_data *list, t_camera *cam, t_mlx *mlx);
 int		handle_cylinder(char **line, t_cylinder_list *list, t_mlx *mlx);
 int		handle_plane(char **line, t_plane_list *list, t_mlx *mlx);
 int		handle_sphere(char **line, t_sphere_list *list, t_mlx *mlx);
+int		handle_hyper(char **line, t_hyper_list *list, t_mlx *mlx);
 
 //parse_unique
 int		handle_ambient(char **line, t_light_list *lights);

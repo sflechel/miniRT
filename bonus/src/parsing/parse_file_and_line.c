@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:32:09 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/27 14:40:49 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/28 13:53:58 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ int	parse_line(char *line, t_data *list, t_camera *cam, t_mlx *mlx)
 		|| (id == 'L' && handle_light(params, list->lights) == 1)
 		|| (id == 'c' && handle_cylinder(params, list->cylinders, mlx) == 1)
 		|| (id == 'p' && handle_plane(params, list->planes, mlx) == 1)
-		|| (id == 's' && handle_sphere(params, list->spheres, mlx) == 1))
+		|| (id == 's' && handle_sphere(params, list->spheres, mlx) == 1)
+		|| (id == 'h' && handle_hyper(params, list->hypers, mlx) == 1))
 		return (ft_free_split(params), 1);
 	ft_free_split(params);
 	return (0);

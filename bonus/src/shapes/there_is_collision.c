@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:19:38 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/27 13:59:04 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/28 15:06:00 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,28 @@ static int	sphere_collision(t_sphere_list *list, t_ray ray, t_col cam_col)
 	return (0);
 }
 
+static int	hyper_collision(t_hyper_list *list, t_ray ray, t_col cam_col)
+{
+	const int	same_type = cam_col.type == TYPE_HYPER;
+	float		col;
+	int			i;
+
+	i = 0;
+	while (i < list->nb_shapes)
+	{
+		if (same_type && i == cam_col.index)
+		{
+			i++;
+			continue ;
+		}
+		col = hyper_get_collision(&list->array[i], ray);
+		if (col >= 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	there_is_collision(t_data *shapes, t_ray ray, t_col cam_col)
 {
 	if (sphere_collision(shapes->spheres, ray, cam_col) == 1)
@@ -93,6 +115,8 @@ int	there_is_collision(t_data *shapes, t_ray ray, t_col cam_col)
 	if (plane_collision(shapes->planes, ray, cam_col) == 1)
 		return (1);
 	if (cylinder_collision(shapes->cylinders, ray, cam_col) == 1)
+		return (1);
+	if (hyper_collision(shapes->hypers, ray, cam_col) == 1)
 		return (1);
 	return (0);
 }
