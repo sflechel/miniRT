@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 10:58:39 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/28 18:55:00 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/29 13:38:49 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,28 @@ t_color	cylinder_get_texture(const t_col *col, const t_cylinder *cylinder)
 	const t_vec3	p = vector_subtraction(cylinder->pos, col->pos_world);
 	const t_vec3	p_proj = ortho_proj(p, cylinder->axis);
 	const float		height = dot_product(p, cylinder->axis) / cylinder->height + 0.5;
-	const t_vec3	p_perp = vector_subtraction(p_proj, p);
+	const t_vec3	p_perp = vector_subtraction(p, p_proj);
 	float			azimut;
 	int				u_coord;
 	int				v_coord;
 	t_color			txtr_color;
 
-	azimut = get_norm(vector_subtraction(cylinder->txtr_origin, p_perp));
-	azimut = (2 * asinf(azimut / (2 * cylinder->radius))) / M_PI;
+	// azimut = get_norm(vector_subtraction(cylinder->txtr_origin, p_perp));
+	// azimut = (2 * asinf(azimut / (2 * cylinder->radius))) / M_PI;
+	printf("p_perp norm: %f, p0 norm: %f\n", get_norm(p_perp), get_norm(cylinder->txtr_origin));
+	azimut = dot_product(p_perp, cylinder->txtr_origin) / (cylinder->radius * cylinder->radius);
+	// printf("%f\n", azimut);
+	azimut = 0.5 * acosf(azimut) / M_PI;
+	if (dot_product(p_perp, cylinder->txtr_origin_rot) < 0)
+		azimut  = 1 - azimut;
 	printf("%f\n", azimut);
+	// txtr_color.b = 0;
+	// txtr_color.g = 0;
+	// if (azimut > 0.5)
+	// 	txtr_color.r = 255;
+	// else
+	// 	txtr_color.b = 255;
+	// txtr_color.g = 0;
 	u_coord = azimut * cylinder->txtr->width;
 	v_coord = height * cylinder->txtr->height;
 	txtr_color.rgba = *(int *)(cylinder->txtr->addr + (v_coord * cylinder->txtr->len_line + u_coord * cylinder->txtr->bpp / 8));

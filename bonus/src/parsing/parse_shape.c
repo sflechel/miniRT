@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:42:19 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/28 17:13:08 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/29 13:16:54 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ int	handle_cylinder(char **line, t_cylinder_list *list, t_mlx *mlx)
 		ft_dprintf(STDERR_FILENO, " in a cylinder\n");
 		return (1);
 	}
-	cylinder->txtr_origin = cross_product(cylinder->axis, (t_vec3){0, 0, 1});
+	cylinder->txtr_origin = cross_product(cylinder->axis, (t_vec3){0, 1, 0});
 	if (vector_equal(cylinder->txtr_origin, (t_vec3){0, 0, 0}) == 1)
-		cylinder->txtr_origin = cross_product(cylinder->axis, (t_vec3){0, 1, 0});
+		cylinder->txtr_origin = cross_product(cylinder->axis, (t_vec3){1, 0, 0});
+	cylinder->txtr_origin_rot = cross_product(cylinder->axis, cylinder->txtr_origin);
 	cylinder->txtr_origin = scalar_mult(cylinder->txtr_origin, cylinder->radius);
+	cylinder->txtr_origin_rot = scalar_mult(cylinder->txtr_origin_rot, cylinder->radius);
 	list->nb_shapes++;
 	return (0);
 }

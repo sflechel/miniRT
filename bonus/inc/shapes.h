@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/28 16:38:06 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/29 13:11:41 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_cylinder
 	t_vec3	pos;
 	t_vec3	axis;
 	t_vec3	txtr_origin;
+	t_vec3	txtr_origin_rot;
 	t_color	color;
 }	t_cylinder;
 
