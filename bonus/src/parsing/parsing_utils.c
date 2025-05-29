@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/27 14:41:44 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/28 10:54:51 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,16 @@ int	parse_file(char *str, t_image **img, t_mlx *mlx)
 		*img = 0;
 		return (0);
 	}
-	*img = malloc(sizeof(t_image));
+	*img = ft_calloc(1, sizeof(t_image));
 	if (*img == 0)
 		return (1);
-	if (mlx_xpm_file_to_image(mlx, str, &(*img)->height, &(*img)->len_line) == 0)
+	(*img)->img = mlx_xpm_file_to_image(mlx->mlx, str, &(*img)->width, &(*img)->height);
+	if ((*img)->img == 0)
 	{
 		print_perror_1(ERR_NO_OPEN, str);
 		return (free_1_return_1(*img));
 	}
+	(*img)->addr = mlx_get_data_addr((*img)->img, &(*img)->bpp, &(*img)->len_line, &(*img)->endian);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:21:34 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/28 16:06:35 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/29 15:11:36 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ typedef struct s_vec3
 	float	y;
 	float	z;
 }	t_vec3;
+
+typedef struct s_mat_3x3
+{
+	t_vec3	x;
+	t_vec3	y;
+	t_vec3	z;
+}	t_mat_3x3;
 
 typedef union u_color
 {
