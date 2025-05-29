@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:42:19 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/28 13:55:08 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/28 18:19:00 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,9 @@ int	handle_hyper(char **line, t_hyper_list *list, t_mlx *mlx)
 		ft_dprintf(STDERR_FILENO, " in a hyper\n");
 		return (1);
 	}
+	hyper->param.x = 1.0f / (hyper->param.x * hyper->param.x);
+	hyper->param.y = 1.0f / (hyper->param.y * hyper->param.y);
+	hyper->param.z = -1.0f / (hyper->param.z * hyper->param.z);
 	list->nb_shapes++;
 	return (0);
 }
