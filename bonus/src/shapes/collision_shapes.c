@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:39:23 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/28 18:18:07 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/29 14:50:23 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ float	cap_down_get_collision(t_cylinder *cylinder, t_ray ray)
 float	hyper_get_collision(t_hyper *hyper, t_ray ray)
 {
 	const float	a = dot_product(vector_mult(ray.direction, ray.direction), hyper->param);
-	const float	c = dot_product(vector_mult(ray.origin, ray.origin), hyper->param) - 1;
+	const float	c = -1 + dot_product(vector_mult(ray.origin, ray.origin), hyper->param);
 	const float	h = dot_product(vector_mult(ray.origin, ray.direction), hyper->param);
 	const float	delta = h * h - a * c;
 	float	t;
