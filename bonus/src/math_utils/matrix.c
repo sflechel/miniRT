@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:09:25 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/29 15:32:44 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/29 15:34:38 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,14 @@ t_mat_3x3	matrix_mult(t_mat_3x3 m1, t_mat_3x3 m2)
 	new.z.y = m1.z.x * m2.x.y + m1.z.y * m2.y.y + m1.z.z * m2.z.y;
 	new.z.z = m1.z.x * m2.x.z + m1.z.y * m2.y.z + m1.z.z * m2.z.z;
 	return (new);
+}
+
+t_mat_3x3	matrix_transpose(t_mat_3x3 m)
+{
+	t_mat_3x3	mt;
+
+	mt.x = (t_vec3){m.x.x, m.y.x, m.z.x};
+	mt.y = (t_vec3){m.x.y, m.y.y, m.z.y};
+	mt.z = (t_vec3){m.x.z, m.y.z, m.z.z};
+	return (mt);
 }
