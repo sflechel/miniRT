@@ -6,13 +6,14 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 16:06:25 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:41:10 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "math_utils.h"
 #include "shapes.h"
+#include <stdio.h>
 
 t_vec3	cylinder_get_normal(t_cylinder *cylinder, t_vec3 col)
 {
@@ -89,6 +90,9 @@ void	get_normal(t_data *shapes, t_col *col)
 	else if (col->type == TYPE_HYPER)
 	{
 		col->normal = hyper_get_normal(&shapes->hypers->array[col->index], col->pos_world);
-		col->color = shapes->hypers->array[col->index].color;
+		if (shapes->hypers->array[col->index].txtr != 0)
+			col->color = ellipsoid_get_texture(col, &shapes->hypers->array[col->index]);
+		else
+			col->color = shapes->hypers->array[col->index].color;
 	}
 }
