@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 13:11:41 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/29 13:56:14 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,6 @@ t_vec3	plane_get_normal(t_plane *shape, t_vec3 col);
 t_color	plane_get_texture(const t_col *col, const t_plane *plane);
 t_color	sphere_get_texture(const t_col *col, const t_sphere *sphere);
 t_color	cylinder_get_texture(const t_col *col, const t_cylinder *cylinder);
+t_color	cap_get_texture(const t_col *col, const t_cylinder *cylinder);
 
 #endif

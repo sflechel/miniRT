@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/28 16:40:12 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/29 13:55:55 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,17 @@ void	get_normal(t_data *shapes, t_col *col)
 	else if (col->type == TYPE_CAP_UP)
 	{
 		col->normal = shapes->cylinders->array[col->index].axis;
-		col->color = shapes->cylinders->array[col->index].color;
+		if (shapes->cylinders->array[col->index].txtr != 0)
+			col->color = cap_get_texture(col, &shapes->cylinders->array[col->index]);
+		else
+			col->color = shapes->cylinders->array[col->index].color;
 	}
 	else if (col->type == TYPE_CAP_DOWN)
 	{
 		col->normal = scalar_mult(shapes->cylinders->array[col->index].axis, -1);
-		col->color = shapes->cylinders->array[col->index].color;
+		if (shapes->cylinders->array[col->index].txtr != 0)
+			col->color = cap_get_texture(col, &shapes->cylinders->array[col->index]);
+		else
+			col->color = shapes->cylinders->array[col->index].color;
 	}
 }
