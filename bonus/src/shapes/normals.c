@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 15:50:36 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:27:01 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ t_vec3	sphere_get_normal(t_sphere *sphere, t_vec3 col)
 
 t_vec3	hyper_get_normal(t_hyper *hyper, t_vec3 col)
 {
-	const t_vec3 gradient = quadric_get_gradient(hyper->param);
-	const t_vec3 normal = vector_normalization(vector_mult(col, gradient));
+	const t_vec3	gradient = quadric_get_gradient(hyper->param);
+	const t_vec3	normal = vector_normalization(vector_mult(col, gradient));
 
 	return (normal);
 }
