@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 16:43:57 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 19:03:19 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,18 @@ typedef struct s_mlx
 	t_end	end;
 }	t_mlx;
 
+typedef struct s_thread_data
+{
+	t_vec3	delta_u;
+	t_vec3	delta_v;
+	t_vec3	pixel;
+	int		start;
+	int		stop;
+	t_camera	*cam;
+	t_data		*lists;
+	t_mlx		*mlx;
+}	t_thread_data;
+
 typedef enum e_error
 {
 	ERR_INVALID_UNIQUES,
@@ -104,7 +116,7 @@ typedef enum e_error
 void	update_camera(t_camera *cam);
 
 //scanning.h
-void	scan_viewport(t_camera *camera, t_data *lists, t_mlx *mlx);
+void	launch_thread(t_camera *cam, t_data *lists, t_mlx *mlx);
 
 //raytracing.h
 t_color	cast_ray(t_ray ray, t_data *lists);
