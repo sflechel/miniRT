@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/28 18:01:58 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:17:57 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ int	get_closest_collision(t_data *shapes, t_ray ray, t_col *col)
 	if (shapes->cylinders->nb_shapes > 0)
 		closest[2] = cylinder_get_closest_collision(shapes->cylinders, ray);
 	if (shapes->cylinders->nb_shapes > 0)
-		closest[3] = cap_up_get_closest_collision(shapes->cylinders, ray);
+		closest[3] = cap_get_closest_collision(shapes->cylinders, ray, TYPE_CAP_UP);
 	if (shapes->cylinders->nb_shapes > 0)
-		closest[4] = cap_down_get_closest_collision(shapes->cylinders, ray);
+		closest[4] = cap_get_closest_collision(shapes->cylinders, ray, TYPE_CAP_DOWN);
 	if (shapes->hypers->nb_shapes > 0)
 		closest[5] = hyper_get_closest_collision(shapes->hypers, ray);
 	if (min_and_greater_0(closest, 6, &closest_shape) == 1)

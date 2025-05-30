@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 13:28:00 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:18:11 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,7 @@ float	hyper_get_collision(t_hyper *hyper, t_ray ray);
 t_col	plane_get_closest_collision(t_plane_list *planes, t_ray ray);
 t_col	sphere_get_closest_collision(t_sphere_list *spheres, t_ray ray);
 t_col	cylinder_get_closest_collision(t_cylinder_list *cylinders, t_ray ray);
-t_col	cap_up_get_closest_collision(t_cylinder_list *cylinders, t_ray ray);
-t_col	cap_down_get_closest_collision(t_cylinder_list *cylinders, t_ray ray);
+t_col	cap_get_closest_collision(t_cylinder_list *cylinders, t_ray ray, t_type type);
 t_col	hyper_get_closest_collision(t_hyper_list *hyper, t_ray ray);
 
 //normals.c

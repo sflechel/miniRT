@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 14:13:07 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 13:28:00 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:17:45 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,20 +97,20 @@ t_col	cylinder_get_closest_collision(t_cylinder_list *cylinders, t_ray ray)
 	return (col);
 }
 
-t_col	cap_up_get_closest_collision(t_cylinder_list *cylinders, t_ray ray)
+t_col	cap_get_closest_collision(t_cylinder_list *cylinders, t_ray ray, t_type type)
 {
 	t_col	col;
 	float	closest_col;
 	float	curr_col;
 	int		i;
 
-	closest_col = cap_get_collision(&cylinders->array[0], ray, TYPE_CAP_UP);
+	closest_col = cap_get_collision(&cylinders->array[0], ray, type);
 	col.index = 0;
 	col.pos = -1;
 	i = 1;
 	while (i < cylinders->nb_shapes)
 	{
-		curr_col = cap_get_collision(&cylinders->array[i], ray, TYPE_CAP_UP);
+		curr_col = cap_get_collision(&cylinders->array[i], ray, type);
 		if (curr_col > 0 && (curr_col < closest_col || closest_col <= 0))
 		{
 			col.index = i;
@@ -121,35 +121,7 @@ t_col	cap_up_get_closest_collision(t_cylinder_list *cylinders, t_ray ray)
 	if (closest_col <= 0)
 		return (col);
 	col.pos = closest_col;
-	col.type = TYPE_CAP_UP;
-	return (col);
-}
-
-t_col	cap_down_get_closest_collision(t_cylinder_list *cylinders, t_ray ray)
-{
-	t_col	col;
-	float	closest_col;
-	float	curr_col;
-	int		i;
-
-	closest_col = cap_get_collision(&cylinders->array[0], ray, TYPE_CAP_DOWN);
-	col.index = 0;
-	col.pos = -1;
-	i = 1;
-	while (i < cylinders->nb_shapes)
-	{
-		curr_col = cap_get_collision(&cylinders->array[i], ray, TYPE_CAP_DOWN);
-		if (curr_col > 0 && (curr_col < closest_col || closest_col <= 0))
-		{
-			col.index = i;
-			closest_col = curr_col;
-		}
-		i++;
-	}
-	if (closest_col <= 0)
-		return (col);
-	col.pos = closest_col;
-	col.type = TYPE_CAP_DOWN;
+	col.type = type;
 	return (col);
 }
 
