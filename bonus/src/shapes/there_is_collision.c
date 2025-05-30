@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:19:38 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/30 13:28:00 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:35:39 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static int	cylinder_collision(t_cylinder_list *list, t_ray ray, t_col cam_col)
 		col = cylinder_get_collision(&list->array[i], ray);
 		if (col >= 0)
 			return (1);
-		col = cap_get_collision(&list->array[i], ray, TYPE_CAP_UP);
+		col = cap_up_get_collision(&list->array[i], ray);
 		if (col >= 0)
 			return (1);
-		col = cap_get_collision(&list->array[i], ray, TYPE_CAP_DOWN);
+		col = cap_down_get_collision(&list->array[i], ray);
 		if (col >= 0)
 			return (1);
 		i++;

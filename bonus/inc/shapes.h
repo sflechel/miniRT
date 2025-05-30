@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 14:18:11 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:19:15 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct s_sphere_list
 
 typedef struct s_hyper_list
 {
-	int				nb_shapes;
+	int		nb_shapes;
 	t_hyper	array[];
 }	t_hyper_list;
 
@@ -112,6 +112,8 @@ typedef struct s_cylinder_col
 	float	discriminant;
 }	t_cylinder_col;
 
+typedef float (*collision_func)(void *, t_ray);
+
 //collision.c
 int		get_closest_collision(t_data *shapes, t_ray ray, t_col *col);
 
@@ -119,18 +121,12 @@ int		get_closest_collision(t_data *shapes, t_ray ray, t_col *col);
 int		there_is_collision(t_data *shapes, t_ray ray, t_col cam_col);
 
 //collision_shapes.c
-float	cylinder_get_collision(t_cylinder *cylinder, t_ray ray);
-float	sphere_get_collision(t_sphere *sphere, t_ray ray);
-float	plane_get_collision(t_plane *plane, t_ray ray);
-float	cap_get_collision(t_cylinder *cylinder, t_ray ray, t_type type);
-float	hyper_get_collision(t_hyper *hyper, t_ray ray);
-
-//collision_shapes_closest.c
-t_col	plane_get_closest_collision(t_plane_list *planes, t_ray ray);
-t_col	sphere_get_closest_collision(t_sphere_list *spheres, t_ray ray);
-t_col	cylinder_get_closest_collision(t_cylinder_list *cylinders, t_ray ray);
-t_col	cap_get_closest_collision(t_cylinder_list *cylinders, t_ray ray, t_type type);
-t_col	hyper_get_closest_collision(t_hyper_list *hyper, t_ray ray);
+float	sphere_get_collision(void *sphere_void, t_ray ray);
+float	plane_get_collision(void *plane_void, t_ray ray);
+float	cylinder_get_collision(void *cylinder_void, t_ray ray);
+float	cap_up_get_collision(void *cylinder_void, t_ray ray);
+float	cap_down_get_collision(void *cylinder_void, t_ray ray);
+float	hyper_get_collision(void *hyper_void, t_ray ray);
 
 //normals.c
 void	get_normal(t_data *shapes, t_col *col);

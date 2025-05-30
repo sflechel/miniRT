@@ -35,7 +35,6 @@ SRC =	hook/hook_key.c\
 		parsing/parsing_utils.c\
 		parsing/parsing.c\
 		shapes/collision_shapes.c\
-		shapes/collision_shapes_closest.c\
 		shapes/collision.c\
 		shapes/there_is_collision.c\
 		shapes/normals.c\
