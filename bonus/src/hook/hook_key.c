@@ -6,11 +6,10 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 17:59:55 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/23 15:40:23 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:38:36 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
 #include "hook.h"
 #include "mlx.h"
 

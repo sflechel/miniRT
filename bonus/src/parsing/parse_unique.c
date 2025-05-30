@@ -6,11 +6,10 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:18:16 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/28 13:25:04 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:40:43 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
 #include "parsing.h"
 #include "libft.h"
 #include <stdio.h>

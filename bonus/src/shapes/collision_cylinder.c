@@ -6,12 +6,10 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 15:52:20 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/30 16:04:52 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:44:16 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "math_utils.h"
-#include "shapes.h"
 #include "minirt.h"
 #include <math.h>
 

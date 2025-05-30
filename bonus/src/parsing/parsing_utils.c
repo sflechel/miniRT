@@ -6,16 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/28 10:54:51 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:41:03 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "math_utils.h"
 #include "minirt.h"
 #include "mlx.h"
-#include <fcntl.h>
-#include <stdlib.h>
 
 int	parse_rgba(char *str, t_color *color)
 {

@@ -6,14 +6,11 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 16:27:01 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:38:04 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "math_utils.h"
-#include "shapes.h"
-#include <stdio.h>
 
 t_vec3	cylinder_get_normal(t_cylinder *cylinder, t_vec3 col)
 {

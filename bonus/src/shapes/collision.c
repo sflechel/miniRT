@@ -6,13 +6,11 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 16:25:46 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:44:31 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "math_utils.h"
 #include "minirt.h"
-#include "shapes.h"
 
 int	min_and_greater_0(t_col *col_arr, int nb_col, t_col *closest)
 {

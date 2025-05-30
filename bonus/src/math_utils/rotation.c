@@ -6,13 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:22:32 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 17:31:25 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:39:29 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
-#include <math.h>
 #include "math_utils.h"
+#include <math.h>
 
 void	rotation(t_vec3 *vec, t_vec3 rot)
 {

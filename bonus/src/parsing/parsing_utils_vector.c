@@ -6,13 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:35:42 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/23 19:08:07 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:40:50 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "math_utils.h"
-#include <unistd.h>
 
 int	parse_vector3(char *str, t_vec3 *vec)
 {

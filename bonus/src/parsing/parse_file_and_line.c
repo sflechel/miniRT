@@ -6,14 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:32:09 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/28 13:53:58 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:39:59 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minirt.h"
 #include "parsing.h"
-#include <unistd.h>
 
 static char	*read_file(int fd)
 {

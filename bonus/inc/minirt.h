@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 17:16:17 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:43:57 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 # define SCREEN_HEIGHT 360
 
-# include "math_utils.h"
+typedef struct s_ray t_ray;
+
 # include "shapes.h"
 
 typedef struct s_light
@@ -32,6 +33,12 @@ typedef struct s_light_list
 	t_light	lights[];
 }	t_light_list;
 
+struct s_ray
+{
+	t_vec3	origin;
+	t_vec3	direction;
+};
+
 typedef struct s_data
 {
 	t_light_list	*lights;
@@ -40,12 +47,6 @@ typedef struct s_data
 	t_cylinder_list	*cylinders;
 	t_hyper_list	*hypers;
 }	t_data;
-
-struct s_ray
-{
-	t_vec3	origin;
-	t_vec3	direction;
-};
 
 typedef struct s_camera
 {

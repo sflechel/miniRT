@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 15:50:36 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:45:39 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,12 @@ t_vec3 get_light_ray_reflected(t_col col, t_ray light_ray)
 	const t_vec3	reflect_proj = ortho_proj(light_ray.direction, col.normal);
 	const t_vec3	mult_by_2 = scalar_mult(reflect_proj, 2);
 	const t_vec3	reflected = vector_sub(mult_by_2, light_ray.direction);
-	
+
 	return (reflected);
 }
 
 t_color	calc_specular(t_col col, t_ray light_ray)
 {
-	
 	const t_vec3	reflected = get_light_ray_reflected(col, light_ray);
 	const float		specular_constant = 0.5;
 	float			angle;

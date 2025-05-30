@@ -6,11 +6,10 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:14:43 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 15:04:29 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:44:52 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "math_utils.h"
 #include "minirt.h"
 #include <math.h>
 

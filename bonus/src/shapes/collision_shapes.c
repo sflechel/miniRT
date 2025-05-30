@@ -6,13 +6,11 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:39:23 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/30 15:59:22 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:44:23 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "math_utils.h"
 #include "minirt.h"
-#include "shapes.h"
 #include <math.h>
 
 float	sphere_get_collision(void *sphere_void, t_ray ray)

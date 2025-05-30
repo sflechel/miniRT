@@ -6,15 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/28 17:13:11 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:41:16 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minirt.h"
 #include "parsing.h"
-#include <stdlib.h>
-#include <unistd.h>
 
 static t_id	is_valid_id(char *line)
 {
@@ -94,7 +91,7 @@ int	alloc_lists(char **lines, t_data *list, t_light_list **lights)
 	{
 		free(list->hypers);
 		return (free_4_return_1(*lights, list->planes, list->spheres, list->cylinders));
-	}	
+	}
 	list->cylinders->nb_shapes = 0;
 	list->spheres->nb_shapes = 0;
 	list->planes->nb_shapes = 0;

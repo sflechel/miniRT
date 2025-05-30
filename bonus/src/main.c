@@ -6,17 +6,15 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 14:01:56 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:45:26 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minirt.h"
 #include "parsing.h"
 #include "hook.h"
 #include "mlx.h"
 #include "mlx_int.h"
-#include <unistd.h>
 
 int	free_mlx(t_mlx *mlx)
 {

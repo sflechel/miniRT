@@ -6,15 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 14:12:06 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 18:07:01 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:39:04 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
 #include "hook.h"
 #include "mlx.h"
 #include <X11/X.h>
-#include <X11/keysymdef.h>
 
 static int	end_loop_destroy(void *mlx_v)
 {

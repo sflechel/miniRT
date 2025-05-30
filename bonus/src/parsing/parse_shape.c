@@ -6,15 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:42:19 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/30 13:45:16 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:40:17 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "math_utils.h"
-#include "minirt.h"
 #include "parsing.h"
 #include "libft.h"
-#include "shapes.h"
 #include <stdio.h>
 
 int	handle_cylinder(char **line, t_cylinder_list *list, t_mlx *mlx)
