@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 14:13:07 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/28 17:19:38 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 13:28:00 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,13 @@ t_col	cap_up_get_closest_collision(t_cylinder_list *cylinders, t_ray ray)
 	float	curr_col;
 	int		i;
 
-	closest_col = cap_up_get_collision(&cylinders->array[0], ray);
+	closest_col = cap_get_collision(&cylinders->array[0], ray, TYPE_CAP_UP);
 	col.index = 0;
 	col.pos = -1;
 	i = 1;
 	while (i < cylinders->nb_shapes)
 	{
-		curr_col = cap_up_get_collision(&cylinders->array[i], ray);
+		curr_col = cap_get_collision(&cylinders->array[i], ray, TYPE_CAP_UP);
 		if (curr_col > 0 && (curr_col < closest_col || closest_col <= 0))
 		{
 			col.index = i;
@@ -132,13 +132,13 @@ t_col	cap_down_get_closest_collision(t_cylinder_list *cylinders, t_ray ray)
 	float	curr_col;
 	int		i;
 
-	closest_col = cap_down_get_collision(&cylinders->array[0], ray);
+	closest_col = cap_get_collision(&cylinders->array[0], ray, TYPE_CAP_DOWN);
 	col.index = 0;
 	col.pos = -1;
 	i = 1;
 	while (i < cylinders->nb_shapes)
 	{
-		curr_col = cap_down_get_collision(&cylinders->array[i], ray);
+		curr_col = cap_get_collision(&cylinders->array[i], ray, TYPE_CAP_DOWN);
 		if (curr_col > 0 && (curr_col < closest_col || closest_col <= 0))
 		{
 			col.index = i;

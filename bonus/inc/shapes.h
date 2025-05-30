@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 17:18:42 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 13:28:00 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,7 @@ int		there_is_collision(t_data *shapes, t_ray ray, t_col cam_col);
 float	cylinder_get_collision(t_cylinder *cylinder, t_ray ray);
 float	sphere_get_collision(t_sphere *sphere, t_ray ray);
 float	plane_get_collision(t_plane *plane, t_ray ray);
-float	cap_up_get_collision(t_cylinder *cylinder, t_ray ray);
-float	cap_down_get_collision(t_cylinder *cylinder, t_ray ray);
+float	cap_get_collision(t_cylinder *cylinder, t_ray ray, t_type type);
 float	hyper_get_collision(t_hyper *hyper, t_ray ray);
 
 //collision_shapes_closest.c

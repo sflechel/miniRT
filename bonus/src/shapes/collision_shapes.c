@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:39:23 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/29 18:09:53 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:15:03 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,57 @@
 #include "minirt.h"
 #include "shapes.h"
 #include <math.h>
+#include <float.h>
 
 float	sphere_get_collision(t_sphere *sphere, t_ray ray)
 {
-	const t_vec3	center_vector = vector_subtraction(sphere->pos, ray.origin);
+	const t_vec3	origin = vector_subtraction(sphere->pos, ray.origin);
 	const float		a = get_squared_norm(ray.direction);
-	const float		h = dot_product(ray.direction, center_vector);
-	const float		c = get_squared_norm(center_vector)
-		- sphere->radius * sphere->radius;
-	const float		discriminant = h * h - a * c;
+	const float		h = dot_product(ray.direction, origin);
+	const float		c = get_squared_norm(origin) - (sphere->radius * sphere->radius);
+	float			discriminant;
+	float			sqrt_discriminant;
+	float			t;
 
+	discriminant = h * h - a * c;
 	if (discriminant < 0)
 		return (-1);
-	return ((h - sqrtf(discriminant)) / a);
+	sqrt_discriminant = sqrtf(discriminant);
+	t = (h - sqrt_discriminant) / a;
+	if (t > 0)
+		return (t);
+	t = (h + sqrt_discriminant) / a;
+	if (t > 0)
+		return (t);
+	return (-1);
 }
 
 float	cylinder_get_collision(t_cylinder *cylinder, t_ray ray)
 {
-	const t_vec3	o = vector_subtraction(cylinder->pos, ray.origin);
+	const t_vec3	origin = vector_subtraction(cylinder->pos, ray.origin);
 	t_cylinder_col	cyl_col;
 	float			t;
 	t_vec3			col;
 	float			len;
+	float			discriminant_sqrt;
 
-	cyl_col.d_perp = vector_subtraction(ray.direction,
-			ortho_proj(ray.direction, cylinder->axis));
-	cyl_col.o_perp = vector_subtraction(o, ortho_proj(o, cylinder->axis));
+	cyl_col.d_perp = vector_subtraction(ray.direction, ortho_proj(ray.direction, cylinder->axis));
+	cyl_col.o_perp = vector_subtraction(origin, ortho_proj(origin, cylinder->axis));
 	cyl_col.a = dot_product(cyl_col.d_perp, cyl_col.d_perp);
 	cyl_col.h = dot_product(cyl_col.o_perp, cyl_col.d_perp);
-	cyl_col.c = dot_product(cyl_col.o_perp, cyl_col.o_perp)
-		- cylinder->radius * cylinder->radius;
+	cyl_col.c = dot_product(cyl_col.o_perp, cyl_col.o_perp) - cylinder->radius * cylinder->radius;
 	cyl_col.discriminant = cyl_col.h * cyl_col.h - cyl_col.a * cyl_col.c;
+
 	if (cyl_col.discriminant < 0)
 		return (-1);
-	t = (cyl_col.h - sqrtf(cyl_col.discriminant)) / cyl_col.a;
+	discriminant_sqrt = sqrtf(cyl_col.discriminant);
+	t = (cyl_col.h - discriminant_sqrt) / cyl_col.a;
+	if (t < 0)
+	{
+		t = (cyl_col.h + discriminant_sqrt) / cyl_col.a;
+		if (t < 0)
+			return (-1);
+	}
 	col = vector_sum(ray.origin, scalar_mult(ray.direction, t));
 	len = dot_product(vector_subtraction(col, cylinder->pos), cylinder->axis);
 	if (len < cylinder->height / 2 && len > -cylinder->height / 2)
@@ -59,56 +76,36 @@ float	plane_get_collision(t_plane *plane, t_ray ray)
 {
 	const float	dot = dot_product(ray.direction, plane->normal);
 	float		intersection;
-	t_vec3		origin_to_plane;
+	t_vec3		origin;
 
 	if (dot == 0)
 		return (-1);
-	origin_to_plane = vector_subtraction(plane->pos, ray.origin);
-	intersection = dot_product(origin_to_plane, plane->normal) / dot;
+	origin = vector_subtraction(plane->pos, ray.origin);
+	intersection = dot_product(origin, plane->normal) / dot;
 	if (intersection > 0)
 		return (intersection);
 	return (-1);
 }
 
-float	cap_up_get_collision(t_cylinder *cylinder, t_ray ray)
+float	cap_get_collision(t_cylinder *cylinder, t_ray ray, t_type type)
 {
 	const float		dot = dot_product(cylinder->axis, ray.direction);
 	float			intersection;
 	t_vec3			cap_pos;
-	t_vec3			origin_to_plane;
+	t_vec3			origin;
 	t_vec3			col;
 
 	if (dot == 0)
 		return (-1);
-	cap_pos = vector_sum(cylinder->pos,
-			scalar_mult(cylinder->axis, cylinder->height / 2));
-	origin_to_plane = vector_subtraction(ray.origin, cap_pos);
-	intersection = -dot_product(cylinder->axis, origin_to_plane) / dot;
+	if (type == TYPE_CAP_UP)
+		cap_pos = vector_sum(cylinder->pos, scalar_mult(cylinder->axis, cylinder->height / 2));
+	else
+		cap_pos = vector_sum(cylinder->pos, scalar_mult(cylinder->axis, cylinder->height / -2));
+	origin = vector_subtraction(ray.origin, cap_pos);
+	intersection = -dot_product(cylinder->axis, origin) / dot;
 	if (intersection < 0)
 		return (-1);
-	col = vector_sum(origin_to_plane, scalar_mult(ray.direction, intersection));
-	if (dot_product(col, col) < cylinder->radius * cylinder->radius)
-		return (intersection);
-	return (-1);
-}
-
-float	cap_down_get_collision(t_cylinder *cylinder, t_ray ray)
-{
-	const float		dot = dot_product(cylinder->axis, ray.direction);
-	float			intersection;
-	t_vec3			cap_pos;
-	t_vec3			origin_to_plane;
-	t_vec3			col;
-
-	if (dot == 0)
-		return (-1);
-	cap_pos = vector_sum(cylinder->pos,
-			scalar_mult(cylinder->axis, cylinder->height / -2));
-	origin_to_plane = vector_subtraction(ray.origin, cap_pos);
-	intersection = -dot_product(cylinder->axis, origin_to_plane) / dot;
-	if (intersection < 0)
-		return (-1);
-	col = vector_sum(origin_to_plane, scalar_mult(ray.direction, intersection));
+	col = vector_sum(origin, scalar_mult(ray.direction, intersection));
 	if (dot_product(col, col) < cylinder->radius * cylinder->radius)
 		return (intersection);
 	return (-1);
@@ -116,18 +113,24 @@ float	cap_down_get_collision(t_cylinder *cylinder, t_ray ray)
 
 float	hyper_get_collision(t_hyper *hyper, t_ray ray)
 {
-	const t_vec3	ray_origin = vector_sum(ray.origin, hyper->pos);
-	const t_vec3	ray_dir = matrix_mult_vec3( axis_angle_to_rotation_matrix((t_vec3){0,1,0}, hyper->axis), ray.direction);
+	const t_mat_3x3	m = axis_angle_to_rotation_matrix((t_vec3){0,1,0}, hyper->axis);
+	const t_vec3	ray_origin = matrix_mult_vec3( m, vector_subtraction(ray.origin, hyper->pos));
+	const t_vec3	ray_dir = matrix_mult_vec3( m, ray.direction);
 	const float		a = dot_product(vector_mult(ray_dir, ray_dir), hyper->param);
 	const float		c = -1 + dot_product(vector_mult(ray_origin, ray_origin), hyper->param);
 	const float		h = dot_product(vector_mult(ray_origin, ray_dir), hyper->param);
-	const float		delta = h * h - a * c;
+	const float		discriminant = h * h - a * c;
+	float			discriminant_sqrt;
 	float			t;
 
-	if (delta < 0)
-        return -1;
-	t = (-h - sqrtf(delta)) / a;
-	if (t < 0)
-		return (-1);
-	return (t);
+	if (discriminant < 0)
+		return -1;
+	discriminant_sqrt = sqrtf(discriminant);
+	t = (-h - discriminant_sqrt) / a;
+	if (t >= 0)
+		return (t);
+	t = (-h + discriminant_sqrt) / a;
+	if (t >= 0)
+		return (t);
+	return (-1);
 }
