@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 15:19:15 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:55:05 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ typedef struct s_hyper
 	t_color	color;
 }	t_hyper;
 
-
 typedef struct s_plane_list
 {
 	int		nb_shapes;
@@ -106,11 +105,49 @@ typedef struct s_cylinder_col
 {
 	t_vec3	o_perp;
 	t_vec3	d_perp;
+	t_vec3	origin;
+	t_vec3	col;
+	float	a;
+	float	h;
+	float	c;
+	float	len;
+	float	discriminant;
+	float	discriminant_sqrt;
+	float	t;
+}	t_cylinder_col;
+
+typedef struct s_cap_col
+{
+	t_vec3	cap_pos;
+	t_vec3	origin;
+	t_vec3	col;
+	float	dot;
+	float	intersection;
+}	t_cap_col;
+
+typedef struct s_sphere_col
+{
+	t_vec3	origin;
 	float	a;
 	float	h;
 	float	c;
 	float	discriminant;
-}	t_cylinder_col;
+	float	sqrt_discriminant;
+	float	t;
+}	t_sphere_col;
+
+typedef struct s_hyper_col
+{
+	t_mat_3x3	m;
+	t_vec3		ray_origin;
+	t_vec3		ray_dir;
+	float		a;
+	float		c;
+	float		h;
+	float		discriminant;
+	float		discriminant_sqrt;
+	float		t;
+}	t_hyper_col;
 
 typedef float (*collision_func)(void *, t_ray);
 

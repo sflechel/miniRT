@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 16:41:10 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:50:36 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 t_vec3	cylinder_get_normal(t_cylinder *cylinder, t_vec3 col)
 {
-	const t_vec3	o_col = vector_subtraction(col, cylinder->pos);
-	const t_vec3	o_col_perp = vector_subtraction(o_col,
+	const t_vec3	o_col = vector_sub(col, cylinder->pos);
+	const t_vec3	o_col_perp = vector_sub(o_col,
 			ortho_proj(o_col, cylinder->axis));
 	const t_vec3	normal
 		= scalar_division(o_col_perp, cylinder->radius);
@@ -30,7 +30,7 @@ t_vec3	sphere_get_normal(t_sphere *sphere, t_vec3 col)
 {
 	t_vec3	normal;
 
-	normal = vector_subtraction(col, sphere->pos);
+	normal = vector_sub(col, sphere->pos);
 	normal = scalar_division(normal, sphere->radius);
 	return (normal);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 10:58:39 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 16:45:17 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:50:36 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ t_color	sphere_get_texture(const t_col *col, const t_sphere *sphere)
 
 t_color	cylinder_get_texture(const t_col *col, const t_cylinder *cylinder)
 {
-	const t_vec3	p = vector_subtraction(cylinder->pos, col->pos_world);
+	const t_vec3	p = vector_sub(cylinder->pos, col->pos_world);
 	const t_vec3	p_proj = ortho_proj(p, cylinder->axis);
 	const float		height = dot_product(p, cylinder->axis) / cylinder->height + 0.5;
-	const t_vec3	p_perp = vector_subtraction(p, p_proj);
+	const t_vec3	p_perp = vector_sub(p, p_proj);
 	float			azimut;
 	int				u_coord;
 	int				v_coord;

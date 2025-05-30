@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:42:05 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/27 14:58:55 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:50:36 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ t_vec3	compute_first_pixel(t_camera *cam, t_vec3 *delta_u, t_vec3 *delta_v)
 	t_vec3	viewport_upper_left;
 	t_vec3	first_pixel;
 
-	viewport_upper_left = vector_subtraction(cam->pos, cam->focal_length);
-	viewport_upper_left = vector_subtraction(viewport_upper_left,
+	viewport_upper_left = vector_sub(cam->pos, cam->focal_length);
+	viewport_upper_left = vector_sub(viewport_upper_left,
 			scalar_mult(cam->viewport_u, 0.5));
-	viewport_upper_left = vector_subtraction(viewport_upper_left,
+	viewport_upper_left = vector_sub(viewport_upper_left,
 			scalar_mult(cam->viewport_v, 0.5));
 	*delta_u = scalar_division(cam->viewport_u, cam->img_width);
 	*delta_v = scalar_division(cam->viewport_v, cam->img_heigth);
@@ -54,12 +54,12 @@ void	scan_viewport(t_camera *camera, t_data *lists, t_mlx *mlx)
 		while (uv[0] < camera->img_width)
 		{
 			pixel = vector_sum(pixel, delta_u);
-			pixel_color = cast_ray((t_ray){camera->pos, vector_subtraction(
+			pixel_color = cast_ray((t_ray){camera->pos, vector_sub(
 						pixel, camera->pos)}, lists);
 			pixel_put(mlx, uv[0], uv[1], pixel_color);
 			uv[0]++;
 		}
-		pixel = vector_subtraction(pixel,
+		pixel = vector_sub(pixel,
 				scalar_mult(delta_u, camera->img_width));
 		pixel = vector_sum(pixel, delta_v);
 		uv[1]++;
