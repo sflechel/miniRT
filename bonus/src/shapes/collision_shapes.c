@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:39:23 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/02 13:45:29 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/02 16:51:08 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "math_utils.h"
 #include <math.h>
 
-float	sphere_get_collision(void *sphere_void, t_ray ray)
+float	sphere_get_collision(const void *sphere_void, const t_ray ray)
 {
 	const t_sphere	*sphere = (t_sphere*)sphere_void;
 	t_sphere_col	data;
@@ -36,7 +36,7 @@ float	sphere_get_collision(void *sphere_void, t_ray ray)
 	return (-1);
 }
 
-float	plane_get_collision(void *plane_void, t_ray ray)
+float	plane_get_collision(const void *plane_void, const t_ray ray)
 {
 	const t_plane	*plane = (t_plane*)plane_void;
 	const float		dot = dot_product(ray.direction, plane->normal);
@@ -52,7 +52,7 @@ float	plane_get_collision(void *plane_void, t_ray ray)
 	return (-1);
 }
 
-float	hyper_get_collision(void *hyper_void, t_ray ray)
+float	hyper_get_collision(const void *hyper_void, const t_ray ray)
 {
 	const t_hyper	*hyper = (t_hyper *)hyper_void;
 	t_hyper_col		data;
@@ -79,21 +79,3 @@ float	hyper_get_collision(void *hyper_void, t_ray ray)
 		return (data.t);
 	return (-1);
 }
-//
-// float	hyper_get_collision(t_hyper *hyper, t_ray ray)
-// {
-// 	const t_vec3	ray_origin = vector_sum(ray.origin, hyper->pos);
-// 	const t_vec3	ray_dir = matrix_mult_vec3( axis_angle_to_rotation_matrix((t_vec3){0,1,0}, hyper->axis), ray.direction);
-// 	const float		a = dot_product(vector_mult(ray_dir, ray_dir), hyper->param);
-// 	const float		c = -1 + dot_product(vector_mult(ray_origin, ray_origin), hyper->param);
-// 	const float		h = dot_product(vector_mult(ray_origin, ray_dir), hyper->param);
-// 	const float		delta = h * h - a * c;
-// 	float			t;
-//
-// 	if (delta < 0)
-//         return (-1);
-// 	t = (-h - sqrtf(delta)) / a;
-// 	if (t < 0)
-// 		return (-1);
-// 	return (t);
-// }

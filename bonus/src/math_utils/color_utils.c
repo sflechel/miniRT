@@ -6,13 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:37:00 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/23 15:10:33 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:07:02 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
 
-unsigned char	clamp_uchar(int c)
+unsigned char	clamp_uchar(const int c)
 {
 	if (c <= 0)
 		return (0);
@@ -21,7 +21,7 @@ unsigned char	clamp_uchar(int c)
 	return (c);
 }
 
-t_color	color_mult(t_color color1, t_color color2)
+t_color	color_mult(const t_color color1, const t_color color2)
 {
 	t_color	output;
 
@@ -32,7 +32,7 @@ t_color	color_mult(t_color color1, t_color color2)
 	return (output);
 }
 
-t_color	color_scaling(t_color color, float scale)
+t_color	color_scaling(const t_color color, const float scale)
 {
 	t_color	output;
 
@@ -43,7 +43,7 @@ t_color	color_scaling(t_color color, float scale)
 	return (output);
 }
 
-t_color	color_sum(t_color color1, t_color color2)
+t_color	color_sum(const t_color color1, const t_color color2)
 {
 	t_color	output;
 

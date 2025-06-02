@@ -1,6 +1,6 @@
 NAME = miniRT
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -O3 -flto -g3
+CFLAGS = -Wall -Wextra -Werror -O3 -flto -g3 -Rpass-missed=licm -Rpass-analysis=licm
 LIB = libft.a
 LIB_DIR = libft/
 

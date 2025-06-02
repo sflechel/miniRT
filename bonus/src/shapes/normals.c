@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/02 15:45:56 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:00:36 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "math_utils.h"
 #include "shapes.h"
 
-t_vec3	cylinder_get_normal(t_cylinder *cylinder, t_vec3 col)
+static t_vec3	cylinder_get_normal(const t_cylinder *cylinder, const t_vec3 col)
 {
 	const t_vec3	o_col = vector_sub(col, cylinder->pos);
 	const t_vec3	o_col_perp = vector_sub(o_col,
@@ -25,7 +25,7 @@ t_vec3	cylinder_get_normal(t_cylinder *cylinder, t_vec3 col)
 	return (normal);
 }
 
-t_vec3	sphere_get_normal(t_sphere *sphere, t_vec3 col)
+static t_vec3	sphere_get_normal(const t_sphere *sphere, const t_vec3 col)
 {
 	t_vec3	normal;
 
@@ -34,7 +34,7 @@ t_vec3	sphere_get_normal(t_sphere *sphere, t_vec3 col)
 	return (normal);
 }
 
-t_vec3	hyper_get_normal(t_hyper *hyper, t_vec3 col)
+static t_vec3	hyper_get_normal(const t_hyper *hyper, const t_vec3 col)
 {
 	const t_vec3	gradient = quadric_get_gradient(hyper->param);
 	const t_vec3	obj_col = matrix_mult_vec3(axis_angle_to_rotation_matrix((t_vec3){0, 1, 0}, hyper->axis), vector_sub(col, hyper->pos));
@@ -46,7 +46,7 @@ t_vec3	hyper_get_normal(t_hyper *hyper, t_vec3 col)
 	return (normal);
 }
 
-void	get_normal(t_data *shapes, t_col *col)
+void	get_normal(const t_data *shapes, t_col *col)
 {
 	if (col->type == TYPE_PLANE)
 	{
