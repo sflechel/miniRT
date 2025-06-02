@@ -2,3 +2,5 @@ miniRT
 obj/
 .vscode
 compile_flags.txt
+callgrind*
+cachegrind*
