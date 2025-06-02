@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:39:23 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/29 18:09:53 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/29 18:14:34 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ float	hyper_get_collision(t_hyper *hyper, t_ray ray)
 	float			t;
 
 	if (delta < 0)
-        return -1;
+        return (-1);
 	t = (-h - sqrtf(delta)) / a;
 	if (t < 0)
 		return (-1);

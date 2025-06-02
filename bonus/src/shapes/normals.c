@@ -6,14 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 16:41:10 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/05/29 18:43:19 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "math_utils.h"
 #include "shapes.h"
-#include <stdio.h>
 
 t_vec3	cylinder_get_normal(t_cylinder *cylinder, t_vec3 col)
 {
@@ -37,9 +36,12 @@ t_vec3	sphere_get_normal(t_sphere *sphere, t_vec3 col)
 
 t_vec3	hyper_get_normal(t_hyper *hyper, t_vec3 col)
 {
-	const t_vec3 gradient = quadric_get_gradient(hyper->param);
-	const t_vec3 normal = vector_normalization(vector_mult(col, gradient));
+	const t_vec3	gradient = quadric_get_gradient(hyper->param);
+	t_vec3			normal;
 
+	normal = vector_mult(col, gradient);
+	normal = matrix_mult_vec3(axis_angle_to_rotation_matrix((t_vec3){0, 0, 1}, hyper->axis), normal);
+	normal = vector_normalization(normal);
 	return (normal);
 }
 
