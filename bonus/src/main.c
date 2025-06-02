@@ -6,17 +6,16 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 14:01:56 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/02 14:31:06 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minirt.h"
 #include "parsing.h"
 #include "hook.h"
 #include "mlx.h"
 #include "mlx_int.h"
-#include <unistd.h>
+#include <bits/time.h>
 
 int	free_mlx(t_mlx *mlx)
 {
@@ -55,7 +54,7 @@ int	init_mlx(t_mlx *mlx)
 	mlx->end = DONT_END;
 	return (0);
 }
-
+#include <time.h>
 int	main(int ac, char **av)
 {
 	t_camera		camera;
@@ -72,9 +71,14 @@ int	main(int ac, char **av)
 	handle_hooks(&hook_data);
 	while (mlx.end == DONT_END)
 	{
+		struct timespec start, end;
+		clock_gettime(CLOCK_MONOTONIC, &start);
 		((t_xvar *)(mlx.mlx))->end_loop = 0;
-		scan_viewport(&camera, &data, &mlx);
+		launch_thread(&camera, &data, &mlx);
 		mlx_put_image_to_window(mlx.mlx, mlx.window, mlx.img.img, 0, 0);
+		clock_gettime(CLOCK_MONOTONIC, &end);
+		double tdiff = (end.tv_sec - start.tv_sec) + 1e-9*(end.tv_nsec - start.tv_nsec);
+		printf("%f\n", tdiff);
 		mlx_loop(mlx.mlx);
 	}
 	free_mlx(&mlx);

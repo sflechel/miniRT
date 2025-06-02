@@ -6,14 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:06:11 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/28 13:18:57 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:45:00 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minirt.h"
 #include <stdio.h>
-#include <unistd.h>
 
 int	print_error_1(t_error id)
 {

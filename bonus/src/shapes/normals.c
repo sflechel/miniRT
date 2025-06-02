@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 18:43:19 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/02 15:45:56 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 t_vec3	cylinder_get_normal(t_cylinder *cylinder, t_vec3 col)
 {
-	const t_vec3	o_col = vector_subtraction(col, cylinder->pos);
-	const t_vec3	o_col_perp = vector_subtraction(o_col,
+	const t_vec3	o_col = vector_sub(col, cylinder->pos);
+	const t_vec3	o_col_perp = vector_sub(o_col,
 			ortho_proj(o_col, cylinder->axis));
 	const t_vec3	normal
 		= scalar_division(o_col_perp, cylinder->radius);
@@ -29,7 +29,7 @@ t_vec3	sphere_get_normal(t_sphere *sphere, t_vec3 col)
 {
 	t_vec3	normal;
 
-	normal = vector_subtraction(col, sphere->pos);
+	normal = vector_sub(col, sphere->pos);
 	normal = scalar_division(normal, sphere->radius);
 	return (normal);
 }
@@ -37,10 +37,11 @@ t_vec3	sphere_get_normal(t_sphere *sphere, t_vec3 col)
 t_vec3	hyper_get_normal(t_hyper *hyper, t_vec3 col)
 {
 	const t_vec3	gradient = quadric_get_gradient(hyper->param);
+	const t_vec3	obj_col = matrix_mult_vec3(axis_angle_to_rotation_matrix((t_vec3){0, 1, 0}, hyper->axis), vector_sub(col, hyper->pos));
 	t_vec3			normal;
 
-	normal = vector_mult(col, gradient);
-	normal = matrix_mult_vec3(axis_angle_to_rotation_matrix((t_vec3){0, 0, 1}, hyper->axis), normal);
+	normal = vector_mult(obj_col, gradient);
+	normal = matrix_mult_vec3(axis_angle_to_rotation_matrix(hyper->axis, (t_vec3){0, 1, 0}), normal);
 	normal = vector_normalization(normal);
 	return (normal);
 }

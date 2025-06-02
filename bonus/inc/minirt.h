@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 17:16:17 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/02 15:40:49 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 # define MINIRT_H
 
-# define SCREEN_HEIGHT 360
+# define SCREEN_HEIGHT 1444
 
-# include "math_utils.h"
 # include "shapes.h"
+
+typedef struct s_ray	t_ray;
 
 typedef struct s_light
 {
@@ -32,6 +33,12 @@ typedef struct s_light_list
 	t_light	lights[];
 }	t_light_list;
 
+struct s_ray
+{
+	t_vec3	origin;
+	t_vec3	direction;
+};
+
 typedef struct s_data
 {
 	t_light_list	*lights;
@@ -40,12 +47,6 @@ typedef struct s_data
 	t_cylinder_list	*cylinders;
 	t_hyper_list	*hypers;
 }	t_data;
-
-struct s_ray
-{
-	t_vec3	origin;
-	t_vec3	direction;
-};
 
 typedef struct s_camera
 {
@@ -86,6 +87,18 @@ typedef struct s_mlx
 	t_end	end;
 }	t_mlx;
 
+typedef struct s_thread_data
+{
+	t_vec3		delta_u;
+	t_vec3		delta_v;
+	t_vec3		pixel;
+	int			start;
+	int			stop;
+	t_camera	*cam;
+	t_data		*lists;
+	t_mlx		*mlx;
+}	t_thread_data;
+
 typedef enum e_error
 {
 	ERR_INVALID_UNIQUES,
@@ -103,7 +116,7 @@ typedef enum e_error
 void	update_camera(t_camera *cam);
 
 //scanning.h
-void	scan_viewport(t_camera *camera, t_data *lists, t_mlx *mlx);
+void	launch_thread(t_camera *cam, t_data *lists, t_mlx *mlx);
 
 //raytracing.h
 t_color	cast_ray(t_ray ray, t_data *lists);

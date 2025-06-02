@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:21:34 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/29 17:17:28 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:50:53 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_vec3		cross_product(t_vec3 vec1, t_vec3 vec2);
 t_vec3		ortho_proj(t_vec3 projected, t_vec3 line);
 t_vec3		vector_mult(t_vec3 term1, t_vec3 term2);
 t_vec3		vector_division(t_vec3 term1, t_vec3 term2);
-t_vec3		vector_subtraction(t_vec3 minuend, t_vec3 subtrahend);
+t_vec3		vector_sub(t_vec3 minuend, t_vec3 subtrahend);
 t_vec3		vector_sum(t_vec3 term1, t_vec3 term2);
 int			vector_equal(t_vec3 vec1, t_vec3 vec2);
 

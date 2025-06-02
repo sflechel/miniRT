@@ -6,12 +6,11 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:19:38 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/28 15:06:00 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:44:44 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "shapes.h"
 
 static int	cylinder_collision(t_cylinder_list *list, t_ray ray, t_col cam_col)
 {

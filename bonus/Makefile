@@ -1,6 +1,6 @@
 NAME = miniRT
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -O3 -flto -g3
 LIB = libft.a
 LIB_DIR = libft/
 
@@ -34,8 +34,8 @@ SRC =	hook/hook_key.c\
 		parsing/parsing_utils_vector.c\
 		parsing/parsing_utils.c\
 		parsing/parsing.c\
+		shapes/collision_cylinder.c\
 		shapes/collision_shapes.c\
-		shapes/collision_shapes_closest.c\
 		shapes/collision.c\
 		shapes/there_is_collision.c\
 		shapes/normals.c\

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:34:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/28 16:06:39 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:50:36 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_vec3	ortho_proj(t_vec3 projected, t_vec3 line)
 	return (scalar_mult(line, dot_product(line, projected)));
 }
 
-t_vec3	vector_subtraction(t_vec3 minuend, t_vec3 subtrahend)
+t_vec3	vector_sub(t_vec3 minuend, t_vec3 subtrahend)
 {
 	t_vec3	output;
 
