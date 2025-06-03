@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/03 17:11:29 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/03 17:45:46 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	parse_rgba(char *str, t_color *color)
 	color->g = g;
 	color->b = b;
 	color->a = 0;
-	ft_free_split((char **)rgba);
 	return (free_1_return_0(rgba));
 }
 

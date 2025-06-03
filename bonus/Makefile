@@ -6,15 +6,16 @@
 #    By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/03 11:38:04 by sflechel          #+#    #+#              #
-#    Updated: 2025/06/03 15:45:31 by sflechel         ###   ########.fr        #
+#    Updated: 2025/06/03 18:08:05 by sflechel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
-CC = cc19
-CFLAGS = -Wall -Wextra -O3 -flto -g3 -march=native -fprofile-use=/home/sflechel/42Projects/minirt/bonus/code.profdata
+CC = cc
+CFLAGS = -Wall -Wextra -O3 -flto -g3 -march=native
 LIB = libft.a
 LIB_DIR = libft/
+clang20 = /sgoinfre/sflechel/.junest/usr/bin_wrappers/cc19
 
 SRC_DIR = src/
 INC_DIR = inc/
@@ -80,6 +81,12 @@ $(OBJ_DIR)%.o:$(SRC_DIR)%.c $(HEADERS) | $(OBJ_DIR)
 
 $(NAME): $(LIB_DIR)$(LIB) minilibx-linux/libmlx_Linux.a $(OBJ_FILES) Makefile
 	$(CC) $(CFLAGS) $(OBJ_FILES) $(LIBS) $(I) $(LIB_DIR)$(LIB) -o $(NAME)
+
+fast:
+	@$(MAKE) fclean
+	@$(MAKE) makelibft CC=$(clang20)
+	@$(MAKE) makemlx
+	@$(MAKE) $(NAME) CC=$(clang20) CFLAGS="$(CFLAGS) -fprofile-use=code.profdata"
 
 makelibft:
 	@$(MAKE) --no-print-directory -C $(LIB_DIR)
