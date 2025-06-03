@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/03 08:52:48 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/03 14:36:40 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ t_col	closest_col_shape(const t_cylinder_list *list,
 	return (col);
 }
 
-static void	get_closest_per_shape(t_col *arr,
-		const int nb_col, const t_data *list, const t_ray ray)
+static void	get_closest_per_shape(t_col *restrict arr,
+		const int nb_col, const t_data *restrict list, const t_ray ray)
 {
 	int	i;
 
@@ -109,7 +109,7 @@ static void	get_closest_per_shape(t_col *arr,
 				(t_cylinder_list *)list->hypers, ray, TYPE_HYPER);
 }
 
-int	get_closest_collision(const t_data *list, const t_ray ray, t_col *col)
+int	get_closest_collision(const t_data *restrict list, const t_ray ray, t_col *restrict col)
 {
 	t_col	arr[6];
 	t_col	closest_shape;

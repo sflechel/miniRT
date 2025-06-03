@@ -6,15 +6,15 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 15:52:20 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/02 16:49:05 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/03 14:37:43 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
 
-static void	cylinder_calc_discriminant(t_cylinder_col *data,
-	const t_cylinder *cylinder, const t_ray ray)
+static void	cylinder_calc_discriminant(t_cylinder_col *restrict data,
+	const t_cylinder *restrict cylinder, const t_ray ray)
 {
 	data->origin = vector_sub(cylinder->pos, ray.origin);
 	data->d_perp = vector_sub(ray.direction,

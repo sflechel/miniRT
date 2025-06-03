@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/02 17:00:36 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/03 14:38:27 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static t_vec3	hyper_get_normal(const t_hyper *hyper, const t_vec3 col)
 	return (normal);
 }
 
-void	get_normal(const t_data *shapes, t_col *col)
+void	get_normal(const t_data *restrict shapes, t_col *restrict col)
 {
 	if (col->type == TYPE_PLANE)
 	{

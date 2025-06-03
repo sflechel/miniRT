@@ -1,5 +1,5 @@
 NAME = libft.a
-CC = cc
+CC = cc19
 CFLAGS = -Wall -Wextra -Werror -g3 -O3 -march=native
 
 SRC_DIR = ./

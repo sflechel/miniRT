@@ -6,13 +6,13 @@
 #    By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/03 11:38:04 by sflechel          #+#    #+#              #
-#    Updated: 2025/06/03 12:07:18 by sflechel         ###   ########.fr        #
+#    Updated: 2025/06/03 15:45:31 by sflechel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -O3 -flto -g3 -march=native -fprofile-instr-generate
+CC = cc19
+CFLAGS = -Wall -Wextra -O3 -flto -g3 -march=native -fprofile-use=/home/sflechel/42Projects/minirt/bonus/code.profdata
 LIB = libft.a
 LIB_DIR = libft/
 

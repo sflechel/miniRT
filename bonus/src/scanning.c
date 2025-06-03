@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:42:05 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/02 17:57:41 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/03 14:34:52 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <pthread.h>
 #include "libft.h"
 
-static void	pixel_put(const t_mlx *mlx, const int u, const int v, const t_color color)
+static void	pixel_put(const t_mlx *restrict mlx, const int u, const int v, const t_color color)
 {
 	char	*dest;
 
@@ -23,7 +23,7 @@ static void	pixel_put(const t_mlx *mlx, const int u, const int v, const t_color 
 	*(unsigned int *)dest = color.rgba;
 }
 
-t_vec3	compute_first_pixel(const t_camera *cam, t_vec3 *delta_u, t_vec3 *delta_v)
+t_vec3	compute_first_pixel(const t_camera *restrict cam, t_vec3 *restrict delta_u, t_vec3 *restrict delta_v)
 {
 	t_vec3	viewport_upper_left;
 	t_vec3	first_pixel;
@@ -89,7 +89,7 @@ void	fill_data(t_thread_data *data, const t_camera *cam, const t_data *lists, co
 	}
 }
 
-void	launch_thread(const t_camera *cam, const t_data *lists, const t_mlx *mlx)
+void	launch_thread(const t_camera *restrict cam, const t_data *restrict lists, const t_mlx *restrict mlx)
 {
 	pthread_t		thrs[NB_THREAD];
 	t_thread_data	data[NB_THREAD];
