@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:42:05 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 19:05:00 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/02 14:48:22 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	*scan_viewport(void *data_v)
 	}
 	return (NULL);
 }
-#define NB_THREAD 21
+#define NB_THREAD 100
 
 void	fill_data(t_thread_data *data, t_camera *cam, t_data *lists, t_mlx *mlx)
 {

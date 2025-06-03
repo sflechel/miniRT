@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 19:03:19 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/02 15:40:49 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 # define MINIRT_H
 
-# define SCREEN_HEIGHT 360
-
-typedef struct s_ray t_ray;
+# define SCREEN_HEIGHT 1444
 
 # include "shapes.h"
+
+typedef struct s_ray	t_ray;
 
 typedef struct s_light
 {
@@ -89,11 +89,11 @@ typedef struct s_mlx
 
 typedef struct s_thread_data
 {
-	t_vec3	delta_u;
-	t_vec3	delta_v;
-	t_vec3	pixel;
-	int		start;
-	int		stop;
+	t_vec3		delta_u;
+	t_vec3		delta_v;
+	t_vec3		pixel;
+	int			start;
+	int			stop;
 	t_camera	*cam;
 	t_data		*lists;
 	t_mlx		*mlx;
