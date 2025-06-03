@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:35:42 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/30 16:40:50 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/03 17:12:32 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	parse_vector3(char *str, t_vec3 *vec)
 {
-	const char	**vector = (const char **)ft_split(str, ',');
+	const char	**vector = (const char **)split_better(str, ',');
 	const int	len = ptr_array_len((char **)vector);
 
 	if (len != 3
@@ -24,11 +24,9 @@ int	parse_vector3(char *str, t_vec3 *vec)
 		|| safe_atof(vector[2], &vec->z) == 1)
 	{
 		ft_dprintf(STDERR_FILENO, "Error\n%s is not a valid vector 3", str);
-		ft_free_split((char **)vector);
-		return (1);
+		return (free_1_return_1(vector));
 	}
-	ft_free_split((char **)vector);
-	return (0);
+	return (free_1_return_0(vector));
 }
 
 int	parse_vector3_normalised(char *str, t_vec3 *vec)

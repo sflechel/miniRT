@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 08:20:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/23 14:44:09 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/03 17:02:06 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static char	**ft_realsplit(char const *s, char c, char **strs, int word_counter)
 			s++;
 		i++;
 	}
-	strs[i - 1] = 0;
 	return (strs);
 }
 
@@ -81,14 +80,17 @@ char	**split_better(char const *s, char c)
 {
 	char	**strs;
 	int		word_counter;
+	int		len;
 
 	if (!s)
 		return (0);
 	if (!*s)
 		return (ft_calloc(1, sizeof(char *)));
-	strs = malloc(ft_split_size(s, c, &word_counter));
+	len = ft_split_size(s, c, &word_counter);
+	strs = malloc(len);
 	if (strs == 0)
 		return (0);
 	strs = ft_realsplit(s, c, strs, word_counter);
+	strs[word_counter] = 0;
 	return (strs);
 }

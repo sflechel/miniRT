@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/03 11:39:23 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/03 17:17:01 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define MINIRT_H
 
 # define SCREEN_HEIGHT 1444
-# define M_PI 3.14159265358979323846 
+# define M_PI 3.14159265358979323846
 
 # include "shapes.h"
 
@@ -130,5 +130,8 @@ void	init_camera(t_camera *cam, t_vec3 *cam_axis, t_mlx *mlx);
 int		print_error_1(t_error id);
 void	*print_strerror_null(t_error id, char *str);
 int		print_perror_1(t_error id, char *str);
+
+//main.c
+int		free_lists(t_data *lists);
 
 #endif //MINIRT_H

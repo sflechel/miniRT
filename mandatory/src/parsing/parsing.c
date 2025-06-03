@@ -6,13 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/23 19:11:57 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/03 17:02:54 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "parsing.h"
-#include <stdio.h>
 #include <unistd.h>
 
 static char	is_valid_id(char *line)
@@ -105,14 +104,13 @@ int	parsing(char *filename, t_shape_list **list, t_camera *cam,
 	file = open_and_read_file(filename);
 	if (file == 0)
 		return (1);
-	lines = ft_split(file, '\n');
+	lines = split_better(file, '\n');
 	free(file);
 	if (lines == 0)
 		return (1);
 	if (alloc_list_shapes(lines, list) == 1)
-		return (ft_free_split(lines), 1);
+		return (free_1_return_1(lines));
 	if (fill_list_shapes(lines, *list, cam, light) == 1)
-		return (ft_free_split(lines), free(*list), 1);
-	ft_free_split(lines);
-	return (0);
+		return (free_2_return_1(lines, *list));
+	return (free_1_return_0(lines));
 }
