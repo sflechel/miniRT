@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:14:43 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 16:44:52 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/03 15:52:52 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	update_camera(t_camera *cam)
 	cam->viewport_u = scalar_mult(u, cam->viewport_width);
 	cam->viewport_v = scalar_mult(v, cam->viewport_heigth);
 }
-#include <stdio.h>
+
 void	init_camera(t_camera *cam, t_vec3 *cam_axis, t_mlx *mlx)
 {
 	float		cosa;
@@ -40,7 +40,6 @@ void	init_camera(t_camera *cam, t_vec3 *cam_axis, t_mlx *mlx)
 
 	cam->img_heigth = mlx->img.height;
 	cam->img_width = mlx->img.width;
-	printf("%i, %i\n", cam->img_width, cam->img_heigth);
 	cosa = dot_product(*cam_axis, (t_vec3){0, 1, 0});
 	a = cross_product(*cam_axis, (t_vec3){0, 1, 0});
 	cam->rot.y = -asinf(-a.y + (a.x * a.z) / (1 + cosa));

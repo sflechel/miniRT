@@ -6,11 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 16:41:16 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/03 17:21:14 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "minirt.h"
 #include "parsing.h"
 
 static t_id	is_valid_id(char *line)
@@ -88,10 +89,7 @@ int	alloc_lists(char **lines, t_data *list, t_light_list **lights)
 	list->hypers = malloc(sizeof(t_hyper_list) + sizeof(t_hyper) * nb_hypers);
 	*lights = malloc(sizeof(t_light_list) + sizeof(t_light) * nb_lights);
 	if (list->cylinders == 0 || list->spheres == 0 || list->planes == 0 || *lights == 0 || list->hypers == 0)
-	{
-		free(list->hypers);
-		return (free_4_return_1(*lights, list->planes, list->spheres, list->cylinders));
-	}
+		return (free_lists(list));
 	list->cylinders->nb_shapes = 0;
 	list->spheres->nb_shapes = 0;
 	list->planes->nb_shapes = 0;
@@ -122,14 +120,16 @@ int	parsing(char *filename, t_data *list, t_camera *cam, t_mlx *mlx)
 	file = open_and_read_file(filename);
 	if (file == 0)
 		return (1);
-	lines = ft_split(file, '\n');
+	lines = split_better(file, '\n');
 	free(file);
 	if (lines == 0)
 		return (1);
 	if (alloc_lists(lines, list, &list->lights) == 1)
-		return (ft_free_split(lines), 1);
+		return (free_1_return_1(lines));
 	if (fill_list_shapes(lines, list, cam, mlx) == 1)
-		return (ft_free_split(lines), free(list->planes), free(list->spheres), free(list->cylinders), free(list->lights), free(list->hypers), 1);
-	ft_free_split(lines);
-	return (0);
+	{
+		free_lists(list);
+		return (free_1_return_1(lines));
+	}
+	return (free_1_return_0(lines));
 }

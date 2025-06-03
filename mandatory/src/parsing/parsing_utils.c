@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/23 19:05:46 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/03 16:28:13 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	parse_rgba(char *str, t_color *color)
 {
-	const char	**rgba = (const char **)ft_split(str, ',');
+	const char	**rgba = (const char **)split_better(str, ',');
 	const int	len = ptr_array_len((char **)rgba);
 	const int	r = color->r;
 	const int	g = color->g;
@@ -27,15 +27,13 @@ int	parse_rgba(char *str, t_color *color)
 		|| safe_atoi(rgba[2], (int *)&b) == 1 || b < 0 || b > 255)
 	{
 		ft_dprintf(STDERR_FILENO, "Error\n%s is not a valid color", str);
-		ft_free_split((char **)rgba);
-		return (1);
+		return (free_1_return_1(rgba));
 	}
 	color->r = r;
 	color->g = g;
 	color->b = b;
 	color->a = 0;
-	ft_free_split((char **)rgba);
-	return (0);
+	return (free_1_return_0(rgba));
 }
 
 int	parse_form_range(char *str, float *range, float min, float max)
@@ -44,7 +42,8 @@ int	parse_form_range(char *str, float *range, float min, float max)
 		|| *range < min || *range > max)
 	{
 		ft_dprintf(STDERR_FILENO,
-			"Error\n%s is not a valid float in range %d %d", str, (int)min, (int)max);
+			"Error\n%s is not a valid float in range %d %d",
+			str, (int)min, (int)max);
 		return (1);
 	}
 	return (0);
@@ -64,7 +63,7 @@ int	verif_len(int len, int target)
 {
 	if (len != target)
 	{
-		ft_dprintf(STDERR_FILENO, 
+		ft_dprintf(STDERR_FILENO,
 			"Error\n%d params needed but you have %d", target, len);
 		return (1);
 	}

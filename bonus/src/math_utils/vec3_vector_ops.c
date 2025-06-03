@@ -6,13 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:34:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 15:50:36 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:10:12 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
 
-t_vec3	cross_product(t_vec3 vec1, t_vec3 vec2)
+t_vec3	cross_product(const t_vec3 vec1, const t_vec3 vec2)
 {
 	t_vec3	output;
 
@@ -22,12 +22,12 @@ t_vec3	cross_product(t_vec3 vec1, t_vec3 vec2)
 	return (output);
 }
 
-t_vec3	ortho_proj(t_vec3 projected, t_vec3 line)
+t_vec3	ortho_proj(const t_vec3 projected, const t_vec3 line)
 {
 	return (scalar_mult(line, dot_product(line, projected)));
 }
 
-t_vec3	vector_sub(t_vec3 minuend, t_vec3 subtrahend)
+t_vec3	vector_sub(const t_vec3 minuend, const t_vec3 subtrahend)
 {
 	t_vec3	output;
 
@@ -37,7 +37,7 @@ t_vec3	vector_sub(t_vec3 minuend, t_vec3 subtrahend)
 	return (output);
 }
 
-t_vec3	vector_sum(t_vec3 term1, t_vec3 term2)
+t_vec3	vector_sum(const t_vec3 term1, const t_vec3 term2)
 {
 	t_vec3	output;
 
@@ -47,7 +47,7 @@ t_vec3	vector_sum(t_vec3 term1, t_vec3 term2)
 	return (output);
 }
 
-t_vec3	vector_mult(t_vec3 term1, t_vec3 term2)
+t_vec3	vector_mult(const t_vec3 term1, const t_vec3 term2)
 {
 	t_vec3	output;
 
@@ -57,7 +57,7 @@ t_vec3	vector_mult(t_vec3 term1, t_vec3 term2)
 	return (output);
 }
 
-t_vec3	vector_division(t_vec3 term1, t_vec3 term2)
+t_vec3	vector_division(const t_vec3 term1, const t_vec3 term2)
 {
 	t_vec3	output;
 
@@ -67,7 +67,7 @@ t_vec3	vector_division(t_vec3 term1, t_vec3 term2)
 	return (output);
 }
 
-int	vector_equal(t_vec3 vec1, t_vec3 vec2)
+int	vector_equal(const t_vec3 vec1, const t_vec3 vec2)
 {
 	if (vec1.x == vec2.x && vec1.y == vec2.y && vec1.z == vec2.z)
 		return (1);

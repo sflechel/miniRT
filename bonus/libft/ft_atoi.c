@@ -6,7 +6,7 @@
 /*   By: sflechel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 09:49:47 by sflechel          #+#    #+#             */
-/*   Updated: 2025/01/27 09:49:50 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/03 11:35:11 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ int	ft_repeat_character(char *str)
 {
 	int	i;
 	int	j;
-	int	len;
 
 	i = 0;
-	len = ft_strlen(str);
 	while (str[i])
 	{
 		j = i + 1;

@@ -6,21 +6,21 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:22:32 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 16:39:29 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:08:42 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
 #include <math.h>
 
-void	rotation(t_vec3 *vec, t_vec3 rot)
+void	rotation(t_vec3 *vec, const t_vec3 rot)
 {
 	rotation_x(vec, rot.x);
 	rotation_y(vec, rot.y);
 	rotation_z(vec, rot.z);
 }
 
-void	rotation_x(t_vec3 *vec, float angle)
+void	rotation_x(t_vec3 *vec, const float angle)
 {
 	float	cos_a;
 	float	sin_a;
@@ -33,7 +33,7 @@ void	rotation_x(t_vec3 *vec, float angle)
 	vec->z = sin_a * buf_y + cos_a * vec->z;
 }
 
-void	rotation_y(t_vec3 *vec, float angle)
+void	rotation_y(t_vec3 *vec, const float angle)
 {
 	float	cos_a;
 	float	sin_a;
@@ -46,7 +46,7 @@ void	rotation_y(t_vec3 *vec, float angle)
 	vec->z = cos_a * vec->z - sin_a * buf_x;
 }
 
-void	rotation_z(t_vec3 *vec, float angle)
+void	rotation_z(t_vec3 *vec, const float angle)
 {
 	float	cos_a;
 	float	sin_a;
@@ -59,7 +59,7 @@ void	rotation_z(t_vec3 *vec, float angle)
 	vec->y = sin_a * buf_x + cos_a * vec->y;
 }
 
-t_mat_3x3	axis_angle_to_rotation_matrix(t_vec3 axis_from, t_vec3 axis_to)
+t_mat_3x3	axis_angle_to_rotation_matrix(const t_vec3 axis_from, const t_vec3 axis_to)
 {
 	const float		cosa = dot_product(axis_from, axis_to);
 	const t_vec3	a = cross_product(axis_from, axis_to);

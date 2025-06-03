@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture.c                                          :+:      :+:    :+:   */
+/*   texture_shape.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 10:58:39 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/03 17:33:19 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/03 18:37:26 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
 
-t_color	plane_get_texture(const t_col *col, const t_plane *plane)
+t_color	plane_get_texture(const t_col *restrict col, const t_plane *restrict plane)
 {
 	t_vec3	u;
 	t_vec3	v;
@@ -37,7 +37,7 @@ t_color	plane_get_texture(const t_col *col, const t_plane *plane)
 	return (txtr_color);
 }
 
-t_color	cap_get_texture(const t_col *col, const t_cylinder *cylinder)
+t_color	cap_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder)
 {
 	t_vec3	u;
 	t_vec3	v;
@@ -61,7 +61,7 @@ t_color	cap_get_texture(const t_col *col, const t_cylinder *cylinder)
 	return (txtr_color);
 }
 
-t_color	sphere_get_texture(const t_col *col, const t_sphere *sphere)
+t_color	sphere_get_texture(const t_col *restrict col, const t_sphere *restrict sphere)
 {
 	const float	latitude = 0.5 - asinf(col->normal.y) / M_PI;
 	const float	longitude = 0.5 - atan2f(col->normal.z, col->normal.x) / (2 * M_PI);
@@ -73,7 +73,7 @@ t_color	sphere_get_texture(const t_col *col, const t_sphere *sphere)
 	return (txtr_color);
 }
 
-t_color	cylinder_get_texture(const t_col *col, const t_cylinder *cylinder)
+t_color	cylinder_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder)
 {
 	const t_vec3	p = vector_sub(cylinder->pos, col->pos_world);
 	const t_vec3	p_proj = ortho_proj(p, cylinder->axis);
@@ -94,7 +94,7 @@ t_color	cylinder_get_texture(const t_col *col, const t_cylinder *cylinder)
 	return (txtr_color);
 }
 
-t_color	ellipsoid_get_texture(const t_col *col, const t_hyper *hyper)
+t_color	ellipsoid_get_texture(const t_col *restrict col, const t_hyper *restrict hyper)
 {
 	const float	latitude = 0.5 - asinf(col->normal.y) / M_PI;
 	const float	longitude = 0.5 - atan2f(col->normal.z, col->normal.x) / (2 * M_PI);

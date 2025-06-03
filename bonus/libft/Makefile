@@ -1,6 +1,6 @@
 NAME = libft.a
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -g3 -O3 -march=native
 
 SRC_DIR = ./
 INC_DIR = ./
@@ -50,7 +50,7 @@ $(OBJ_FILES): %.o:%.c $(HEADERS)
 				$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ_FILES) Makefile
-		  ar rcs $(NAME) $(OBJ_FILES)
+	ar rcs $(NAME) $(OBJ_FILES)
 
 clean:
 	rm -rf $(OBJ_FILES) $(BONUS_OBJ_FILES)

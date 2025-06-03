@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/03 18:24:49 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/03 18:36:59 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,27 +149,29 @@ typedef struct s_hyper_col
 	float		t;
 }	t_hyper_col;
 
-typedef float (*collision_func)(void *, t_ray);
+typedef float			(*t_collision_func)(const void *, const t_ray);
 
 //collision.c
-int		get_closest_collision(t_data *shapes, t_ray ray, t_col *col);
+int		get_closest_collision(const t_data *list, const t_ray ray, t_col *col);
 
 //there_is_collision
-int		there_is_collision(t_data *shapes, t_ray ray, t_col cam_col);
+int		there_is_collision(const t_data *shapes, const t_ray ray, const t_col cam_col);
 
 //collision_shapes.c
-float	sphere_get_collision(void *sphere_void, t_ray ray);
-float	plane_get_collision(void *plane_void, t_ray ray);
-float	cylinder_get_collision(void *cylinder_void, t_ray ray);
-float	cap_up_get_collision(void *cylinder_void, t_ray ray);
-float	cap_down_get_collision(void *cylinder_void, t_ray ray);
-float	hyper_get_collision(void *hyper_void, t_ray ray);
+float	sphere_get_collision(const void *sphere_void, const t_ray ray);
+float	plane_get_collision(const void *plane_void, const t_ray ray);
+float	hyper_get_collision(const void *hyper_void, const t_ray ray);
+
+//collision_cylinder.c
+float	cylinder_get_collision(const void *cylinder_void, const t_ray ray);
+float	cap_up_get_collision(const void *cylinder_void, const t_ray ray);
+float	cap_down_get_collision(const void *cylinder_void, const t_ray ray);
 
 //normal_shapes
-void	get_normal(t_data *lists, t_col *col);
+void	get_normal(const t_data *lists, t_col *col);
 
 //collision_color
-void	get_collision_color(t_data *shapes, t_col *col);
+void	get_collision_color(const t_data *shapes, t_col *col);
 
 //texture.c
 t_color	plane_get_texture(const t_col *col, const t_plane *plane);

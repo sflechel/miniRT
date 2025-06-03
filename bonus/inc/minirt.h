@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/02 15:40:49 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/03 17:17:01 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define MINIRT_H
 
 # define SCREEN_HEIGHT 1444
+# define M_PI 3.14159265358979323846
 
 # include "shapes.h"
 
@@ -116,10 +117,10 @@ typedef enum e_error
 void	update_camera(t_camera *cam);
 
 //scanning.h
-void	launch_thread(t_camera *cam, t_data *lists, t_mlx *mlx);
+void	launch_thread(const t_camera *cam, const t_data *lists, const t_mlx *mlx);
 
 //raytracing.h
-t_color	cast_ray(t_ray ray, t_data *lists);
+t_color	cast_ray(const t_ray ray, const t_data *lists);
 
 //camera.c
 void	update_camera(t_camera *cam);
@@ -129,5 +130,8 @@ void	init_camera(t_camera *cam, t_vec3 *cam_axis, t_mlx *mlx);
 int		print_error_1(t_error id);
 void	*print_strerror_null(t_error id, char *str);
 int		print_perror_1(t_error id, char *str);
+
+//main.c
+int		free_lists(t_data *lists);
 
 #endif //MINIRT_H

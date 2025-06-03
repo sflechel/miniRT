@@ -6,14 +6,16 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:42:05 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/02 14:48:22 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/03 14:34:52 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "math_utils.h"
 #include "minirt.h"
 #include <pthread.h>
+#include "libft.h"
 
-void	pixel_put(t_mlx *mlx, int u, int v, t_color color)
+static void	pixel_put(const t_mlx *restrict mlx, const int u, const int v, const t_color color)
 {
 	char	*dest;
 
@@ -21,7 +23,7 @@ void	pixel_put(t_mlx *mlx, int u, int v, t_color color)
 	*(unsigned int *)dest = color.rgba;
 }
 
-t_vec3	compute_first_pixel(t_camera *cam, t_vec3 *delta_u, t_vec3 *delta_v)
+t_vec3	compute_first_pixel(const t_camera *restrict cam, t_vec3 *restrict delta_u, t_vec3 *restrict delta_v)
 {
 	t_vec3	viewport_upper_left;
 	t_vec3	first_pixel;
@@ -41,6 +43,7 @@ t_vec3	compute_first_pixel(t_camera *cam, t_vec3 *delta_u, t_vec3 *delta_v)
 
 void	*scan_viewport(void *data_v)
 {
+	const t_camera	*cam = ((t_thread_data *)data_v)->cam;
 	t_thread_data	*data;
 	t_color			pixel_color;
 	int				uv[2];
@@ -53,38 +56,40 @@ void	*scan_viewport(void *data_v)
 		while (uv[0] < data->cam->img_width)
 		{
 			data->pixel = vector_sum(data->pixel, data->delta_u);
-			pixel_color = cast_ray((t_ray){data->cam->pos, vector_sub(
-						data->pixel, data->cam->pos)}, data->lists);
+			pixel_color = cast_ray((t_ray){cam->pos, vector_sub(
+						data->pixel, cam->pos)}, data->lists);
 			pixel_put(data->mlx, uv[0], uv[1], pixel_color);
 			uv[0]++;
 		}
-		data->pixel = vector_sub(data->pixel, scalar_mult(data->delta_u, data->cam->img_width));
+		data->pixel = vector_sub(data->pixel, scalar_mult(data->delta_u, cam->img_width));
 		data->pixel = vector_sum(data->pixel, data->delta_v);
 		uv[1]++;
 	}
 	return (NULL);
 }
 #define NB_THREAD 100
-
-void	fill_data(t_thread_data *data, t_camera *cam, t_data *lists, t_mlx *mlx)
+#include <stdio.h>
+void	fill_data(t_thread_data *data, const t_camera *cam, const t_data *lists, const t_mlx *mlx)
 {
 	int		i;
 
 	i = 0;
 	while (i < NB_THREAD)
 	{
-		data[i].cam = cam;
-		data[i].lists = lists;
-		data[i].mlx = mlx;
+		data[i].cam = (t_camera *)cam;
+		data[i].lists = (t_data *)lists;
+		data[i].mlx = (t_mlx *)mlx;
 		data[i].start = data->cam->img_heigth / NB_THREAD * i;
 		data[i].stop = data->cam->img_heigth / NB_THREAD * (i + 1);
 		data[i].pixel = compute_first_pixel(cam, &data[i].delta_u, &data[i].delta_v);
 		data[i].pixel = vector_sum(data[i].pixel, scalar_mult(data[i].delta_v, data[i].start));
+		if (i == NB_THREAD - 1)
+			data[i].stop = data->cam->img_heigth;
 		i++;
 	}
 }
 
-void	launch_thread(t_camera *cam, t_data *lists, t_mlx *mlx)
+void	launch_thread(const t_camera *restrict cam, const t_data *restrict lists, const t_mlx *restrict mlx)
 {
 	pthread_t		thrs[NB_THREAD];
 	t_thread_data	data[NB_THREAD];

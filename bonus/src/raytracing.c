@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/03 16:36:53 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/03 18:32:50 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "minirt.h"
 #include "shapes.h"
 
-t_color	background_color(t_ray ray)
+t_color	background_color(const t_ray ray)
 {
 	const t_vec3	unit_direction = vector_normalization(ray.direction);
 	const float		lerp = unit_direction.y * 0.5 + 0.5;
@@ -27,7 +27,7 @@ t_color	background_color(t_ray ray)
 	return (background);
 }
 
-t_vec3 get_light_ray_reflected(t_col col, t_ray light_ray)
+t_vec3	get_light_ray_reflected(const t_col col, const t_ray light_ray)
 {
 	const t_vec3	reflect_proj = ortho_proj(light_ray.direction, col.normal);
 	const t_vec3	mult_by_2 = scalar_mult(reflect_proj, 2);
@@ -36,7 +36,7 @@ t_vec3 get_light_ray_reflected(t_col col, t_ray light_ray)
 	return (reflected);
 }
 
-t_color	calc_specular(t_col col, t_ray light_ray)
+t_color	calc_specular(const t_col col, const t_ray light_ray)
 {
 	const t_vec3	reflected = get_light_ray_reflected(col, light_ray);
 	const float		specular_constant = 0.5;
@@ -49,7 +49,7 @@ t_color	calc_specular(t_col col, t_ray light_ray)
 	return (color_scaling((t_color){{255, 255, 255, 0}}, angle * specular_constant));
 }
 
-t_color	shading(t_data *shapes, t_col col, t_light light)
+t_color	shading(const t_data *shapes, const t_col col, const t_light light)
 {
 	float	intensity;
 	t_color	pixel_color;
@@ -74,7 +74,7 @@ t_color	shading(t_data *shapes, t_col col, t_light light)
 	return (pixel_color);
 }
 
-t_color	cast_ray(t_ray ray, t_data *lists)
+t_color	cast_ray(const t_ray ray, const t_data *lists)
 {
 	const int	nb_light = lists->lights->nb_lights;
 	t_color		pixel_color;

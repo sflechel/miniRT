@@ -6,14 +6,14 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/03 18:22:38 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/03 18:36:52 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "shapes.h"
 
-static void	get_collision_color_cylinder_and_cap(t_data *shapes, t_col *col, t_type type)
+static void	get_collision_color_cylinder_and_cap(const t_data *shapes, t_col *col, const t_type type)
 {
 	const t_cylinder	cylinder = shapes->cylinders->array[col->index];
 
@@ -33,7 +33,7 @@ static void	get_collision_color_cylinder_and_cap(t_data *shapes, t_col *col, t_t
 	}
 }
 
-void	get_collision_color(t_data *shapes, t_col *col)
+void	get_collision_color(const t_data *shapes, t_col *col)
 {
 	const t_type	type = col->type;
 

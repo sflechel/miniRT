@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:21:34 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 15:50:53 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:13:24 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,42 +41,42 @@ typedef union u_color
 }	t_color;
 
 //color_utils.c
-t_color		color_mult(t_color color1, t_color color2);
-t_color		color_scaling(t_color color, float scale);
-t_color		color_sum(t_color color1, t_color color2);
+t_color		color_mult(const t_color color1, const t_color color2);
+t_color		color_scaling(const t_color color, const float scale);
+t_color		color_sum(const t_color color1, const t_color color2);
 
 //vec_3_scalar_ops.c
-t_vec3		scalar_division(t_vec3 vec, float scalar);
-t_vec3		scalar_mult(t_vec3 vec, float scalar);
+t_vec3		scalar_division(const t_vec3 vec, const float scalar);
+t_vec3		scalar_mult(const t_vec3 vec, const float scalar);
 
 //vec_3_vector_ops.c
-t_vec3		cross_product(t_vec3 vec1, t_vec3 vec2);
-t_vec3		ortho_proj(t_vec3 projected, t_vec3 line);
-t_vec3		vector_mult(t_vec3 term1, t_vec3 term2);
-t_vec3		vector_division(t_vec3 term1, t_vec3 term2);
-t_vec3		vector_sub(t_vec3 minuend, t_vec3 subtrahend);
-t_vec3		vector_sum(t_vec3 term1, t_vec3 term2);
-int			vector_equal(t_vec3 vec1, t_vec3 vec2);
+t_vec3		cross_product(const t_vec3 vec1, const t_vec3 vec2);
+t_vec3		ortho_proj(const t_vec3 projected, const t_vec3 line);
+t_vec3		vector_mult(const t_vec3 term1, const t_vec3 term2);
+t_vec3		vector_division(const t_vec3 term1, const t_vec3 term2);
+t_vec3		vector_sub(const t_vec3 minuend, const t_vec3 subtrahend);
+t_vec3		vector_sum(const t_vec3 term1, const t_vec3 term2);
+int			vector_equal(const t_vec3 vec1, const t_vec3 vec2);
 
 //vec_3_to_float.c
-float		dot_product(t_vec3 vec1, t_vec3 vec2);
-t_vec3		vector_normalization(t_vec3 vec);
-float		get_squared_norm(t_vec3 vec);
-float		get_norm(t_vec3 vec);
+float		dot_product(const t_vec3 vec1, const t_vec3 vec2);
+t_vec3		vector_normalization(const t_vec3 vec);
+float		get_squared_norm(const t_vec3 vec);
+float		get_norm(const t_vec3 vec);
 
 //matrix
-t_mat_3x3	matrix_mult(t_mat_3x3 m1, t_mat_3x3 m2);
-t_vec3		matrix_mult_vec3(t_mat_3x3 m, t_vec3 vec);
-t_mat_3x3	matrix_transpose(t_mat_3x3 m);
+t_mat_3x3	matrix_mult(const t_mat_3x3 m1, const t_mat_3x3 m2);
+t_vec3		matrix_mult_vec3(const t_mat_3x3 m, const t_vec3 vec);
+t_mat_3x3	matrix_transpose(const t_mat_3x3 m);
 
 //gradient.c
-t_vec3		quadric_get_gradient(t_vec3	axes);
+t_vec3		quadric_get_gradient(const t_vec3	axes);
 
 //rotation.c
-void		rotation(t_vec3 *vec, t_vec3 rot);
-void		rotation_x(t_vec3 *vec, float angle);
-void		rotation_y(t_vec3 *vec, float angle);
-void		rotation_z(t_vec3 *vec, float angle);
-t_mat_3x3	axis_angle_to_rotation_matrix(t_vec3 axis_from, t_vec3 axis_to);
+void		rotation(t_vec3 *vec, const t_vec3 rot);
+void		rotation_x(t_vec3 *vec, const float angle);
+void		rotation_y(t_vec3 *vec, const float angle);
+void		rotation_z(t_vec3 *vec, const float angle);
+t_mat_3x3	axis_angle_to_rotation_matrix(const t_vec3 axis_from, const t_vec3 axis_to);
 
 #endif //MATH_UTILS_H

@@ -6,13 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:09:25 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/30 13:40:35 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:07:33 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
 
-t_mat_3x3	matrix_mult(t_mat_3x3 m1, t_mat_3x3 m2)
+t_mat_3x3	matrix_mult(const t_mat_3x3 m1, const t_mat_3x3 m2)
 {
 	t_mat_3x3	new;
 
@@ -28,7 +28,7 @@ t_mat_3x3	matrix_mult(t_mat_3x3 m1, t_mat_3x3 m2)
 	return (new);
 }
 
-t_vec3	matrix_mult_vec3(t_mat_3x3 m, t_vec3 vec)
+t_vec3	matrix_mult_vec3(const t_mat_3x3 m, const t_vec3 vec)
 {
 	t_vec3	new;
 
@@ -38,7 +38,7 @@ t_vec3	matrix_mult_vec3(t_mat_3x3 m, t_vec3 vec)
 	return (new);
 }
 
-t_mat_3x3	matrix_transpose(t_mat_3x3 m)
+t_mat_3x3	matrix_transpose(const t_mat_3x3 m)
 {
 	t_mat_3x3	mt;
 

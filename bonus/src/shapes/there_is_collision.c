@@ -6,13 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:19:38 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/03 14:35:26 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/03 18:38:11 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int	cylinder_collision(t_cylinder_list *list, t_ray ray, t_col cam_col)
+static int	cylinder_collision(const t_cylinder_list *list, const t_ray ray, const t_col cam_col)
 {
 	const int	same_type = cam_col.type == TYPE_CYLINDER || cam_col.type
 		== TYPE_CAP_UP || cam_col.type == TYPE_CAP_DOWN;
@@ -39,7 +39,7 @@ static int	cylinder_collision(t_cylinder_list *list, t_ray ray, t_col cam_col)
 	return (0);
 }
 
-static int	plane_collision(t_plane_list *list, t_ray ray, t_col cam_col)
+static int	plane_collision(const t_plane_list *list, const t_ray ray, const t_col cam_col)
 {
 	const int	same_type = cam_col.type == TYPE_PLANE;
 	const int	nb_shapes = list->nb_shapes - 1;
@@ -59,7 +59,7 @@ static int	plane_collision(t_plane_list *list, t_ray ray, t_col cam_col)
 	return (0);
 }
 
-static int	sphere_collision(t_sphere_list *list, t_ray ray, t_col cam_col)
+static int	sphere_collision(const t_sphere_list *list, const t_ray ray, const t_col cam_col)
 {
 	const int	same_type = cam_col.type == TYPE_SPHERE;
 	const int	nb_shapes = list->nb_shapes - 1;
@@ -79,7 +79,7 @@ static int	sphere_collision(t_sphere_list *list, t_ray ray, t_col cam_col)
 	return (0);
 }
 
-static int	hyper_collision(t_hyper_list *list, t_ray ray, t_col cam_col)
+static int	hyper_collision(const t_hyper_list *list, const t_ray ray, const t_col cam_col)
 {
 	const int	same_type = cam_col.type == TYPE_HYPER;
 	const int	nb_shapes = list->nb_shapes - 1;
@@ -99,7 +99,7 @@ static int	hyper_collision(t_hyper_list *list, t_ray ray, t_col cam_col)
 	return (0);
 }
 
-int	there_is_collision(t_data *shapes, t_ray ray, t_col cam_col)
+int	there_is_collision(const t_data *shapes, const t_ray ray, const t_col cam_col)
 {
 	if (sphere_collision(shapes->spheres, ray, cam_col) == 1
 		|| plane_collision(shapes->planes, ray, cam_col) == 1

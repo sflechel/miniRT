@@ -6,15 +6,15 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 15:52:20 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/30 16:44:16 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/03 14:37:43 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
 
-static void	cylinder_calc_discriminant(t_cylinder_col *data,
-	const t_cylinder *cylinder, t_ray ray)
+static void	cylinder_calc_discriminant(t_cylinder_col *restrict data,
+	const t_cylinder *restrict cylinder, const t_ray ray)
 {
 	data->origin = vector_sub(cylinder->pos, ray.origin);
 	data->d_perp = vector_sub(ray.direction,
@@ -27,7 +27,7 @@ static void	cylinder_calc_discriminant(t_cylinder_col *data,
 			data->o_perp, data->o_perp) - cylinder->radius * cylinder->radius;
 }
 
-float	cylinder_get_collision(void *cylinder_void, t_ray ray)
+float	cylinder_get_collision(const void *cylinder_void, const t_ray ray)
 {
 	const t_cylinder	*cylinder = (t_cylinder*)cylinder_void;
 	t_cylinder_col		data;
@@ -51,7 +51,7 @@ float	cylinder_get_collision(void *cylinder_void, t_ray ray)
 	return (-1);
 }
 
-float	cap_up_get_collision(void *cylinder_void, t_ray ray)
+float	cap_up_get_collision(const void *cylinder_void, const t_ray ray)
 {
 	const t_cylinder	*cylinder = (t_cylinder*)cylinder_void;
 	t_cap_col			data;
@@ -72,7 +72,7 @@ float	cap_up_get_collision(void *cylinder_void, t_ray ray)
 	return (-1);
 }
 
-float	cap_down_get_collision(void *cylinder_void, t_ray ray)
+float	cap_down_get_collision(const void *cylinder_void, const t_ray ray)
 {
 	const t_cylinder	*cylinder = (t_cylinder*)cylinder_void;
 	t_cap_col			data;
