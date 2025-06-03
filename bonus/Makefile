@@ -1,6 +1,18 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/06/03 11:38:04 by sflechel          #+#    #+#              #
+#    Updated: 2025/06/03 12:07:18 by sflechel         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = miniRT
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -O3 -flto -g3 -Rpass-missed=licm -Rpass-analysis=licm
+CFLAGS = -Wall -Wextra -Werror -O3 -flto -g3 -march=native -fprofile-instr-generate
 LIB = libft.a
 LIB_DIR = libft/
 

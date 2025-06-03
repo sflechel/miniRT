@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/02 17:38:07 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/03 11:39:23 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define MINIRT_H
 
 # define SCREEN_HEIGHT 1444
+# define M_PI 3.14159265358979323846 
 
 # include "shapes.h"
 
