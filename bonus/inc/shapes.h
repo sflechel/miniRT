@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 16:37:47 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/03 18:24:49 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct s_col
 	t_vec3	normal;
 	t_color	color;
 	t_type	type;
-	float	pos;
+	float	dist;
 	int		index;
 }	t_col;
 
@@ -165,11 +165,11 @@ float	cap_up_get_collision(void *cylinder_void, t_ray ray);
 float	cap_down_get_collision(void *cylinder_void, t_ray ray);
 float	hyper_get_collision(void *hyper_void, t_ray ray);
 
-//normals.c
-void	get_normal(t_data *shapes, t_col *col);
-t_vec3	cylinder_get_normal(t_cylinder *shape, t_vec3 col);
-t_vec3	sphere_get_normal(t_sphere *shape, t_vec3 col);
-t_vec3	hyper_get_normal(t_hyper *shape, t_vec3 col);
+//normal_shapes
+void	get_normal(t_data *lists, t_col *col);
+
+//collision_color
+void	get_collision_color(t_data *shapes, t_col *col);
 
 //texture.c
 t_color	plane_get_texture(const t_col *col, const t_plane *plane);

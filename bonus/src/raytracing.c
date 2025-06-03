@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 16:45:39 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/03 16:36:53 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,20 @@ t_color	shading(t_data *shapes, t_col col, t_light light)
 
 t_color	cast_ray(t_ray ray, t_data *lists)
 {
-	t_color	pixel_color;
-	t_col	col;
-	int		i;
+	const int	nb_light = lists->lights->nb_lights;
+	t_color		pixel_color;
+	t_col		closest;
+	int			i;
 
-	if (get_closest_collision(lists, ray, &col) == -1)
+	if (get_closest_collision(lists, ray, &closest) == 1)
 		return (background_color(ray));
 	pixel_color = (t_color){{0, 0, 0, 0}};
 	i = 0;
-	while (i < lists->lights->nb_lights)
+	while (i < nb_light)
 	{
-		pixel_color = color_sum(pixel_color, shading(lists, col, lists->lights->lights[i]));
+		pixel_color = color_sum(pixel_color, shading(lists, closest, lists->lights->lights[i]));
 		i++;
 	}
-	pixel_color = color_sum(pixel_color, color_mult(col.color, lists->lights->ambient));
+	pixel_color = color_sum(pixel_color, color_mult(closest.color, lists->lights->ambient));
 	return (pixel_color);
 }

@@ -6,13 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 16:44:31 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/03 18:28:27 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	min_and_greater_0(t_col *col_arr, int nb_col, t_col *closest)
+int	closest_col_form_all_shapes(t_col *col_arr, int nb_col, t_col *closest)
 {
 	int		i;
 	float	dist;
@@ -21,9 +21,9 @@ int	min_and_greater_0(t_col *col_arr, int nb_col, t_col *closest)
 	dist = -1;
 	while (i < nb_col)
 	{
-		if ((dist > col_arr[i].pos && col_arr[i].pos > 0) || dist == -1)
+		if ((dist > col_arr[i].dist && col_arr[i].dist > 0) || dist == -1)
 		{
-			dist = col_arr[i].pos;
+			dist = col_arr[i].dist;
 			*closest = col_arr[i];
 		}
 		i++;
@@ -61,7 +61,7 @@ t_col	closest_col_shape(t_cylinder_list *list,
 
 	closest_col = col_func(&list->array[0], ray);
 	col.index = 0;
-	col.pos = -1;
+	col.dist = -1;
 	i = 1;
 	while (i < list->nb_shapes)
 	{
@@ -75,12 +75,12 @@ t_col	closest_col_shape(t_cylinder_list *list,
 	}
 	if (closest_col <= 0)
 		return (col);
-	col.pos = closest_col;
+	col.dist = closest_col;
 	col.type = type;
 	return (col);
 }
 
-static void	get_closest_per_shape(t_col *arr,
+static void	get_closest_col_per_shape(t_col *arr,
 		int nb_col, t_data *list, t_ray ray)
 {
 	int	i;
@@ -88,7 +88,7 @@ static void	get_closest_per_shape(t_col *arr,
 	i = 0;
 	while (i < nb_col)
 	{
-		arr[i].pos = -1;
+		arr[i].dist = -1;
 		i++;
 	}
 	if (list->planes->nb_shapes > 0)
@@ -113,12 +113,13 @@ int	get_closest_collision(t_data *list, t_ray ray, t_col *col)
 	t_col	arr[6];
 	t_col	closest_shape;
 
-	get_closest_per_shape(arr, 6, list, ray);
-	if (min_and_greater_0(arr, 6, &closest_shape) == 1)
-		return (-1);
+	get_closest_col_per_shape(arr, 6, list, ray);
+	if (closest_col_form_all_shapes(arr, 6, &closest_shape) == 1)
+		return (1);
+	closest_shape.pos_world = vector_sum(ray.origin,
+		scalar_mult(ray.direction, closest_shape.dist));
+	get_normal(list, &closest_shape);
+	//get_collision_color(list, &closest_shape);
 	*col = closest_shape;
-	col->pos_world = vector_sum(ray.origin,
-			scalar_mult(ray.direction, closest_shape.pos));
-	get_normal(list, col);
-	return (closest_shape.pos);
+	return (0);
 }
