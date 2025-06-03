@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/03 17:17:01 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/03 18:35:56 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,6 @@ void	*print_strerror_null(t_error id, char *str);
 int		print_perror_1(t_error id, char *str);
 
 //main.c
-int		free_lists(t_data *lists);
+int		free_lists(t_data *lists, t_mlx *mlx);
 
 #endif //MINIRT_H

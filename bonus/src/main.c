@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/03 17:22:18 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/03 18:39:31 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,33 @@
 #include "hook.h"
 #include "mlx.h"
 #include "mlx_int.h"
+#include "shapes.h"
 
-int	free_lists(t_data *lists)
+void	free_img(t_cylinder_list *list, t_mlx *mlx)
 {
+	int	i;
+
+	i = 0;
+	while (i < list->nb_shapes)
+	{
+		if (list->array[i].txtr != 0)
+		{
+			mlx_destroy_image(mlx->mlx, list->array[i].txtr->img);
+			free(list->array[i].txtr);
+		}
+		i++;
+	}
+}
+
+int	free_lists(t_data *lists, t_mlx *mlx)
+{
+	int	i;
+
+	i = 0;
+	free_img(lists->cylinders, mlx);
+	free_img((t_cylinder_list *)lists->hypers, mlx);
+	free_img((t_cylinder_list *)lists->spheres, mlx);
+	free_img((t_cylinder_list *)lists->planes, mlx);
 	free(lists->hypers);
 	free(lists->lights);
 	free(lists->planes);
@@ -86,7 +110,7 @@ int	main(int ac, char **av)
 		mlx_put_image_to_window(mlx.mlx, mlx.window, mlx.img.img, 0, 0);
 		mlx_loop(mlx.mlx);
 	}
+	free_lists(&data, &mlx);
 	free_mlx(&mlx);
-	free_lists(&data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/03 17:21:14 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/03 18:36:51 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	count_objects(char **lines, t_id id)
 	return (count);
 }
 
-int	alloc_lists(char **lines, t_data *list, t_light_list **lights)
+int	alloc_lists(char **lines, t_data *list, t_light_list **lights, t_mlx *mlx)
 {
 	const int	nb_spheres = count_objects(lines, ID_SPHERE);
 	const int	nb_cylinders = count_objects(lines, ID_CYLINDER);
@@ -89,7 +89,7 @@ int	alloc_lists(char **lines, t_data *list, t_light_list **lights)
 	list->hypers = malloc(sizeof(t_hyper_list) + sizeof(t_hyper) * nb_hypers);
 	*lights = malloc(sizeof(t_light_list) + sizeof(t_light) * nb_lights);
 	if (list->cylinders == 0 || list->spheres == 0 || list->planes == 0 || *lights == 0 || list->hypers == 0)
-		return (free_lists(list));
+		return (free_lists(list, mlx));
 	list->cylinders->nb_shapes = 0;
 	list->spheres->nb_shapes = 0;
 	list->planes->nb_shapes = 0;
@@ -124,11 +124,11 @@ int	parsing(char *filename, t_data *list, t_camera *cam, t_mlx *mlx)
 	free(file);
 	if (lines == 0)
 		return (1);
-	if (alloc_lists(lines, list, &list->lights) == 1)
+	if (alloc_lists(lines, list, &list->lights, mlx) == 1)
 		return (free_1_return_1(lines));
 	if (fill_list_shapes(lines, list, cam, mlx) == 1)
 	{
-		free_lists(list);
+		free_lists(list, mlx);
 		return (free_1_return_1(lines));
 	}
 	return (free_1_return_0(lines));
