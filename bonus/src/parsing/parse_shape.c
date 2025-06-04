@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:42:19 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/04 14:00:41 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:42:32 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,18 @@
 
 int	handle_cylinder(char **line, t_cylinder_list *list, t_mlx *mlx)
 {
-	const int	len = ptr_array_len(line);
 	t_cylinder	*cylinder;
 
 	cylinder = &list->array[list->nb_shapes];
 	printf("parse the cylinder\n");
-	if (verif_len(len, 8) == 1
+	if (verif_len(ptr_array_len(line), 8) == 1
 		|| parse_vector3(line[1], &cylinder->pos) == 1
 		|| parse_vector3_normalised(line[2], &cylinder->axis) == 1
 		|| parse_float(line[3], &cylinder->radius) == 1
 		|| parse_float(line[4], &cylinder->height) == 1
 		|| parse_rgba(line[5], &cylinder->color) == 1
-		|| parse_file(line[6], &cylinder->txtr, mlx) == 1
-		|| parse_file(line[7], &cylinder->bump, mlx) == 1
+		|| parse_xpm(line[6], &cylinder->txtr, mlx) == 1
+		|| parse_xpm(line[7], &cylinder->bump, mlx) == 1
 		|| verif_texture_size(cylinder->txtr, cylinder->bump) == 1)
 	{
 		ft_dprintf(STDERR_FILENO, " in a cylinder\n");
@@ -48,17 +47,16 @@ int	handle_cylinder(char **line, t_cylinder_list *list, t_mlx *mlx)
 
 int	handle_plane(char **line, t_plane_list *list, t_mlx *mlx)
 {
-	const int	len = ptr_array_len(line);
 	t_plane		*plane;
 
 	plane = &list->array[list->nb_shapes];
 	printf("parse the plan\n");
-	if (verif_len(len, 6) == 1
+	if (verif_len(ptr_array_len(line), 6) == 1
 		|| parse_vector3(line[1], &plane->pos) == 1
 		|| parse_vector3_normalised(line[2], &plane->normal) == 1
 		|| parse_rgba(line[3], &plane->color) == 1
-		|| parse_file(line[4], &plane->txtr, mlx) == 1
-		|| parse_file(line[5], &plane->bump, mlx) == 1
+		|| parse_xpm(line[4], &plane->txtr, mlx) == 1
+		|| parse_xpm(line[5], &plane->bump, mlx) == 1
 		|| verif_texture_size(plane->txtr, plane->bump) == 1)
 	{
 		ft_dprintf(STDERR_FILENO, " in a plane\n");
@@ -76,17 +74,16 @@ int	handle_plane(char **line, t_plane_list *list, t_mlx *mlx)
 
 int	handle_sphere(char **line, t_sphere_list *list, t_mlx *mlx)
 {
-	const int	len = ptr_array_len(line);
 	t_sphere	*sphere;
 
 	sphere = &list->array[list->nb_shapes];
 	printf("parse the sphere\n");
-	if (verif_len(len, 6) == 1
+	if (verif_len(ptr_array_len(line), 6) == 1
 		|| parse_vector3(line[1], &sphere->pos) == 1
 		|| parse_float(line[2], &sphere->radius) == 1
 		|| parse_rgba(line[3], &sphere->color) == 1
-		|| parse_file(line[4], &sphere->txtr, mlx) == 1
-		|| parse_file(line[5], &sphere->bump, mlx) == 1
+		|| parse_xpm(line[4], &sphere->txtr, mlx) == 1
+		|| parse_xpm(line[5], &sphere->bump, mlx) == 1
 		|| verif_texture_size(sphere->txtr, sphere->bump) == 1)
 	{
 		ft_dprintf(STDERR_FILENO, " in a sphere\n");
@@ -98,17 +95,16 @@ int	handle_sphere(char **line, t_sphere_list *list, t_mlx *mlx)
 
 int	handle_hyper(char **line, t_hyper_list *list, t_mlx *mlx)
 {
-	const int	len = ptr_array_len(line);
 	t_hyper		*hyper;
 
 	hyper = &list->array[list->nb_shapes];
 	printf("parse the hyper\n");
-	if (verif_len(len, 6) == 1
+	if (verif_len(ptr_array_len(line), 6) == 1
 		|| parse_vector3(line[1], &hyper->pos) == 1
 		|| parse_vector3_normalised(line[2], &hyper->axis) == 1
 		|| parse_vector3(line[3], &hyper->param) == 1
 		|| parse_rgba(line[4], &hyper->color) == 1
-		|| parse_file(line[5], &hyper->txtr, mlx) == 1)
+		|| parse_xpm(line[5], &hyper->txtr, mlx) == 1)
 	{
 		ft_dprintf(STDERR_FILENO, " in a hyper\n");
 		return (1);

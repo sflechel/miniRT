@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/03 18:36:51 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:38:22 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_id	is_valid_id(char *line)
 	return (ID_ERROR);
 }
 
-int	verify_uniques(char **lines)
+static int	verify_uniques(char **lines)
 {
 	int		i;
 	char	id;
@@ -55,7 +55,7 @@ int	verify_uniques(char **lines)
 	return (0);
 }
 
-int	count_objects(char **lines, t_id id)
+static int	count_objects(char **lines, t_id id)
 {
 	int	count;
 	int	i;
@@ -71,7 +71,8 @@ int	count_objects(char **lines, t_id id)
 	return (count);
 }
 
-int	alloc_lists(char **lines, t_data *list, t_light_list **lights, t_mlx *mlx)
+static int	alloc_lists(char **lines, t_data *list,
+		t_light_list **lights, t_mlx *mlx)
 {
 	const int	nb_spheres = count_objects(lines, ID_SPHERE);
 	const int	nb_cylinders = count_objects(lines, ID_CYLINDER);
@@ -88,7 +89,8 @@ int	alloc_lists(char **lines, t_data *list, t_light_list **lights, t_mlx *mlx)
 	list->planes = malloc(sizeof(t_plane_list) + sizeof(t_plane) * nb_planes);
 	list->hypers = malloc(sizeof(t_hyper_list) + sizeof(t_hyper) * nb_hypers);
 	*lights = malloc(sizeof(t_light_list) + sizeof(t_light) * nb_lights);
-	if (list->cylinders == 0 || list->spheres == 0 || list->planes == 0 || *lights == 0 || list->hypers == 0)
+	if (list->cylinders == 0 || list->spheres == 0
+		|| list->planes == 0 || *lights == 0 || list->hypers == 0)
 		return (free_lists(list, mlx));
 	list->cylinders->nb_shapes = 0;
 	list->spheres->nb_shapes = 0;
@@ -98,7 +100,8 @@ int	alloc_lists(char **lines, t_data *list, t_light_list **lights, t_mlx *mlx)
 	return (0);
 }
 
-int	fill_list_shapes(char **lines, t_data *list, t_camera *cam, t_mlx *mlx)
+static int	fill_list_shapes(char **lines, t_data *list,
+		t_camera *cam, t_mlx *mlx)
 {
 	int	i;
 

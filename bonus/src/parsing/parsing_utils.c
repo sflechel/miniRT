@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/04 11:59:40 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:57:07 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	parse_form_range(char *str, float *range, float min, float max)
 		|| *range < min || *range > max)
 	{
 		ft_dprintf(STDERR_FILENO,
-			"Error\n%s is not a valid float in range %d %d", str, (int)min, (int)max);
+			"Error\n%s is not a valid float in range %d %d",
+			str, (int)min, (int)max);
 		return (1);
 	}
 	return (0);
@@ -54,7 +55,8 @@ int	parse_float(char *str, float *f)
 {
 	if (safe_atof(str, f) == 1)
 	{
-		ft_dprintf(STDERR_FILENO, "Error\n%s is not a valid float", str);
+		ft_dprintf(STDERR_FILENO,
+			"Error\n%s is not a valid float", str);
 		return (1);
 	}
 	return (0);
@@ -66,13 +68,14 @@ int	verif_texture_size(t_image *color, t_image *bump)
 		return (0);
 	if (color->height != bump->height || color->width != bump->width)
 	{
-		ft_dprintf(STDERR_FILENO, "Error\nBoth textures must be of the same size");
+		ft_dprintf(STDERR_FILENO,
+			"Error\nBoth textures must be of the same size");
 		return (1);
 	}
 	return (0);
 }
 
-int	parse_file(char *str, t_image **img, t_mlx *mlx)
+int	parse_xpm(char *str, t_image **img, t_mlx *mlx)
 {
 	if (ft_strcmp(str, "0") == 0)
 	{
@@ -82,13 +85,15 @@ int	parse_file(char *str, t_image **img, t_mlx *mlx)
 	*img = ft_calloc(1, sizeof(t_image));
 	if (*img == 0)
 		return (1);
-	(*img)->img = mlx_xpm_file_to_image(mlx->mlx, str, &(*img)->width, &(*img)->height);
+	(*img)->img
+		= mlx_xpm_file_to_image(mlx->mlx, str, &(*img)->width, &(*img)->height);
 	if ((*img)->img == 0)
 	{
-		print_perror_1(ERR_NO_OPEN, str);
+		print_strerror_null(ERR_XPM, str);
 		return (free_1_return_1(*img));
 	}
-	(*img)->addr = mlx_get_data_addr((*img)->img, &(*img)->bpp, &(*img)->len_line, &(*img)->endian);
+	(*img)->addr = mlx_get_data_addr(
+			(*img)->img, &(*img)->bpp, &(*img)->len_line, &(*img)->endian);
 	(*img)->bpp /= 8;
 	return (0);
 }

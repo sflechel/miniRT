@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 13:43:52 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:47:40 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef enum e_error
 	ERR_INVALID_ID,
 	ERR_INVALID_EXTENSION,
 	ERR_NO_OPEN,
+	ERR_XPM,
 	ERR_INIT_MLX,
 	ERR_INIT_WINDOW,
 	ERR_INIT_IMG,
@@ -132,7 +133,6 @@ void	init_camera(t_camera *cam, t_vec3 *cam_axis, t_mlx *mlx);
 //errors.c
 int		print_error_1(t_error id);
 void	*print_strerror_null(t_error id, char *str);
-int		print_perror_1(t_error id, char *str);
 
 //main.c
 int		free_lists(t_data *lists, t_mlx *mlx);

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:22:32 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/02 17:08:42 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:33:25 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	rotation_z(t_vec3 *vec, const float angle)
 	vec->y = sin_a * buf_x + cos_a * vec->y;
 }
 
-t_mat_3x3	axis_angle_to_rotation_matrix(const t_vec3 axis_from, const t_vec3 axis_to)
+t_mat_3x3	axis_angle_to_rotation_matrix(const t_vec3 axis_from,
+		const t_vec3 axis_to)
 {
 	const float		cosa = dot_product(axis_from, axis_to);
 	const t_vec3	a = cross_product(axis_from, axis_to);

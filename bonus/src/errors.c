@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:06:11 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/30 16:45:00 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:50:11 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,7 @@ void	*print_strerror_null(t_error id, char *str)
 		ft_dprintf(e, "%s must end in .rt\n", str);
 	else if (id == ERR_NO_OPEN)
 		ft_dprintf(e, "%s could not be opened\n", str);
-	return (0);
-}
-
-int	print_perror_1(t_error id, char *str)
-{
-	const int	e = STDERR_FILENO;
-
-	ft_dprintf(e, "Error\n");
-	if (id == ERR_OPEN_FAIL)
-		perror(str);
+	else if (id == ERR_XPM)
+		ft_dprintf(e, "Mlx failed to open %s", str);
 	return (0);
 }
