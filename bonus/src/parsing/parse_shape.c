@@ -6,10 +6,11 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:42:19 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/30 16:40:17 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/04 08:11:01 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "math_utils.h"
 #include "parsing.h"
 #include "libft.h"
 #include <stdio.h>
@@ -57,6 +58,17 @@ int	handle_plane(char **line, t_plane_list *list, t_mlx *mlx)
 	{
 		ft_dprintf(STDERR_FILENO, " in a plane\n");
 		return (1);
+	}
+	plane->u = cross_product(plane->normal, (t_vec3){0, 1, 0});
+	if (vector_equal(plane->u, (t_vec3){0, 0, 0}) == 1)
+		plane->u = cross_product(plane->normal, (t_vec3){1, 0, 0});
+	plane->v = cross_product(plane->normal, plane->u);
+	plane->u = scalar_mult(plane->u, 32);
+	plane->v = scalar_mult(plane->v, 32);
+	if (plane->txtr != 0)
+	{
+		plane->txtr->width /= 4;
+		plane->txtr->height /= 4;
 	}
 	list->nb_shapes++;
 	return (0);

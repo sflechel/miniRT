@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/03 18:39:31 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 08:29:11 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ void	free_img(t_cylinder_list *list, t_mlx *mlx)
 
 int	free_lists(t_data *lists, t_mlx *mlx)
 {
-	int	i;
-
-	i = 0;
 	free_img(lists->cylinders, mlx);
 	free_img((t_cylinder_list *)lists->hypers, mlx);
 	free_img((t_cylinder_list *)lists->spheres, mlx);
@@ -85,10 +82,12 @@ int	init_mlx(t_mlx *mlx)
 	}
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img,
 			&mlx->img.bpp, &mlx->img.len_line, &mlx->img.endian);
+	mlx->img.bpp /= 8;
 	mlx->end = DONT_END;
 	return (0);
 }
-
+#include <time.h>
+#include <bits/time.h>
 int	main(int ac, char **av)
 {
 	t_camera		camera;
@@ -105,9 +104,14 @@ int	main(int ac, char **av)
 	handle_hooks(&hook_data);
 	while (mlx.end == DONT_END)
 	{
+		struct timespec start, end;
 		((t_xvar *)(mlx.mlx))->end_loop = 0;
+		clock_gettime(CLOCK_MONOTONIC, &start);
 		launch_thread(&camera, &data, &mlx);
 		mlx_put_image_to_window(mlx.mlx, mlx.window, mlx.img.img, 0, 0);
+		clock_gettime(CLOCK_MONOTONIC, &end);
+		double tdiff = (end.tv_sec - start.tv_sec) + 1e-9*(end.tv_nsec - start.tv_nsec);
+		printf("%f\n", tdiff);
 		mlx_loop(mlx.mlx);
 	}
 	free_lists(&data, &mlx);

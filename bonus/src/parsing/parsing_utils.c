@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/03 17:45:46 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 08:12:36 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	parse_file(char *str, t_image **img, t_mlx *mlx)
 		return (free_1_return_1(*img));
 	}
 	(*img)->addr = mlx_get_data_addr((*img)->img, &(*img)->bpp, &(*img)->len_line, &(*img)->endian);
+	(*img)->bpp /= 8;
 	return (0);
 }
 

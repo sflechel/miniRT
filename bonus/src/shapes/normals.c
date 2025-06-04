@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/03 14:38:27 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 08:19:22 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	get_normal(const t_data *restrict shapes, t_col *restrict col)
 	{
 		col->normal = shapes->planes->array[col->index].normal;
 		if (shapes->planes->array[col->index].txtr != 0)
-			col->color = plane_get_texture(col, &shapes->planes->array[col->index]);
+			col->color = plane_get_texture(col, &shapes->planes->array[col->index], shapes->planes->array[col->index].txtr);
 		else
 			col->color = shapes->planes->array[col->index].color;
 	}

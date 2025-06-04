@@ -6,34 +6,26 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 10:58:39 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/03 14:39:16 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 08:21:11 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
 
-t_color	plane_get_texture(const t_col *restrict col, const t_plane *restrict plane)
+t_color	plane_get_texture(const t_col *restrict col, const t_plane *restrict plane, const t_image *restrict txtr)
 {
-	t_vec3	u;
-	t_vec3	v;
 	int		u_coord;
 	int		v_coord;
 	t_color	txtr_color;
 
-	u = cross_product(plane->normal, (t_vec3){0, 1, 0});
-	if (vector_equal(u, (t_vec3){0, 0, 0}) == 1)
-		u = cross_product(plane->normal, (t_vec3){1, 0, 0});
-	v = cross_product(plane->normal, u);
-	u = scalar_mult(u, 32);
-	v = scalar_mult(v, 32);
-	u_coord = (int)dot_product(col->pos_world, u) % plane->txtr->width / 4;
-	v_coord = (int)dot_product(col->pos_world, v) % plane->txtr->height / 4;
+	u_coord = (int)dot_product(col->pos_world, plane->u) % txtr->width;
+	v_coord = (int)dot_product(col->pos_world, plane->v) % txtr->height;
 	if (u_coord < 0)
-		u_coord += plane->txtr->width / 4;
+		u_coord += txtr->width;
 	if (v_coord < 0)
-		v_coord += plane->txtr->height / 4;
-	txtr_color.rgba = *((int *)plane->txtr->addr + (v_coord * plane->txtr->len_line + u_coord * plane->txtr->bpp / 8));
+		v_coord += txtr->height;
+	txtr_color.rgba = *((int *)txtr->addr + (v_coord * txtr->len_line + u_coord * txtr->bpp));
 	return (txtr_color);
 }
 
@@ -57,7 +49,7 @@ t_color	cap_get_texture(const t_col *restrict col, const t_cylinder *restrict cy
 		u_coord += cylinder->txtr->width / 4;
 	if (v_coord < 0)
 		v_coord += cylinder->txtr->height / 4;
-	txtr_color.rgba = *((int *)cylinder->txtr->addr + (v_coord * cylinder->txtr->len_line + u_coord * cylinder->txtr->bpp / 8));
+	txtr_color.rgba = *((int *)cylinder->txtr->addr + (v_coord * cylinder->txtr->len_line + u_coord * cylinder->txtr->bpp));
 	return (txtr_color);
 }
 
@@ -69,7 +61,7 @@ t_color	sphere_get_texture(const t_col *restrict col, const t_sphere *restrict s
 	const int	v_coord = latitude * sphere->txtr->height;
 	t_color		txtr_color;
 
-	txtr_color.rgba = *(int *)(sphere->txtr->addr + (v_coord * sphere->txtr->len_line + u_coord * sphere->txtr->bpp / 8));
+	txtr_color.rgba = *(int *)(sphere->txtr->addr + (v_coord * sphere->txtr->len_line + u_coord * sphere->txtr->bpp));
 	return (txtr_color);
 }
 
@@ -90,7 +82,7 @@ t_color	cylinder_get_texture(const t_col *restrict col, const t_cylinder *restri
 		azimut = 1 - azimut;
 	u_coord = azimut * cylinder->txtr->width;
 	v_coord = height * cylinder->txtr->height;
-	txtr_color.rgba = *(int *)(cylinder->txtr->addr + (v_coord * cylinder->txtr->len_line + u_coord * cylinder->txtr->bpp / 8));
+	txtr_color.rgba = *(int *)(cylinder->txtr->addr + (v_coord * cylinder->txtr->len_line + u_coord * cylinder->txtr->bpp));
 	return (txtr_color);
 }
 
@@ -102,6 +94,6 @@ t_color	ellipsoid_get_texture(const t_col *restrict col, const t_hyper *restrict
 	const int	v_coord = latitude * hyper->txtr->height;
 	t_color		txtr_color;
 
-	txtr_color.rgba = *(int *)(hyper->txtr->addr + (v_coord * hyper->txtr->len_line + u_coord * hyper->txtr->bpp / 8));
+	txtr_color.rgba = *(int *)(hyper->txtr->addr + (v_coord * hyper->txtr->len_line + u_coord * hyper->txtr->bpp));
 	return (txtr_color);
 }
