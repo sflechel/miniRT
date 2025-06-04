@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 10:58:39 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 11:21:51 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 13:41:29 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,17 @@ void	plane_get_texture(const t_col *restrict col, const t_plane *restrict plane,
 	if (v_coord < 0)
 		v_coord += plane->txtr->height;
 	if (plane->txtr != 0)
-		(*color).rgba = *((int *)plane->txtr->addr + (v_coord * plane->txtr->len_line + u_coord * plane->txtr->bpp));
+		(*color).rgba = *(int *)(plane->txtr->addr + (v_coord * plane->txtr->len_line + u_coord * plane->txtr->bpp));
 	if (plane->bump != 0)
-		(*bump).rgba = *((int *)plane->bump->addr + (v_coord * plane->bump->len_line + u_coord * plane->bump->bpp));
+		(*bump).rgba = *(int *)(plane->bump->addr + (v_coord * plane->bump->len_line + u_coord * plane->bump->bpp));
 }
 
-t_color	cap_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder)
+void	cap_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder, t_color *color, t_color *bump)
 {
 	t_vec3	u;
 	t_vec3	v;
 	int		u_coord;
 	int		v_coord;
-	t_color	txtr_color;
 
 	u = cross_product(col->normal, (t_vec3){0, 1, 0});
 	if (vector_equal(u, (t_vec3){0, 0, 0}) == 1)
@@ -45,14 +44,16 @@ t_color	cap_get_texture(const t_col *restrict col, const t_cylinder *restrict cy
 	v = cross_product(col->normal, u);
 	u = scalar_mult(u, TEXTURE_SCALE);
 	v = scalar_mult(v, TEXTURE_SCALE);
-	u_coord = (int)dot_product(col->pos_world, u) % cylinder->txtr->width / 4;
-	v_coord = (int)dot_product(col->pos_world, v) % cylinder->txtr->height / 4;
+	u_coord = (int)dot_product(col->pos_world, u) % cylinder->txtr->width;
+	v_coord = (int)dot_product(col->pos_world, v) % cylinder->txtr->height;
 	if (u_coord < 0)
-		u_coord += cylinder->txtr->width / 4;
+		u_coord += cylinder->txtr->width;
 	if (v_coord < 0)
-		v_coord += cylinder->txtr->height / 4;
-	txtr_color.rgba = *((int *)cylinder->txtr->addr + (v_coord * cylinder->txtr->len_line + u_coord * cylinder->txtr->bpp));
-	return (txtr_color);
+		v_coord += cylinder->txtr->height;
+	if (cylinder->txtr != 0)
+		(*color).rgba = *(int *)(cylinder->txtr->addr + (v_coord * cylinder->txtr->len_line + u_coord * cylinder->txtr->bpp));
+	if (cylinder->bump != 0)
+		(*bump).rgba = *(int *)(cylinder->bump->addr + (v_coord * cylinder->bump->len_line + u_coord * cylinder->bump->bpp));
 }
 
 t_color	sphere_get_texture(const t_col *restrict col, const t_sphere *restrict sphere)
@@ -67,7 +68,7 @@ t_color	sphere_get_texture(const t_col *restrict col, const t_sphere *restrict s
 	return (txtr_color);
 }
 
-t_color	cylinder_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder)
+void	cylinder_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder, t_color *color, t_color *bump)
 {
 	const t_vec3	p = vector_sub(cylinder->pos, col->pos_world);
 	const t_vec3	p_proj = ortho_proj(p, cylinder->axis);
@@ -76,7 +77,6 @@ t_color	cylinder_get_texture(const t_col *restrict col, const t_cylinder *restri
 	float			azimut;
 	int				u_coord;
 	int				v_coord;
-	t_color			txtr_color;
 
 	azimut = dot_product(p_perp, cylinder->txtr_origin) / (cylinder->radius * cylinder->radius);
 	azimut = 0.5 * acosf(azimut) / M_PI;
@@ -84,8 +84,10 @@ t_color	cylinder_get_texture(const t_col *restrict col, const t_cylinder *restri
 		azimut = 1 - azimut;
 	u_coord = azimut * cylinder->txtr->width;
 	v_coord = height * cylinder->txtr->height;
-	txtr_color.rgba = *(int *)(cylinder->txtr->addr + (v_coord * cylinder->txtr->len_line + u_coord * cylinder->txtr->bpp));
-	return (txtr_color);
+	if (cylinder->txtr != 0)
+		(*color).rgba = *(int *)(cylinder->txtr->addr + (v_coord * cylinder->txtr->len_line + u_coord * cylinder->txtr->bpp));
+	if (cylinder->bump != 0)
+		(*bump).rgba = *(int *)(cylinder->bump->addr + (v_coord * cylinder->bump->len_line + u_coord * cylinder->bump->bpp));
 }
 
 t_color	ellipsoid_get_texture(const t_col *restrict col, const t_hyper *restrict hyper)

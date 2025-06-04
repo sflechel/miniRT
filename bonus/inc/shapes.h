@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 11:50:05 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 12:53:54 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_plane
 typedef struct s_cylinder
 {
 	t_image	*txtr;
+	t_image	*bump;
 	float	radius;
 	float	height;
 	t_vec3	pos;
@@ -175,9 +176,9 @@ void	get_color_and_normal(const t_data *restrict shapes, t_col *restrict col);
 
 //texture.c
 void	plane_get_texture(const t_col *restrict col, const t_plane *restrict plane, t_color *color, t_color *bump);
+void	cap_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder, t_color *color, t_color *bump);
+void	cylinder_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder, t_color *color, t_color *bump);
 t_color	sphere_get_texture(const t_col *col, const t_sphere *sphere);
-t_color	cylinder_get_texture(const t_col *col, const t_cylinder *cylinder);
-t_color	cap_get_texture(const t_col *col, const t_cylinder *cylinder);
 t_color	ellipsoid_get_texture(const t_col *col, const t_hyper *hyper);
 
 #endif

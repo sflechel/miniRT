@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 12:32:26 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 13:20:46 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static t_vec3	hyper_get_normal(const t_hyper *hyper, const t_vec3 col)
 	normal = vector_normalization(normal);
 	return (normal);
 }
-#include <stdio.h>
+
 void	plane_get_color_and_normal(const t_plane *restrict plane, t_col *restrict col)
 {
 	t_color	color;
@@ -53,12 +53,85 @@ void	plane_get_color_and_normal(const t_plane *restrict plane, t_col *restrict c
 	t_vec3	bump_vec;
 
 	col->normal = plane->normal;
-	plane_get_texture(col, plane, &color, &bump_color);
+	if (plane->txtr != 0 || plane->bump != 0)
+		plane_get_texture(col, plane, &color, &bump_color);
 	if (plane->txtr != 0)
 		col->color = color;
 	else
 		col->color = plane->color;
 	if (plane->bump != 0)
+	{
+		bump_vec.x = (float)(bump_color.r - 128) / 128;
+		bump_vec.y = (float)(bump_color.g - 128) / 128;
+		bump_vec.z = (float)(bump_color.b - 128) / 128;
+		bump_vec = scalar_mult(bump_vec, NORMAL_INTENSITY);
+		col->normal = vector_sum(col->normal, bump_vec);
+		col->normal = vector_normalization(col->normal);
+	}
+}
+
+void	cap_up_get_color_and_normal(const t_cylinder *restrict cylinder, t_col *restrict col)
+{
+	t_color	color;
+	t_color	bump_color;
+	t_vec3	bump_vec;
+
+	col->normal = cylinder->axis;
+	if (cylinder->txtr != 0 || cylinder->bump != 0)
+		cap_get_texture(col, cylinder, &color, &bump_color);
+	if (cylinder->txtr != 0)
+		col->color = color;
+	else
+		col->color = cylinder->color;
+	if (cylinder->bump != 0)
+	{
+		bump_vec.x = (float)(bump_color.r - 128) / 128;
+		bump_vec.y = (float)(bump_color.g - 128) / 128;
+		bump_vec.z = (float)(bump_color.b - 128) / 128;
+		bump_vec = scalar_mult(bump_vec, NORMAL_INTENSITY);
+		col->normal = vector_sum(col->normal, bump_vec);
+		col->normal = vector_normalization(col->normal);
+	}
+}
+
+void	cap_down_get_color_and_normal(const t_cylinder *restrict cylinder, t_col *restrict col)
+{
+	t_color	color;
+	t_color	bump_color;
+	t_vec3	bump_vec;
+
+	col->normal = scalar_mult(cylinder->axis, -1);
+	if (cylinder->txtr != 0 || cylinder->bump != 0)
+		cap_get_texture(col, cylinder, &color, &bump_color);
+	if (cylinder->txtr != 0)
+		col->color = color;
+	else
+		col->color = cylinder->color;
+	if (cylinder->bump != 0)
+	{
+		bump_vec.x = (float)(bump_color.r - 128) / 128;
+		bump_vec.y = (float)(bump_color.g - 128) / 128;
+		bump_vec.z = (float)(bump_color.b - 128) / 128;
+		bump_vec = scalar_mult(bump_vec, NORMAL_INTENSITY);
+		col->normal = vector_sum(col->normal, bump_vec);
+		col->normal = vector_normalization(col->normal);
+	}
+}
+
+void	cylinder_get_color_and_normal(const t_cylinder *restrict cylinder, t_col *restrict col)
+{
+	t_color	color;
+	t_color	bump_color;
+	t_vec3	bump_vec;
+
+	col->normal = cylinder_get_normal(cylinder, col->pos_world);
+	if (cylinder->txtr != 0 || cylinder->bump != 0)
+		cylinder_get_texture(col, cylinder, &color, &bump_color);
+	if (cylinder->txtr != 0)
+		col->color = color;
+	else
+		col->color = cylinder->color;
+	if (cylinder->bump != 0)
 	{
 		bump_vec.x = (float)(bump_color.r - 128) / 128;
 		bump_vec.y = (float)(bump_color.g - 128) / 128;
@@ -83,30 +156,11 @@ void	get_color_and_normal(const t_data *restrict shapes, t_col *restrict col)
 			col->color = shapes->spheres->array[col->index].color;
 	}
 	else if (col->type == TYPE_CYLINDER)
-	{
-		col->normal = cylinder_get_normal(
-				&shapes->cylinders->array[col->index], col->pos_world);
-		if (shapes->cylinders->array[col->index].txtr != 0)
-			col->color = cylinder_get_texture(col, &shapes->cylinders->array[col->index]);
-		else
-			col->color = shapes->cylinders->array[col->index].color;
-	}
+		cylinder_get_color_and_normal(&shapes->cylinders->array[col->index], col);
 	else if (col->type == TYPE_CAP_UP)
-	{
-		col->normal = shapes->cylinders->array[col->index].axis;
-		if (shapes->cylinders->array[col->index].txtr != 0)
-			col->color = cap_get_texture(col, &shapes->cylinders->array[col->index]);
-		else
-			col->color = shapes->cylinders->array[col->index].color;
-	}
+		cap_up_get_color_and_normal(&shapes->cylinders->array[col->index], col);
 	else if (col->type == TYPE_CAP_DOWN)
-	{
-		col->normal = scalar_mult(shapes->cylinders->array[col->index].axis, -1);
-		if (shapes->cylinders->array[col->index].txtr != 0)
-			col->color = cap_get_texture(col, &shapes->cylinders->array[col->index]);
-		else
-			col->color = shapes->cylinders->array[col->index].color;
-	}
+		cap_down_get_color_and_normal(&shapes->cylinders->array[col->index], col);
 	else if (col->type == TYPE_HYPER)
 	{
 		col->normal = hyper_get_normal(&shapes->hypers->array[col->index], col->pos_world);

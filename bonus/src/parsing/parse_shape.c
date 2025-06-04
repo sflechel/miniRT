@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:42:19 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/04 12:08:03 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 13:41:41 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,15 @@ int	handle_cylinder(char **line, t_cylinder_list *list, t_mlx *mlx)
 
 	cylinder = &list->array[list->nb_shapes];
 	printf("parse the cylinder\n");
-	if (verif_len(len, 7) == 1
+	if (verif_len(len, 8) == 1
 		|| parse_vector3(line[1], &cylinder->pos) == 1
 		|| parse_vector3_normalised(line[2], &cylinder->axis) == 1
 		|| parse_float(line[3], &cylinder->radius) == 1
 		|| parse_float(line[4], &cylinder->height) == 1
 		|| parse_rgba(line[5], &cylinder->color) == 1
-		|| parse_file(line[6], &cylinder->txtr, mlx) == 1)
+		|| parse_file(line[6], &cylinder->txtr, mlx) == 1
+		|| parse_file(line[7], &cylinder->bump, mlx) == 1
+		|| verif_texture_size(cylinder->txtr, cylinder->bump) == 1)
 	{
 		ft_dprintf(STDERR_FILENO, " in a cylinder\n");
 		return (1);
@@ -68,16 +70,6 @@ int	handle_plane(char **line, t_plane_list *list, t_mlx *mlx)
 	plane->v = cross_product(plane->normal, plane->u);
 	plane->u = scalar_mult(plane->u, TEXTURE_SCALE);
 	plane->v = scalar_mult(plane->v, TEXTURE_SCALE);
-	if (plane->txtr != 0)
-	{
-		plane->txtr->width /= 4;
-		plane->txtr->height /= 4;
-	}
-	if (plane->bump != 0)
-	{
-		plane->bump->width /= 4;
-		plane->bump->height /= 4;
-	}
 	list->nb_shapes++;
 	return (0);
 }
