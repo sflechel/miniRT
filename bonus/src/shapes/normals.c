@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 08:19:22 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 12:32:26 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,34 @@ static t_vec3	hyper_get_normal(const t_hyper *hyper, const t_vec3 col)
 	normal = vector_normalization(normal);
 	return (normal);
 }
+#include <stdio.h>
+void	plane_get_color_and_normal(const t_plane *restrict plane, t_col *restrict col)
+{
+	t_color	color;
+	t_color	bump_color;
+	t_vec3	bump_vec;
 
-void	get_normal(const t_data *restrict shapes, t_col *restrict col)
+	col->normal = plane->normal;
+	plane_get_texture(col, plane, &color, &bump_color);
+	if (plane->txtr != 0)
+		col->color = color;
+	else
+		col->color = plane->color;
+	if (plane->bump != 0)
+	{
+		bump_vec.x = (float)(bump_color.r - 128) / 128;
+		bump_vec.y = (float)(bump_color.g - 128) / 128;
+		bump_vec.z = (float)(bump_color.b - 128) / 128;
+		bump_vec = scalar_mult(bump_vec, NORMAL_INTENSITY);
+		col->normal = vector_sum(col->normal, bump_vec);
+		col->normal = vector_normalization(col->normal);
+	}
+}
+
+void	get_color_and_normal(const t_data *restrict shapes, t_col *restrict col)
 {
 	if (col->type == TYPE_PLANE)
-	{
-		col->normal = shapes->planes->array[col->index].normal;
-		if (shapes->planes->array[col->index].txtr != 0)
-			col->color = plane_get_texture(col, &shapes->planes->array[col->index], shapes->planes->array[col->index].txtr);
-		else
-			col->color = shapes->planes->array[col->index].color;
-	}
+		plane_get_color_and_normal(&shapes->planes->array[col->index], col);
 	else if (col->type == TYPE_SPHERE)
 	{
 		col->normal = sphere_get_normal(&shapes->spheres->array[col->index],

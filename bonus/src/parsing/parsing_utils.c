@@ -6,13 +6,14 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/04 08:12:36 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 11:59:40 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minirt.h"
 #include "mlx.h"
+#include <unistd.h>
 
 int	parse_rgba(char *str, t_color *color)
 {
@@ -54,6 +55,18 @@ int	parse_float(char *str, float *f)
 	if (safe_atof(str, f) == 1)
 	{
 		ft_dprintf(STDERR_FILENO, "Error\n%s is not a valid float", str);
+		return (1);
+	}
+	return (0);
+}
+
+int	verif_texture_size(t_image *color, t_image *bump)
+{
+	if (color == 0 || bump == 0)
+		return (0);
+	if (color->height != bump->height || color->width != bump->width)
+	{
+		ft_dprintf(STDERR_FILENO, "Error\nBoth textures must be of the same size");
 		return (1);
 	}
 	return (0);

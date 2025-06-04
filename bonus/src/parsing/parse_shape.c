@@ -6,11 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:42:19 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/04 08:11:01 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 12:08:03 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
+#include "minirt.h"
 #include "parsing.h"
 #include "libft.h"
 #include <stdio.h>
@@ -50,11 +51,13 @@ int	handle_plane(char **line, t_plane_list *list, t_mlx *mlx)
 
 	plane = &list->array[list->nb_shapes];
 	printf("parse the plan\n");
-	if (verif_len(len, 5) == 1
+	if (verif_len(len, 6) == 1
 		|| parse_vector3(line[1], &plane->pos) == 1
 		|| parse_vector3_normalised(line[2], &plane->normal) == 1
 		|| parse_rgba(line[3], &plane->color) == 1
-		|| parse_file(line[4], &plane->txtr, mlx) == 1)
+		|| parse_file(line[4], &plane->txtr, mlx) == 1
+		|| parse_file(line[5], &plane->bump, mlx) == 1
+		|| verif_texture_size(plane->txtr, plane->bump) == 1)
 	{
 		ft_dprintf(STDERR_FILENO, " in a plane\n");
 		return (1);
@@ -63,12 +66,17 @@ int	handle_plane(char **line, t_plane_list *list, t_mlx *mlx)
 	if (vector_equal(plane->u, (t_vec3){0, 0, 0}) == 1)
 		plane->u = cross_product(plane->normal, (t_vec3){1, 0, 0});
 	plane->v = cross_product(plane->normal, plane->u);
-	plane->u = scalar_mult(plane->u, 32);
-	plane->v = scalar_mult(plane->v, 32);
+	plane->u = scalar_mult(plane->u, TEXTURE_SCALE);
+	plane->v = scalar_mult(plane->v, TEXTURE_SCALE);
 	if (plane->txtr != 0)
 	{
 		plane->txtr->width /= 4;
 		plane->txtr->height /= 4;
+	}
+	if (plane->bump != 0)
+	{
+		plane->bump->width /= 4;
+		plane->bump->height /= 4;
 	}
 	list->nb_shapes++;
 	return (0);

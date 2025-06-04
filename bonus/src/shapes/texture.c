@@ -6,27 +6,29 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 10:58:39 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 08:21:11 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 11:21:51 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "math_utils.h"
 #include "minirt.h"
 #include <math.h>
 
-t_color	plane_get_texture(const t_col *restrict col, const t_plane *restrict plane, const t_image *restrict txtr)
+void	plane_get_texture(const t_col *restrict col, const t_plane *restrict plane, t_color *color, t_color *bump)
 {
 	int		u_coord;
 	int		v_coord;
-	t_color	txtr_color;
 
-	u_coord = (int)dot_product(col->pos_world, plane->u) % txtr->width;
-	v_coord = (int)dot_product(col->pos_world, plane->v) % txtr->height;
+	u_coord = (int)dot_product(col->pos_world, plane->u) % plane->txtr->width;
+	v_coord = (int)dot_product(col->pos_world, plane->v) % plane->txtr->height;
 	if (u_coord < 0)
-		u_coord += txtr->width;
+		u_coord += plane->txtr->width;
 	if (v_coord < 0)
-		v_coord += txtr->height;
-	txtr_color.rgba = *((int *)txtr->addr + (v_coord * txtr->len_line + u_coord * txtr->bpp));
-	return (txtr_color);
+		v_coord += plane->txtr->height;
+	if (plane->txtr != 0)
+		(*color).rgba = *((int *)plane->txtr->addr + (v_coord * plane->txtr->len_line + u_coord * plane->txtr->bpp));
+	if (plane->bump != 0)
+		(*bump).rgba = *((int *)plane->bump->addr + (v_coord * plane->bump->len_line + u_coord * plane->bump->bpp));
 }
 
 t_color	cap_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder)
@@ -41,8 +43,8 @@ t_color	cap_get_texture(const t_col *restrict col, const t_cylinder *restrict cy
 	if (vector_equal(u, (t_vec3){0, 0, 0}) == 1)
 		u = cross_product(col->normal, (t_vec3){1, 0, 0});
 	v = cross_product(col->normal, u);
-	u = scalar_mult(u, 64);
-	v = scalar_mult(v, 64);
+	u = scalar_mult(u, TEXTURE_SCALE);
+	v = scalar_mult(v, TEXTURE_SCALE);
 	u_coord = (int)dot_product(col->pos_world, u) % cylinder->txtr->width / 4;
 	v_coord = (int)dot_product(col->pos_world, v) % cylinder->txtr->height / 4;
 	if (u_coord < 0)

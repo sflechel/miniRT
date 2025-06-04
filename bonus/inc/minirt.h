@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/03 18:35:56 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 12:33:22 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 # define MINIRT_H
 
 # define SCREEN_HEIGHT 1444
+# define NORMAL_INTENSITY 0.5
+# define TEXTURE_SCALE 64
+
 # define M_PI 3.14159265358979323846
 
 # include "shapes.h"
