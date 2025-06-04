@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 10:58:39 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 13:58:22 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:30:20 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,15 @@ void	cylinder_get_texture(const t_col *restrict col, const t_cylinder *restrict 
 		(*bump).rgba = *(int *)(cylinder->bump->addr + (v_coord * cylinder->bump->len_line + u_coord * cylinder->bump->bpp));
 }
 
-t_color	ellipsoid_get_texture(const t_col *restrict col, const t_hyper *restrict hyper)
+void	ellipsoid_get_texture(const t_col *restrict col, const t_hyper *restrict hyper, t_color *color, t_color *bump)
 {
 	const float	latitude = 0.5 - asinf(col->normal.y) / M_PI;
 	const float	longitude = 0.5 - atan2f(col->normal.z, col->normal.x) / (2 * M_PI);
 	const int	u_coord = longitude * hyper->txtr->width;
 	const int	v_coord = latitude * hyper->txtr->height;
-	t_color		txtr_color;
 
-	txtr_color.rgba = *(int *)(hyper->txtr->addr + (v_coord * hyper->txtr->len_line + u_coord * hyper->txtr->bpp));
-	return (txtr_color);
+	if (hyper->txtr != 0)
+		(*color).rgba = *(int *)(hyper->txtr->addr + (v_coord * hyper->txtr->len_line + u_coord * hyper->txtr->bpp));
+	if (hyper->bump != 0)
+		(*bump).rgba = *(int *)(hyper->bump->addr + (v_coord * hyper->bump->len_line + u_coord * hyper->bump->bpp));
 }

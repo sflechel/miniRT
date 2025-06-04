@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 12:34:52 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:30:56 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ void	free_img(t_cylinder_list *list, t_mlx *mlx)
 		{
 			mlx_destroy_image(mlx->mlx, list->array[i].txtr->img);
 			free(list->array[i].txtr);
+		}
+		if (list->array[i].bump != 0)
+		{
+			mlx_destroy_image(mlx->mlx, list->array[i].bump->img);
+			free(list->array[i].bump);
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 13:58:37 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:28:27 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_cylinder
 typedef struct s_hyper
 {
 	t_image	*txtr;
+	t_image	*bump;
 	t_vec3	pos;
 	t_vec3	param;
 	t_vec3	axis;
@@ -180,6 +181,6 @@ void	plane_get_texture(const t_col *restrict col, const t_plane *restrict plane,
 void	cap_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder, t_color *color, t_color *bump);
 void	cylinder_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder, t_color *color, t_color *bump);
 void	sphere_get_texture(const t_col *restrict col, const t_sphere *restrict sphere, t_color *color, t_color *bump);
-t_color	ellipsoid_get_texture(const t_col *col, const t_hyper *hyper);
+void	ellipsoid_get_texture(const t_col *restrict col, const t_hyper *restrict hyper, t_color *color, t_color *bump);
 
 #endif
