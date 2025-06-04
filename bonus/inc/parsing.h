@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:02:03 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/30 16:40:23 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/04 11:34:38 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int		parse_form_range(char *str, float *range, float min, float max);
 int		parse_float(char *str, float *f);
 int		verif_len(int len, int target);
 int		parse_file(char *str, t_image **img, t_mlx *mlx);
+int		verif_texture_size(t_image *color, t_image *bump);
 
 //parsing_utils_vector
 int		parse_vector3(char *str, t_vec3 *vec);

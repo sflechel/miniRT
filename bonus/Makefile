@@ -6,7 +6,7 @@
 #    By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/03 11:38:04 by sflechel          #+#    #+#              #
-#    Updated: 2025/06/03 18:21:05 by sflechel         ###   ########.fr        #
+#    Updated: 2025/06/04 14:39:47 by sflechel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,13 +47,12 @@ SRC =	hook/hook_key.c\
 		parsing/parsing_utils_vector.c\
 		parsing/parsing_utils.c\
 		parsing/parsing.c\
-		shapes/collision_color.c\
 		shapes/collision_cylinder.c\
 		shapes/collision_shapes.c\
 		shapes/collision.c\
 		shapes/there_is_collision.c\
-		shapes/normal_shapes.c\
 		shapes/texture_shape.c\
+		shapes/normals.c\
 		scanning.c\
 		raytracing.c\
 		camera.c\

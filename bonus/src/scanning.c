@@ -6,20 +6,19 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:42:05 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/03 14:34:52 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 08:14:58 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
 #include "minirt.h"
 #include <pthread.h>
-#include "libft.h"
 
 static void	pixel_put(const t_mlx *restrict mlx, const int u, const int v, const t_color color)
 {
 	char	*dest;
 
-	dest = mlx->img.addr + (v * mlx->img.len_line + u * mlx->img.bpp / 8);
+	dest = mlx->img.addr + (v * mlx->img.len_line + u * mlx->img.bpp);
 	*(unsigned int *)dest = color.rgba;
 }
 
@@ -68,7 +67,7 @@ void	*scan_viewport(void *data_v)
 	return (NULL);
 }
 #define NB_THREAD 100
-#include <stdio.h>
+
 void	fill_data(t_thread_data *data, const t_camera *cam, const t_data *lists, const t_mlx *mlx)
 {
 	int		i;
