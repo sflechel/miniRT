@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:42:19 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/04 13:41:41 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:00:41 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,13 @@ int	handle_sphere(char **line, t_sphere_list *list, t_mlx *mlx)
 
 	sphere = &list->array[list->nb_shapes];
 	printf("parse the sphere\n");
-	if (verif_len(len, 5) == 1
+	if (verif_len(len, 6) == 1
 		|| parse_vector3(line[1], &sphere->pos) == 1
 		|| parse_float(line[2], &sphere->radius) == 1
 		|| parse_rgba(line[3], &sphere->color) == 1
-		|| parse_file(line[4], &sphere->txtr, mlx) == 1)
+		|| parse_file(line[4], &sphere->txtr, mlx) == 1
+		|| parse_file(line[5], &sphere->bump, mlx) == 1
+		|| verif_texture_size(sphere->txtr, sphere->bump) == 1)
 	{
 		ft_dprintf(STDERR_FILENO, " in a sphere\n");
 		return (1);

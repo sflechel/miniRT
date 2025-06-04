@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 12:53:54 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 13:58:37 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef enum e_type
 typedef struct s_sphere
 {
 	t_image	*txtr;
+	t_image	*bump;
 	float	radius;
 	t_vec3	pos;
 	t_color	color;
@@ -178,7 +179,7 @@ void	get_color_and_normal(const t_data *restrict shapes, t_col *restrict col);
 void	plane_get_texture(const t_col *restrict col, const t_plane *restrict plane, t_color *color, t_color *bump);
 void	cap_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder, t_color *color, t_color *bump);
 void	cylinder_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder, t_color *color, t_color *bump);
-t_color	sphere_get_texture(const t_col *col, const t_sphere *sphere);
+void	sphere_get_texture(const t_col *restrict col, const t_sphere *restrict sphere, t_color *color, t_color *bump);
 t_color	ellipsoid_get_texture(const t_col *col, const t_hyper *hyper);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 13:20:46 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:18:14 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,20 +141,39 @@ void	cylinder_get_color_and_normal(const t_cylinder *restrict cylinder, t_col *r
 		col->normal = vector_normalization(col->normal);
 	}
 }
+#include <stdio.h>
+void	sphere_get_color_and_normal(const t_sphere *restrict sphere, t_col *restrict col)
+{
+	t_color	color;
+	t_color	bump_color;
+	t_vec3	bump_vec;
+
+	col->normal = sphere_get_normal(sphere, col->pos_world);
+	if (sphere->txtr != 0 || sphere->bump != 0)
+		sphere_get_texture(col, sphere, &color, &bump_color);
+	if (sphere->txtr != 0)
+		col->color = color;
+	else
+		col->color = sphere->color;
+	if (sphere->bump != 0)
+	{
+		printf("%i, %i, %i\n", bump_color.r, bump_color.g, bump_color.b);
+		bump_vec.x = (float)(bump_color.r - 128) / 128;
+		bump_vec.y = (float)(bump_color.g - 128) / 128;
+		bump_vec.z = (float)(bump_color.b - 128) / 128;
+		printf("%f, %f, %f\n", bump_vec.x, bump_vec.y, bump_vec.z);
+		bump_vec = scalar_mult(bump_vec, NORMAL_INTENSITY);
+		col->normal = vector_sum(col->normal, bump_vec);
+		col->normal = vector_normalization(col->normal);
+	}
+}
 
 void	get_color_and_normal(const t_data *restrict shapes, t_col *restrict col)
 {
 	if (col->type == TYPE_PLANE)
 		plane_get_color_and_normal(&shapes->planes->array[col->index], col);
 	else if (col->type == TYPE_SPHERE)
-	{
-		col->normal = sphere_get_normal(&shapes->spheres->array[col->index],
-				col->pos_world);
-		if (shapes->spheres->array[col->index].txtr != 0)
-			col->color = sphere_get_texture(col, &shapes->spheres->array[col->index]);
-		else
-			col->color = shapes->spheres->array[col->index].color;
-	}
+		sphere_get_color_and_normal(&shapes->spheres->array[col->index], col);
 	else if (col->type == TYPE_CYLINDER)
 		cylinder_get_color_and_normal(&shapes->cylinders->array[col->index], col);
 	else if (col->type == TYPE_CAP_UP)

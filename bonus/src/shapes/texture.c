@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 10:58:39 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 13:41:29 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/04 13:58:22 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,17 @@ void	cap_get_texture(const t_col *restrict col, const t_cylinder *restrict cylin
 		(*bump).rgba = *(int *)(cylinder->bump->addr + (v_coord * cylinder->bump->len_line + u_coord * cylinder->bump->bpp));
 }
 
-t_color	sphere_get_texture(const t_col *restrict col, const t_sphere *restrict sphere)
+void	sphere_get_texture(const t_col *restrict col, const t_sphere *restrict sphere, t_color *color, t_color *bump)
 {
 	const float	latitude = 0.5 - asinf(col->normal.y) / M_PI;
 	const float	longitude = 0.5 - atan2f(col->normal.z, col->normal.x) / (2 * M_PI);
 	const int	u_coord = longitude * sphere->txtr->width;
 	const int	v_coord = latitude * sphere->txtr->height;
-	t_color		txtr_color;
 
-	txtr_color.rgba = *(int *)(sphere->txtr->addr + (v_coord * sphere->txtr->len_line + u_coord * sphere->txtr->bpp));
-	return (txtr_color);
+	if (sphere->txtr != 0)
+		(*color).rgba = *(int *)(sphere->txtr->addr + (v_coord * sphere->txtr->len_line + u_coord * sphere->txtr->bpp));
+	if (sphere->bump != 0)
+		(*bump).rgba = *(int *)(sphere->bump->addr + (v_coord * sphere->bump->len_line + u_coord * sphere->bump->bpp));
 }
 
 void	cylinder_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder, t_color *color, t_color *bump)
