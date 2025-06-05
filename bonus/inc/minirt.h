@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 16:47:40 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/04 18:00:43 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define MINIRT_H
 
 # define SCREEN_HEIGHT 1444
+# define NB_THREAD 100
 # define NORMAL_INTENSITY 0.5
 # define TEXTURE_SCALE 256
 

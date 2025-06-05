@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 16:59:14 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/04 17:36:29 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,8 +160,8 @@ typedef float			(*t_collision_func)(const void *, const t_ray);
 //collision.c
 int		get_closest_collision(const t_data *list, const t_ray ray, t_col *col);
 
-//there_is_collision
-int		there_is_collision(const t_data *shapes, const t_ray ray, const t_col cam_col);
+//drop_shadow
+int		drop_shadow(const t_data *shapes, const t_ray light_ray, const t_col cam_col);
 
 //collision_shapes.c
 float	sphere_get_collision(const void *sphere_void, const t_ray ray);

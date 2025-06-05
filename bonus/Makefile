@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/03 11:38:04 by sflechel          #+#    #+#              #
-#    Updated: 2025/06/04 14:39:47 by sflechel         ###   ########.fr        #
+#    Updated: 2025/06/04 18:00:49 by edarnand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ SRC =	hook/hook_key.c\
 		shapes/collision_cylinder.c\
 		shapes/collision_shapes.c\
 		shapes/collision.c\
-		shapes/there_is_collision.c\
+		shapes/drop_shadow.c\
 		shapes/texture_shape.c\
 		shapes/normals.c\
 		scanning.c\

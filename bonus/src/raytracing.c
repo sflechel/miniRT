@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/03 18:32:50 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/04 18:43:41 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_color	shading(const t_data *shapes, const t_col col, const t_light light)
 
 	light_ray.origin = col.pos_world;
 	light_ray.direction = vector_sub(light.pos, light_ray.origin);
-	if (there_is_collision(shapes, light_ray, col))
+	if (drop_shadow(shapes, light_ray, col) == 0)
 		pixel_color = (t_color){{0, 0, 0, 0}};
 	else
 	{
