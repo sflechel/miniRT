@@ -6,13 +6,18 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 10:58:39 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/06 15:25:50 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/06 16:07:10 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
 #include "minirt.h"
 #include <math.h>
+
+static int	get_color_from_img(t_image *img, int u_coord, int v_coord)
+{
+	return (*(int *)(img->addr + (v_coord * img->len_line + u_coord * img->bpp)));
+}
 
 void	plane_get_texture(const t_col *restrict col, const t_plane *restrict plane, t_color *color, t_color *bump)
 {
@@ -26,9 +31,9 @@ void	plane_get_texture(const t_col *restrict col, const t_plane *restrict plane,
 	if (v_coord < 0)
 		v_coord += plane->txtr->height;
 	if (plane->txtr != 0)
-		(*color).rgba = *(int *)(plane->txtr->addr + (v_coord * plane->txtr->len_line + u_coord * plane->txtr->bpp));
+		(*color).rgba = get_color_from_img(plane->txtr, u_coord, v_coord);
 	if (plane->bump != 0)
-		(*bump).rgba = *(int *)(plane->bump->addr + (v_coord * plane->bump->len_line + u_coord * plane->bump->bpp));
+		(*bump).rgba = get_color_from_img(plane->bump, u_coord, v_coord);
 }
 
 void	cap_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder, t_color *color, t_color *bump)
@@ -51,9 +56,9 @@ void	cap_get_texture(const t_col *restrict col, const t_cylinder *restrict cylin
 	if (v_coord < 0)
 		v_coord += cylinder->txtr->height;
 	if (cylinder->txtr != 0)
-		(*color).rgba = *(int *)(cylinder->txtr->addr + (v_coord * cylinder->txtr->len_line + u_coord * cylinder->txtr->bpp));
+		(*color).rgba = get_color_from_img(cylinder->txtr, u_coord, v_coord);
 	if (cylinder->bump != 0)
-		(*bump).rgba = *(int *)(cylinder->bump->addr + (v_coord * cylinder->bump->len_line + u_coord * cylinder->bump->bpp));
+		(*bump).rgba = get_color_from_img(cylinder->bump, u_coord, v_coord);
 }
 
 void	sphere_get_texture(const t_col *restrict col, const t_sphere *restrict sphere, t_color *color, t_color *bump)
@@ -64,9 +69,9 @@ void	sphere_get_texture(const t_col *restrict col, const t_sphere *restrict sphe
 	const int	v_coord = latitude * sphere->txtr->height;
 
 	if (sphere->txtr != 0)
-		(*color).rgba = *(int *)(sphere->txtr->addr + (v_coord * sphere->txtr->len_line + u_coord * sphere->txtr->bpp));
+		(*color).rgba = get_color_from_img(sphere->txtr, u_coord, v_coord);
 	if (sphere->bump != 0)
-		(*bump).rgba = *(int *)(sphere->bump->addr + (v_coord * sphere->bump->len_line + u_coord * sphere->bump->bpp));
+		(*bump).rgba = get_color_from_img(sphere->bump, u_coord, v_coord);
 }
 
 void	cylinder_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder, t_color *color, t_color *bump)
@@ -86,9 +91,9 @@ void	cylinder_get_texture(const t_col *restrict col, const t_cylinder *restrict 
 	u_coord = azimut * cylinder->txtr->width;
 	v_coord = height * cylinder->txtr->height;
 	if (cylinder->txtr != 0)
-		(*color).rgba = *(int *)(cylinder->txtr->addr + (v_coord * cylinder->txtr->len_line + u_coord * cylinder->txtr->bpp));
+		(*color).rgba = get_color_from_img(cylinder->txtr, u_coord, v_coord);
 	if (cylinder->bump != 0)
-		(*bump).rgba = *(int *)(cylinder->bump->addr + (v_coord * cylinder->bump->len_line + u_coord * cylinder->bump->bpp));
+		(*bump).rgba = get_color_from_img(cylinder->bump, u_coord, v_coord);
 }
 
 void	ellipsoid_get_texture(const t_col *restrict col, const t_hyper *restrict hyper, t_color *color, t_color *bump)
@@ -99,7 +104,7 @@ void	ellipsoid_get_texture(const t_col *restrict col, const t_hyper *restrict hy
 	const int	v_coord = latitude * hyper->txtr->height;
 
 	if (hyper->txtr != 0)
-		(*color).rgba = *(int *)(hyper->txtr->addr + (v_coord * hyper->txtr->len_line + u_coord * hyper->txtr->bpp));
+		(*color).rgba = get_color_from_img(hyper->txtr, u_coord, v_coord);
 	if (hyper->bump != 0)
-		(*bump).rgba = *(int *)(hyper->bump->addr + (v_coord * hyper->bump->len_line + u_coord * hyper->bump->bpp));
+		(*bump).rgba = get_color_from_img(hyper->bump, u_coord, v_coord);
 }
