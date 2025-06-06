@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 14:30:08 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/05 19:24:12 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ static t_vec3	sphere_get_normal(const t_sphere *sphere, const t_vec3 col)
 static t_vec3	hyper_get_normal(const t_hyper *hyper, const t_vec3 col)
 {
 	const t_vec3	gradient = quadric_get_gradient(hyper->param);
-	const t_vec3	obj_col = matrix_mult_vec3(axis_angle_to_rotation_matrix((t_vec3){0, 1, 0}, hyper->axis), vector_sub(col, hyper->pos));
+	const t_vec3	obj_col = matrix_mult_vec3(hyper->m_rot_invert, vector_sub(col, hyper->pos));
 	t_vec3			normal;
 
 	normal = vector_mult(obj_col, gradient);
-	normal = matrix_mult_vec3(axis_angle_to_rotation_matrix(hyper->axis, (t_vec3){0, 1, 0}), normal);
+	normal = matrix_mult_vec3(hyper->m_rot, normal);
 	normal = vector_normalization(normal);
 	return (normal);
 }

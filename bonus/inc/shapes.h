@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 17:36:29 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/06 15:26:07 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,12 @@ typedef struct s_cylinder
 	t_image	*txtr;
 	t_image	*bump;
 	float	radius;
+	float	radius_squared;
 	float	height;
+	float	height_half;
 	t_vec3	pos;
+	t_vec3	pos_cap_up;
+	t_vec3	pos_cap_down;
 	t_vec3	axis;
 	t_vec3	txtr_origin;
 	t_vec3	txtr_origin_rot;
@@ -67,6 +71,8 @@ typedef struct s_hyper
 {
 	t_image	*txtr;
 	t_image	*bump;
+	t_mat_3x3	m_rot;
+	t_mat_3x3	m_rot_invert;
 	t_vec3	pos;
 	t_vec3	param;
 	t_vec3	axis;
@@ -124,7 +130,6 @@ typedef struct s_cylinder_col
 
 typedef struct s_cap_col
 {
-	t_vec3	cap_pos;
 	t_vec3	origin;
 	t_vec3	col;
 	float	dot;
@@ -144,7 +149,6 @@ typedef struct s_sphere_col
 
 typedef struct s_hyper_col
 {
-	t_mat_3x3	m;
 	t_vec3		ray_origin;
 	t_vec3		ray_dir;
 	float		a;

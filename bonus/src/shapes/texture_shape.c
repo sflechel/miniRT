@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 10:58:39 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 14:33:34 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/06 15:25:50 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	cylinder_get_texture(const t_col *restrict col, const t_cylinder *restrict 
 	int				u_coord;
 	int				v_coord;
 
-	azimut = dot_product(p_perp, cylinder->txtr_origin) / (cylinder->radius * cylinder->radius);
+	azimut = dot_product(p_perp, cylinder->txtr_origin) / (cylinder->radius_squared);
 	azimut = 0.5 * acosf(azimut) / M_PI;
 	if (dot_product(p_perp, cylinder->txtr_origin_rot) < 0)
 		azimut = 1 - azimut;

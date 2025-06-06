@@ -6,13 +6,15 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:21:34 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/02 17:13:24 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:54:01 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATH_UTILS_H
 
 # define MATH_UTILS_H
+
+# define EPSILON 1e-6f
 
 typedef struct s_vec3
 {
