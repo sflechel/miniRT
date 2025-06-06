@@ -26,13 +26,13 @@ int	cylinder_collision(const t_cylinder_list *list, const t_ray light_ray, const
 		i++;
 		if (same_type && i == cam_col.index)
 			continue ;
-		col = cylinder_get_collision(&list->array[i], light_ray);
+		col = cylinder_get_collision(list->array + i, light_ray);
 		if (col >= 0)
 			return (1);
-		col = cap_up_get_collision(&list->array[i], light_ray);
+		col = cap_up_get_collision(list->array + i, light_ray);
 		if (col >= 0)
 			return (1);
-		col = cap_down_get_collision(&list->array[i], light_ray);
+		col = cap_down_get_collision(list->array + i, light_ray);
 		if (col >= 0)
 			return (1);
 	}
@@ -52,7 +52,7 @@ int	plane_collision(const t_plane_list *list, const t_ray light_ray, const t_col
 		i++;
 		if (same_type && i == cam_col.index)
 			continue ;
-		col = plane_get_collision(&list->array[i], light_ray);
+		col = plane_get_collision(list->array + i, light_ray);
 		if (col >= 0)
 			return (1);
 	}
@@ -72,7 +72,7 @@ int	sphere_collision(const t_sphere_list *list, const t_ray light_ray, const t_c
 		i++;
 		if (same_type && i == cam_col.index)
 			continue ;
-		col = sphere_get_collision(&list->array[i], light_ray);
+		col = sphere_get_collision(list->array + i, light_ray);
 		if (col >= 0)
 			return (1);
 	}
@@ -92,7 +92,7 @@ int	hyper_collision(const t_hyper_list *list, const t_ray light_ray, const t_col
 		i++;
 		if (same_type && i == cam_col.index)
 			continue ;
-		col = hyper_get_collision(&list->array[i], light_ray);
+		col = hyper_get_collision(list->array + i, light_ray);
 		if (col >= 0)
 			return (1);
 	}
