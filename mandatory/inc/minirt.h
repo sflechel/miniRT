@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/23 18:38:11 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/09 16:50:28 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 # define MINIRT_H
 
-# include "math_utils.h"
+typedef struct s_ray	t_ray;
+
 # include "shapes.h"
 
 typedef struct s_light
