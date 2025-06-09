@@ -6,10 +6,11 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 16:24:19 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/06 15:54:28 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "math_utils.h"
 #include "minirt.h"
 
 int	closest_col_form_all_shapes(const t_col *col_arr, const int nb_col, t_col *closest)
@@ -21,7 +22,7 @@ int	closest_col_form_all_shapes(const t_col *col_arr, const int nb_col, t_col *c
 	dist = -1;
 	while (i < nb_col)
 	{
-		if (dist == -1 || (dist > col_arr[i].dist && col_arr[i].dist > 0))
+		if (dist == -1 || (dist > col_arr[i].dist && col_arr[i].dist > EPSILON))
 		{
 			dist = col_arr[i].dist;
 			*closest = col_arr[i];
@@ -67,14 +68,14 @@ t_col	closest_col_shape(const t_cylinder_list *list,
 	while (i < nb_shapes)
 	{
 		curr_col = col_func(&list->array[i], ray);
-		if (curr_col > 0 && (curr_col < closest_col || closest_col <= 0))
+		if (curr_col != -1 && (curr_col < closest_col || closest_col == -1))
 		{
 			col.index = i;
 			closest_col = curr_col;
 		}
 		i++;
 	}
-	if (closest_col <= 0)
+	if (closest_col == -1)
 		return (col);
 	col.dist = closest_col;
 	col.type = type;
