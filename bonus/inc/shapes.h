@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/06 15:26:07 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/09 17:12:39 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ float	cap_up_get_collision(const void *cylinder_void, const t_ray ray);
 float	cap_down_get_collision(const void *cylinder_void, const t_ray ray);
 
 //normals.c
-void	get_color_and_normal(const t_data *restrict shapes, t_col *restrict col);
+void	get_color_and_normal(const t_data *restrict shapes, t_col *restrict col, const t_ray ray);
 
 //texture.c
 void	plane_get_texture(const t_col *restrict col, const t_plane *restrict plane, t_color *color, t_color *bump);

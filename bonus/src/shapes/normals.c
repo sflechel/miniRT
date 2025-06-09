@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:27:17 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/05 19:24:12 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/09 17:14:16 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,16 @@ static t_vec3	hyper_get_normal(const t_hyper *hyper, const t_vec3 col)
 	return (normal);
 }
 
-void	plane_get_color_and_normal(const t_plane *restrict plane, t_col *restrict col)
+void	plane_get_color_and_normal(const t_plane *restrict plane, t_col *restrict col, const t_ray ray)
 {
 	t_color	color;
 	t_color	bump_color;
 	t_vec3	bump_vec;
 
-	col->normal = plane->normal;
+	if (dot_product(ray.direction, plane->normal) > 0)
+		col->normal = scalar_mult(plane->normal, -1);
+	else
+		col->normal = plane->normal;
 	if (plane->txtr != 0 || plane->bump != 0)
 		plane_get_texture(col, plane, &color, &bump_color);
 	if (plane->txtr != 0)
@@ -190,10 +193,10 @@ void	hyper_get_color_and_normal(const t_hyper *restrict hyper, t_col *restrict c
 	}
 }
 
-void	get_color_and_normal(const t_data *restrict shapes, t_col *restrict col)
+void	get_color_and_normal(const t_data *restrict shapes, t_col *restrict col, const t_ray ray)
 {
 	if (col->type == TYPE_PLANE)
-		plane_get_color_and_normal(&shapes->planes->array[col->index], col);
+		plane_get_color_and_normal(&shapes->planes->array[col->index], col, ray);
 	else if (col->type == TYPE_SPHERE)
 		sphere_get_color_and_normal(&shapes->spheres->array[col->index], col);
 	else if (col->type == TYPE_CYLINDER)
