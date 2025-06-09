@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/23 18:19:46 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/09 16:43:45 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	there_is_collision(t_shape_list *shapes, t_ray ray, int curr_shape_index)
 		if (i != curr_shape_index)
 		{
 			col = shapes->array[i].get_collision(&shapes->array[i], ray);
-			if (col >= 0)
+			if (col >= 0 && col <= 1)
 				return (1);
 		}
 		i++;
