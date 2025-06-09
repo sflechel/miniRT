@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 18:43:41 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/06 16:08:43 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_color	shading(const t_data *shapes, const t_col col, const t_light light)
 	{
 		light_ray.direction = vector_normalization(light_ray.direction);
 		intensity = dot_product(light_ray.direction, col.normal);
-		if (intensity < 0)
+		if (intensity < EPSILON)
 			pixel_color = (t_color){{0, 0, 0, 0}};
 		else
 		{
