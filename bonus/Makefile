@@ -6,7 +6,7 @@
 #    By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/03 11:38:04 by sflechel          #+#    #+#              #
-#    Updated: 2025/06/10 13:43:21 by edarnand         ###   ########.fr        #
+#    Updated: 2025/06/10 15:10:30 by sflechel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,7 +92,7 @@ fast:
 	@$(MAKE) fclean
 	@$(MAKE) makelibft CC=$(clang20)
 	@$(MAKE) makemlx
-	@$(MAKE) $(NAME) CC=$(clang20) CFLAGS="$(CFLAGS) -Wno-deprecated-non-prototype -Wno-backend-plugin -fprofile-use=code.profdata"
+	@$(MAKE) $(NAME) CC=$(clang20) CFLAGS="$(CFLAGS) -Wno-deprecated-non-prototype -fprofile-use=code.profdata"
 
 makelibft:
 	@$(MAKE) --no-print-directory -C $(LIB_DIR)
