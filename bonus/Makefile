@@ -6,7 +6,7 @@
 #    By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/03 11:38:04 by sflechel          #+#    #+#              #
-#    Updated: 2025/06/10 12:55:19 by edarnand         ###   ########.fr        #
+#    Updated: 2025/06/10 13:43:21 by edarnand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRC =	hook/hook_key.c\
 		shapes/texture.c\
 		shapes/normals.c\
 		shapes/get_color_and_normal.c\
+		free.c\
 		scanning.c\
 		raytracing.c\
 		camera.c\

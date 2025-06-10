@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:02:03 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/10 12:55:02 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/10 13:50:07 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ typedef enum e_id
 int		parsing(char *filename, t_data *list, t_camera *cam, t_mlx *mlx);
 
 //alloc_lists.c
-int		alloc_lists(char **lines, t_data *list,
-			t_light_list **lights, t_mlx *mlx);
+int		alloc_lists(char **lines, t_data *list, t_light_list **lights);
 
 //parse_file_and_line
 char	*open_and_read_file(char *filename);

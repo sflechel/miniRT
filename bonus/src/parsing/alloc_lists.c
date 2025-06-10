@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   allocate.c                                         :+:      :+:    :+:   */
+/*   alloc_lists.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 10:03:54 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/10 10:06:18 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/10 13:50:00 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	count_objects(char **lines, t_id id)
 }
 
 int	alloc_lists(char **lines, t_data *list,
-		t_light_list **lights, t_mlx *mlx)
+		t_light_list **lights)
 {
 	const int	nb_spheres = count_objects(lines, ID_SPHERE);
 	const int	nb_cylinders = count_objects(lines, ID_CYLINDER);
@@ -87,10 +87,12 @@ int	alloc_lists(char **lines, t_data *list,
 			+ sizeof(t_sphere) * nb_spheres);
 	list->planes = malloc(sizeof(t_plane_list) + sizeof(t_plane) * nb_planes);
 	list->hypers = malloc(sizeof(t_hyper_list) + sizeof(t_hyper) * nb_hypers);
+	free(list->hypers);
+	list->hypers = 0;
 	*lights = malloc(sizeof(t_light_list) + sizeof(t_light) * nb_lights);
 	if (list->cylinders == 0 || list->spheres == 0
 		|| list->planes == 0 || *lights == 0 || list->hypers == 0)
-		return (free_lists(list, mlx));
+		return (free_lists(list));
 	list->cylinders->nb_shapes = 0;
 	list->spheres->nb_shapes = 0;
 	list->planes->nb_shapes = 0;
