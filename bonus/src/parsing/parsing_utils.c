@@ -6,13 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/10 14:24:34 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:32:12 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minirt.h"
-#include <unistd.h>
 
 int	parse_rgba(char *str, t_color *color)
 {
@@ -22,7 +21,7 @@ int	parse_rgba(char *str, t_color *color)
 	const int	g = color->g;
 	const int	b = color->b;
 
-	if (len != 3
+	if (!ft_isdigit(str[ft_strlen(str) - 1]) || len != 3
 		|| safe_atoi(rgba[0], (int *)&r) == 1 || r < 0 || r > 255
 		|| safe_atoi(rgba[1], (int *)&g) == 1 || g < 0 || g > 255
 		|| safe_atoi(rgba[2], (int *)&b) == 1 || b < 0 || b > 255)

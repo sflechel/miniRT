@@ -6,10 +6,11 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:18:16 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/23 19:11:40 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:17:35 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "math_utils.h"
 #include "minirt.h"
 #include "parsing.h"
 #include "libft.h"
@@ -53,12 +54,13 @@ int	handle_camera(char **line, t_camera *cam)
 int	handle_light(char **line, t_light *light)
 {
 	const int	len = ptr_array_len(line);
+	t_color		unused_colored;
 
 	printf("parse the light\n");
-	if (verif_len(len, 3) == 1)
-		return (1);
-	if (parse_vector3(line[1], &light->pos) == 1
-		|| parse_form_range(line[2], &light->brightness, 0, 1) == 1)
+	if (verif_len(len, 4) == 1
+		|| parse_vector3(line[1], &light->pos) == 1
+		|| parse_form_range(line[2], &light->brightness, 0, 1) == 1
+		|| parse_rgba(line[3], &unused_colored) == 1)
 	{
 		ft_dprintf(STDERR_FILENO, " in the light\n");
 		return (1);
