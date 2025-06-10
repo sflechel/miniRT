@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:42:05 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 18:00:30 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/09 15:03:54 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	*scan_viewport(void *data_v)
 	const t_camera	*cam = ((t_thread_data *)data_v)->cam;
 	t_thread_data	*data;
 	t_color			pixel_color;
+	t_vec3 			width_px;
 	int				uv[2];
 
 	data = (t_thread_data *)data_v;
@@ -52,15 +53,16 @@ void	*scan_viewport(void *data_v)
 	while (uv[1] < data->stop)
 	{
 		uv[0] = 0;
+		width_px = data->pixel;
 		while (uv[0] < data->cam->img_width)
 		{
-			data->pixel = vector_sum(data->pixel, data->delta_u);
+			width_px = vector_sum(width_px, data->delta_u);
 			pixel_color = cast_ray((t_ray){cam->pos, vector_sub(
-						data->pixel, cam->pos)}, data->lists);
+						width_px, cam->pos)}, data->lists);
 			pixel_put(data->mlx, uv[0], uv[1], pixel_color);
 			uv[0]++;
+
 		}
-		data->pixel = vector_sub(data->pixel, scalar_mult(data->delta_u, cam->img_width));
 		data->pixel = vector_sum(data->pixel, data->delta_v);
 		uv[1]++;
 	}
@@ -69,7 +71,9 @@ void	*scan_viewport(void *data_v)
 
 void	fill_data(t_thread_data *data, const t_camera *cam, const t_data *lists, const t_mlx *mlx)
 {
-	int		i;
+	const t_vec3	first_pixel = compute_first_pixel(cam, &data->delta_u, &data->delta_v);
+	const int		height_per_thread = cam->img_heigth / NB_THREAD;
+	int				i;
 
 	i = 0;
 	while (i < NB_THREAD)
@@ -77,10 +81,11 @@ void	fill_data(t_thread_data *data, const t_camera *cam, const t_data *lists, co
 		data[i].cam = (t_camera *)cam;
 		data[i].lists = (t_data *)lists;
 		data[i].mlx = (t_mlx *)mlx;
-		data[i].start = data->cam->img_heigth / NB_THREAD * i;
-		data[i].stop = data->cam->img_heigth / NB_THREAD * (i + 1);
-		data[i].pixel = compute_first_pixel(cam, &data[i].delta_u, &data[i].delta_v);
-		data[i].pixel = vector_sum(data[i].pixel, scalar_mult(data[i].delta_v, data[i].start));
+		data[i].start = height_per_thread * i;
+		data[i].stop = height_per_thread * (i + 1);
+		data[i].delta_u = data->delta_u;
+		data[i].delta_v = data->delta_v;
+		data[i].pixel = vector_sum(first_pixel, scalar_mult(data->delta_v, data[i].start));
 		if (i == NB_THREAD - 1)
 			data[i].stop = data->cam->img_heigth;
 		i++;
