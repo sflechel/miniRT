@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 14:30:56 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/10 09:08:24 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,9 @@ int	init_mlx(t_mlx *mlx)
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img,
 			&mlx->img.bpp, &mlx->img.len_line, &mlx->img.endian);
 	mlx->img.bpp /= 8;
-	mlx->end = DONT_END;
 	return (0);
 }
-#include <time.h>
-#include <bits/time.h>
+
 int	main(int ac, char **av)
 {
 	t_camera		camera;
@@ -107,16 +105,12 @@ int	main(int ac, char **av)
 		return (EXIT_FAILURE);
 	hook_data = (t_hook_data){&mlx, &camera};
 	handle_hooks(&hook_data);
+	mlx.end = DONT_END;
 	while (mlx.end == DONT_END)
 	{
-		struct timespec start, end;
 		((t_xvar *)(mlx.mlx))->end_loop = 0;
-		clock_gettime(CLOCK_MONOTONIC, &start);
 		launch_thread(&camera, &data, &mlx);
 		mlx_put_image_to_window(mlx.mlx, mlx.window, mlx.img.img, 0, 0);
-		clock_gettime(CLOCK_MONOTONIC, &end);
-		double tdiff = (end.tv_sec - start.tv_sec) + 1e-9*(end.tv_nsec - start.tv_nsec);
-		printf("%f\n", tdiff);
 		mlx_loop(mlx.mlx);
 	}
 	free_lists(&data, &mlx);

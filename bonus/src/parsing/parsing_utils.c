@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/04 16:57:07 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/10 10:08:57 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,6 @@ int	parse_float(char *str, float *f)
 	return (0);
 }
 
-int	verif_texture_size(t_image *color, t_image *bump)
-{
-	if (color == 0 || bump == 0)
-		return (0);
-	if (color->height != bump->height || color->width != bump->width)
-	{
-		ft_dprintf(STDERR_FILENO,
-			"Error\nBoth textures must be of the same size");
-		return (1);
-	}
-	return (0);
-}
-
 int	parse_xpm(char *str, t_image **img, t_mlx *mlx)
 {
 	if (ft_strcmp(str, "0") == 0)
@@ -95,16 +82,5 @@ int	parse_xpm(char *str, t_image **img, t_mlx *mlx)
 	(*img)->addr = mlx_get_data_addr(
 			(*img)->img, &(*img)->bpp, &(*img)->len_line, &(*img)->endian);
 	(*img)->bpp /= 8;
-	return (0);
-}
-
-int	verif_len(int len, int target)
-{
-	if (len != target)
-	{
-		ft_dprintf(STDERR_FILENO,
-			"Error\n%d params needed but you have %d", target, len);
-		return (1);
-	}
 	return (0);
 }

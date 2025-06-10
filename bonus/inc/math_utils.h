@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:21:34 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/05 18:54:01 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/10 10:01:44 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,20 @@ t_vec3		scalar_mult(const t_vec3 vec, const float scalar);
 
 //vec_3_vector_ops.c
 t_vec3		cross_product(const t_vec3 vec1, const t_vec3 vec2);
-t_vec3		ortho_proj(const t_vec3 projected, const t_vec3 line);
 t_vec3		vector_mult(const t_vec3 term1, const t_vec3 term2);
 t_vec3		vector_division(const t_vec3 term1, const t_vec3 term2);
 t_vec3		vector_sub(const t_vec3 minuend, const t_vec3 subtrahend);
 t_vec3		vector_sum(const t_vec3 term1, const t_vec3 term2);
-int			vector_equal(const t_vec3 vec1, const t_vec3 vec2);
 
 //vec_3_to_float.c
 float		dot_product(const t_vec3 vec1, const t_vec3 vec2);
 t_vec3		vector_normalization(const t_vec3 vec);
 float		get_squared_norm(const t_vec3 vec);
 float		get_norm(const t_vec3 vec);
+int			vector_equal(const t_vec3 vec1, const t_vec3 vec2);
+
+//projection
+t_vec3		ortho_proj(const t_vec3 projected, const t_vec3 line);
 
 //matrix
 t_mat_3x3	matrix_mult(const t_mat_3x3 m1, const t_mat_3x3 m2);
@@ -79,6 +81,7 @@ void		rotation(t_vec3 *vec, const t_vec3 rot);
 void		rotation_x(t_vec3 *vec, const float angle);
 void		rotation_y(t_vec3 *vec, const float angle);
 void		rotation_z(t_vec3 *vec, const float angle);
-t_mat_3x3	axis_angle_to_rotation_matrix(const t_vec3 axis_from, const t_vec3 axis_to);
+t_mat_3x3	axis_angle_to_rotation_matrix(const t_vec3 axis_from,
+				const t_vec3 axis_to);
 
 #endif //MATH_UTILS_H

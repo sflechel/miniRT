@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 18:00:43 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/10 10:18:34 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,8 @@ typedef enum e_error
 void	update_camera(t_camera *cam);
 
 //scanning.h
-void	launch_thread(const t_camera *cam, const t_data *lists, const t_mlx *mlx);
+void	launch_thread(const t_camera *cam, const t_data *lists,
+			const t_mlx *mlx);
 
 //raytracing.h
 t_color	cast_ray(const t_ray ray, const t_data *lists);

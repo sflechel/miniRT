@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/09 17:12:39 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/10 10:17:52 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ typedef struct s_cylinder
 
 typedef struct s_hyper
 {
-	t_image	*txtr;
-	t_image	*bump;
+	t_image		*txtr;
+	t_image		*bump;
 	t_mat_3x3	m_rot;
 	t_mat_3x3	m_rot_invert;
-	t_vec3	pos;
-	t_vec3	param;
-	t_vec3	axis;
-	t_color	color;
+	t_vec3		pos;
+	t_vec3		param;
+	t_vec3		axis;
+	t_color		color;
 }	t_hyper;
 
 typedef struct s_plane_list
@@ -128,6 +128,13 @@ typedef struct s_cylinder_col
 	float	t;
 }	t_cylinder_col;
 
+typedef struct s_cylinder_txtr
+{
+	float	azimut;
+	int		u_coord;
+	int		v_coord;
+}	t_cylinder_txtr;
+
 typedef struct s_cap_col
 {
 	t_vec3	origin;
@@ -165,7 +172,8 @@ typedef float			(*t_collision_func)(const void *, const t_ray);
 int		get_closest_collision(const t_data *list, const t_ray ray, t_col *col);
 
 //drop_shadow
-int		drop_shadow(const t_data *shapes, const t_ray light_ray, const t_col cam_col);
+int		drop_shadow(const t_data *shapes,
+			const t_ray light_ray, const t_col cam_col);
 
 //collision_shapes.c
 float	sphere_get_collision(const void *sphere_void, const t_ray ray);
@@ -177,14 +185,34 @@ float	cylinder_get_collision(const void *cylinder_void, const t_ray ray);
 float	cap_up_get_collision(const void *cylinder_void, const t_ray ray);
 float	cap_down_get_collision(const void *cylinder_void, const t_ray ray);
 
-//normals.c
-void	get_color_and_normal(const t_data *restrict shapes, t_col *restrict col, const t_ray ray);
+//get_color_and_normal.c
+void	get_color_and_normal(const t_data *restrict shapes,
+			t_col *restrict col, const t_ray ray);
+
+//normal.c
+
+t_vec3	cylinder_get_normal(const t_cylinder *cylinder,
+			const t_vec3 col);
+t_vec3	sphere_get_normal(const t_sphere *sphere, const t_vec3 col);
+t_vec3	hyper_get_normal(const t_hyper *hyper, const t_vec3 col);
+void	plane_get_color_and_normal(const t_plane *restrict plane,
+			t_col *restrict col, const t_ray ray);
+void	cap_up_get_color_and_normal(const t_cylinder *restrict cylinder,
+			t_col *restrict col);
+
+//texture_shape.c
+void	plane_get_texture(const t_col *restrict col,
+			const t_plane *restrict plane, t_color *color, t_color *bump);
+void	cap_get_texture(const t_col *restrict col,
+			const t_cylinder *restrict cylinder, t_color *color, t_color *bump);
+void	cylinder_get_texture(const t_col *restrict col,
+			const t_cylinder *restrict cylinder, t_color *color, t_color *bump);
+void	sphere_get_texture(const t_col *restrict col,
+			const t_sphere *restrict sphere, t_color *color, t_color *bump);
+void	ellipsoid_get_texture(const t_col *restrict col,
+			const t_hyper *restrict hyper, t_color *color, t_color *bump);
 
 //texture.c
-void	plane_get_texture(const t_col *restrict col, const t_plane *restrict plane, t_color *color, t_color *bump);
-void	cap_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder, t_color *color, t_color *bump);
-void	cylinder_get_texture(const t_col *restrict col, const t_cylinder *restrict cylinder, t_color *color, t_color *bump);
-void	sphere_get_texture(const t_col *restrict col, const t_sphere *restrict sphere, t_color *color, t_color *bump);
-void	ellipsoid_get_texture(const t_col *restrict col, const t_hyper *restrict hyper, t_color *color, t_color *bump);
+int		get_color_from_img(t_image *img, int u_coord, int v_coord);
 
 #endif

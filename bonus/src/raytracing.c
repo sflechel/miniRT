@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/06 16:08:43 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/10 09:10:39 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ t_color	calc_specular(const t_col col, const t_ray light_ray)
 	angle *= angle;
 	angle *= angle;
 	angle *= angle;
-	return (color_scaling((t_color){{255, 255, 255, 0}}, angle * specular_constant));
+	return (color_scaling((t_color){{255, 255, 255, 0}},
+		angle * specular_constant));
 }
 
 t_color	shading(const t_data *shapes, const t_col col, const t_light light)
@@ -67,7 +68,8 @@ t_color	shading(const t_data *shapes, const t_col col, const t_light light)
 			pixel_color = (t_color){{0, 0, 0, 0}};
 		else
 		{
-			pixel_color = color_mult(col.color, color_scaling(light.color, intensity));
+			pixel_color = color_mult(col.color,
+					color_scaling(light.color, intensity));
 			pixel_color = color_sum(pixel_color, calc_specular(col, light_ray));
 		}
 	}
@@ -87,9 +89,11 @@ t_color	cast_ray(const t_ray ray, const t_data *lists)
 	i = 0;
 	while (i < nb_light)
 	{
-		pixel_color = color_sum(pixel_color, shading(lists, closest, lists->lights->lights[i]));
+		pixel_color = color_sum(pixel_color,
+				shading(lists, closest, lists->lights->lights[i]));
 		i++;
 	}
-	pixel_color = color_sum(pixel_color, color_mult(closest.color, lists->lights->ambient));
+	pixel_color = color_sum(pixel_color,
+			color_mult(closest.color, lists->lights->ambient));
 	return (pixel_color);
 }

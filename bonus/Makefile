@@ -6,7 +6,7 @@
 #    By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/03 11:38:04 by sflechel          #+#    #+#              #
-#    Updated: 2025/06/04 18:00:49 by edarnand         ###   ########.fr        #
+#    Updated: 2025/06/10 10:18:04 by sflechel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,18 +41,23 @@ SRC =	hook/hook_key.c\
 		math_utils/matrix.c\
 		math_utils/rotation.c\
 		math_utils/gradient.c\
+		math_utils/projection.c\
 		parsing/parse_file_and_line.c\
 		parsing/parse_shape.c\
 		parsing/parse_unique.c\
 		parsing/parsing_utils_vector.c\
 		parsing/parsing_utils.c\
 		parsing/parsing.c\
+		parsing/allocate.c\
+		parsing/verification.c\
 		shapes/collision_cylinder.c\
 		shapes/collision_shapes.c\
 		shapes/collision.c\
 		shapes/drop_shadow.c\
 		shapes/texture_shape.c\
+		shapes/texture.c\
 		shapes/normals.c\
+		shapes/get_color_and_normal.c\
 		scanning.c\
 		raytracing.c\
 		camera.c\

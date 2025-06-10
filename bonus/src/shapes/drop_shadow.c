@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   drop_shadow.c                               :+:      :+:    :+:   */
+/*   drop_shadow.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:19:38 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/04 17:33:11 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/10 09:55:31 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	cylinder_collision(const t_cylinder_list *list, const t_ray light_ray, const t_col cam_col)
+int	cylinder_collision(const t_cylinder_list *list,
+		const t_ray light_ray, const t_col cam_col)
 {
 	const int	same_type = cam_col.type == TYPE_CYLINDER || cam_col.type
 		== TYPE_CAP_UP || cam_col.type == TYPE_CAP_DOWN;
@@ -39,7 +40,8 @@ int	cylinder_collision(const t_cylinder_list *list, const t_ray light_ray, const
 	return (0);
 }
 
-int	plane_collision(const t_plane_list *list, const t_ray light_ray, const t_col cam_col)
+int	plane_collision(const t_plane_list *list,
+		const t_ray light_ray, const t_col cam_col)
 {
 	const int	same_type = cam_col.type == TYPE_PLANE;
 	const int	nb_shapes = list->nb_shapes - 1;
@@ -59,7 +61,8 @@ int	plane_collision(const t_plane_list *list, const t_ray light_ray, const t_col
 	return (0);
 }
 
-int	sphere_collision(const t_sphere_list *list, const t_ray light_ray, const t_col cam_col)
+int	sphere_collision(const t_sphere_list *list,
+		const t_ray light_ray, const t_col cam_col)
 {
 	const int	same_type = cam_col.type == TYPE_SPHERE;
 	const int	nb_shapes = list->nb_shapes - 1;
@@ -79,7 +82,8 @@ int	sphere_collision(const t_sphere_list *list, const t_ray light_ray, const t_c
 	return (0);
 }
 
-int	hyper_collision(const t_hyper_list *list, const t_ray light_ray, const t_col cam_col)
+int	hyper_collision(const t_hyper_list *list,
+		const t_ray light_ray, const t_col cam_col)
 {
 	const int	same_type = cam_col.type == TYPE_HYPER;
 	const int	nb_shapes = list->nb_shapes - 1;
@@ -99,7 +103,8 @@ int	hyper_collision(const t_hyper_list *list, const t_ray light_ray, const t_col
 	return (0);
 }
 
-int	drop_shadow(const t_data *shapes, const t_ray light_ray, const t_col cam_col)
+int	drop_shadow(const t_data *shapes,
+		const t_ray light_ray, const t_col cam_col)
 {
 	if (sphere_collision(shapes->spheres, light_ray, cam_col) == 1
 		|| plane_collision(shapes->planes, light_ray, cam_col) == 1

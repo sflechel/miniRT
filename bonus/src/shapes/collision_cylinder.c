@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 15:52:20 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/06 15:25:50 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/10 09:45:16 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,4 @@ float	cap_down_get_collision(const void *cylinder_void, const t_ray ray)
 		return (data.intersection);
 	return (-1);
 }
-
-
-//TODO ADD EPSILON AND VERIF IF ITS GOOD
 //ADD SHINYNESS TO EACH ITEM FOR SPECULAR

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:34:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/04 12:29:58 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/10 10:01:52 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@ t_vec3	cross_product(const t_vec3 vec1, const t_vec3 vec2)
 	output.y = vec1.z * vec2.x - vec1.x * vec2.z;
 	output.z = vec1.x * vec2.y - vec1.y * vec2.x;
 	return (output);
-}
-
-t_vec3	ortho_proj(const t_vec3 projected, const t_vec3 line)
-{
-	return (scalar_mult(line, dot_product(line, projected)));
 }
 
 t_vec3	vector_sub(const t_vec3 minuend, const t_vec3 subtrahend)
@@ -65,11 +60,4 @@ t_vec3	vector_division(const t_vec3 term1, const t_vec3 term2)
 	output.y = term1.y / term2.y;
 	output.z = term1.z / term2.z;
 	return (output);
-}
-
-int	vector_equal(const t_vec3 vec1, const t_vec3 vec2)
-{
-	if (vec1.x == vec2.x && vec1.y == vec2.y && vec1.z == vec2.z)
-		return (1);
-	return (0);
 }

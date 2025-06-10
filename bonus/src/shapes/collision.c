@@ -6,14 +6,15 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/09 17:12:13 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/10 09:54:46 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
 #include "minirt.h"
 
-int	closest_col_form_all_shapes(const t_col *col_arr, const int nb_col, t_col *closest)
+int	closest_col_form_all_shapes(const t_col *col_arr,
+		const int nb_col, t_col *closest)
 {
 	int		i;
 	float	dist;
@@ -55,7 +56,6 @@ t_col	closest_col_shape(const t_cylinder_list *list,
 	const t_ray ray, const t_type type)
 {
 	const t_collision_func	col_func = get_collision_func(type);
-	const int				nb_shapes = list->nb_shapes;
 	t_col					col;
 	float					closest_col;
 	float					curr_col;
@@ -65,7 +65,7 @@ t_col	closest_col_shape(const t_cylinder_list *list,
 	col.index = 0;
 	col.dist = -1;
 	i = 1;
-	while (i < nb_shapes)
+	while (i < list->nb_shapes)
 	{
 		curr_col = col_func(&list->array[i], ray);
 		if (curr_col != -1 && (curr_col < closest_col || closest_col == -1))
@@ -110,7 +110,8 @@ static void	get_closest_col_per_shape(t_col *restrict arr,
 				(t_cylinder_list *)list->hypers, ray, TYPE_HYPER);
 }
 
-int	get_closest_collision(const t_data *restrict list, const t_ray ray, t_col *restrict col)
+int	get_closest_collision(const t_data *restrict list,
+		const t_ray ray, t_col *restrict col)
 {
 	t_col	arr[6];
 	t_col	closest_shape;
@@ -119,7 +120,7 @@ int	get_closest_collision(const t_data *restrict list, const t_ray ray, t_col *r
 	if (closest_col_form_all_shapes(arr, 6, &closest_shape) == 1)
 		return (1);
 	closest_shape.pos_world = vector_sum(ray.origin,
-		scalar_mult(ray.direction, closest_shape.dist));
+			scalar_mult(ray.direction, closest_shape.dist));
 	get_color_and_normal(list, &closest_shape, ray);
 	*col = closest_shape;
 	return (0);
