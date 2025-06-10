@@ -6,13 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/09 16:45:14 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:01:26 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_utils.h"
 #include "minirt.h"
-#include <stdio.h>
 
 t_color	background_color(t_ray ray)
 {
@@ -27,7 +26,8 @@ t_color	background_color(t_ray ray)
 	return (background);
 }
 
-t_color	shading(t_shape_list *shapes, int shape_index, t_ray light_ray, t_light light)
+t_color	shading(t_shape_list *shapes, int shape_index,
+		t_ray light_ray, t_light light)
 {
 	const t_shape	*shape = &shapes->array[shape_index];
 	t_vec3			normal;
@@ -36,11 +36,7 @@ t_color	shading(t_shape_list *shapes, int shape_index, t_ray light_ray, t_light 
 	t_color			pixel_color;
 
 	if (there_is_collision(shapes, light_ray, shape_index))
-	{
-		// printf("origin: %f, %f, %f\n", light_ray.origin.x, light_ray.origin.y, light_ray.origin.z);
-		// printf("direction: %f, %f, %f\n", light_ray.direction.x, light_ray.direction.y, light_ray.direction.z);
 		pixel_color = (t_color){{0, 0, 0, 0}};
-	}
 	else
 	{
 		normal = shape->get_normal((t_shape *)shape, light_ray.origin);

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/03 17:02:54 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:02:34 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int	alloc_list_shapes(char **lines, t_shape_list **list)
 
 	if (nb_shapes < 0)
 	{
-		ft_dprintf(STDERR_FILENO,"Error\nInvalid ");
+		ft_dprintf(STDERR_FILENO, "Error\nInvalid ");
 		if (nb_shapes == -1)
-			ft_dprintf(STDERR_FILENO,"shape id\n");
+			ft_dprintf(STDERR_FILENO, "shape id\n");
 		else
 			ft_dprintf(STDERR_FILENO,
 				"amount of requiered params(cam, ambient, light)\n");

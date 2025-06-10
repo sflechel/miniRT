@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:14:43 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/23 18:59:25 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:02:15 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	init_camera(t_camera *cam, t_vec3 *cam_axis)
 	float		cosa;
 	float		cost;
 	t_vec3		a;
-	
+
 	cam->img_heigth = 480;
 	cam->img_width = cam->img_heigth * aspect_ratio;
 	cosa = dot_product(*cam_axis, (t_vec3){0, 1, 0});
