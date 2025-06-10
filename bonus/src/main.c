@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/10 13:47:59 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:56:41 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,24 @@
 
 int	init_mlx(t_mlx *mlx)
 {
-	const float	aspect_ratio = 16. / 9.;
-
 	mlx->mlx = mlx_init();
 	if (mlx->mlx == 0)
 		return (print_error_1(ERR_INIT_MLX));
 	mlx->img.height = SCREEN_HEIGHT;
-	mlx->img.width = mlx->img.height * aspect_ratio;
-	mlx->window = mlx_new_window(mlx->mlx,
-			mlx->img.width, mlx->img.height, "miniRT");
+	mlx->img.width = mlx->img.height * 16. / 9.;
+	mlx->window = mlx_new_window(mlx->mlx, mlx->img.width, mlx->img.height, "miniRT");
 	if (mlx->window == 0)
 	{
+		mlx_destroy_display(mlx->mlx);
 		print_error_1(ERR_INIT_WINDOW);
 		return (free_1_return_1(mlx->mlx));
 	}
-	mlx->img.img = mlx_new_image(mlx->mlx, mlx->img.width, mlx->img.height);
+	mlx->img.img = mlx_new_image(mlx->mlx,
+			mlx->img.width, mlx->img.height);
 	if (mlx->img.img == 0)
 	{
 		mlx_destroy_window(mlx->mlx, mlx->window);
+		mlx_destroy_display(mlx->mlx);
 		print_error_1(ERR_INIT_IMG);
 		return (free_1_return_1(mlx->mlx));
 	}
