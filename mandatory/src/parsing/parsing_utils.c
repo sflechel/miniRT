@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/03 16:28:13 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:19:26 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ int	parse_float(char *str, float *f)
 	if (safe_atof(str, f) == 1)
 	{
 		ft_dprintf(STDERR_FILENO, "Error\n%s is not a valid float", str);
+		return (1);
+	}
+	if (*f < 0)
+	{
+		ft_dprintf(STDERR_FILENO, "Error\n%s is negative", str);
 		return (1);
 	}
 	return (0);
