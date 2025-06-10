@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/23 17:56:38 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/10 08:45:23 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,15 @@ typedef struct s_shape_list
 	t_shape	array[];
 }	t_shape_list;
 
+typedef struct s_sphere_col
+{
+	t_vec3	center_vector;
+	float	a;
+	float	h;
+	float	c;
+	float	discriminant;
+}	t_sphere_col;
+
 typedef struct s_cylinder_col
 {
 	t_vec3	o_perp;
@@ -77,6 +86,8 @@ typedef struct s_cylinder_col
 	float	h;
 	float	c;
 	float	discriminant;
+	t_vec3	col;
+	float	len;
 }	t_cylinder_col;
 
 //collision.c
