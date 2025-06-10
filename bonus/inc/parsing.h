@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:02:03 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/10 10:06:04 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/10 12:55:02 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ typedef enum e_id
 //parsing.c
 int		parsing(char *filename, t_data *list, t_camera *cam, t_mlx *mlx);
 
-//allocate.c
-
+//alloc_lists.c
 int		alloc_lists(char **lines, t_data *list,
 			t_light_list **lights, t_mlx *mlx);
 
@@ -57,8 +56,9 @@ int		parse_rgba(char *str, t_color *color);
 int		parse_form_range(char *str, float *range, float min, float max);
 int		parse_float(char *str, float *f);
 int		verif_len(int len, int target);
-int		parse_xpm(char *str, t_image **img, t_mlx *mlx);
-int		verif_texture_size(t_image *color, t_image *bump);
+
+//parsing_utils_xpm
+int		parse_xpms(char *strs[], t_image **txtr, t_image **bump, t_mlx *mlx);
 
 //parsing_utils_vector
 int		parse_vector3(char *str, t_vec3 *vec);

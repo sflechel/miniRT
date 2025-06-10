@@ -6,7 +6,7 @@
 #    By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/03 11:38:04 by sflechel          #+#    #+#              #
-#    Updated: 2025/06/10 10:18:04 by sflechel         ###   ########.fr        #
+#    Updated: 2025/06/10 12:55:19 by edarnand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,10 +46,10 @@ SRC =	hook/hook_key.c\
 		parsing/parse_shape.c\
 		parsing/parse_unique.c\
 		parsing/parsing_utils_vector.c\
+		parsing/parsing_utils_xpm.c\
 		parsing/parsing_utils.c\
 		parsing/parsing.c\
-		parsing/allocate.c\
-		parsing/verification.c\
+		parsing/alloc_lists.c\
 		shapes/collision_cylinder.c\
 		shapes/collision_shapes.c\
 		shapes/collision.c\

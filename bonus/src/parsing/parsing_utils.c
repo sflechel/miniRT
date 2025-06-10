@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/10 10:08:57 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/10 12:04:35 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,25 +62,13 @@ int	parse_float(char *str, float *f)
 	return (0);
 }
 
-int	parse_xpm(char *str, t_image **img, t_mlx *mlx)
+int	verif_len(int len, int target)
 {
-	if (ft_strcmp(str, "0") == 0)
+	if (len != target)
 	{
-		*img = 0;
-		return (0);
-	}
-	*img = ft_calloc(1, sizeof(t_image));
-	if (*img == 0)
+		ft_dprintf(STDERR_FILENO,
+			"Error\n%d params needed but you have %d", target, len);
 		return (1);
-	(*img)->img
-		= mlx_xpm_file_to_image(mlx->mlx, str, &(*img)->width, &(*img)->height);
-	if ((*img)->img == 0)
-	{
-		print_strerror_null(ERR_XPM, str);
-		return (free_1_return_1(*img));
 	}
-	(*img)->addr = mlx_get_data_addr(
-			(*img)->img, &(*img)->bpp, &(*img)->len_line, &(*img)->endian);
-	(*img)->bpp /= 8;
 	return (0);
 }
