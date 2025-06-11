@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/10 14:01:26 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/11 16:47:14 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_color	shading(t_shape_list *shapes, int shape_index,
 		pixel_color = (t_color){{0, 0, 0, 0}};
 	else
 	{
-		normal = shape->get_normal((t_shape *)shape, light_ray.origin);
+		normal = shape->get_normal((t_shape *)shape, &light_ray);
 		light_ray.direction = vector_normalization(light_ray.direction);
 		intensity = light.brightness * dot_product(light_ray.direction, normal);
 		if (intensity < 0)

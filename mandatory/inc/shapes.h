@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/10 14:00:45 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/11 16:49:40 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ struct s_shape
 	t_vec3	axis;
 	t_color	color;
 	float	(*get_collision)(t_shape *shape, t_ray ray);
-	t_vec3	(*get_normal)(t_shape * shape, t_vec3 col);
+	t_vec3	(*get_normal)(t_shape * shape, t_ray *light_ray);
 	union
 	{
 		t_sphere	sphere;
@@ -102,9 +102,9 @@ float	sphere_get_collision(t_shape *shape, t_ray ray);
 float	plane_get_collision(t_shape *shape, t_ray ray);
 
 //normals.c
-t_vec3	disk_get_normal(t_shape *shape, t_vec3 col);
-t_vec3	cylinder_get_normal(t_shape *shape, t_vec3 col);
-t_vec3	sphere_get_normal(t_shape *shape, t_vec3 col);
-t_vec3	plane_get_normal(t_shape *shape, t_vec3 col);
+t_vec3	disk_get_normal(t_shape *shape, t_ray *light_ray);
+t_vec3	cylinder_get_normal(t_shape *shape, t_ray *light_ray);
+t_vec3	sphere_get_normal(t_shape *shape, t_ray *light_ray);
+t_vec3	plane_get_normal(t_shape *shape, t_ray *light_ray);
 
 #endif
