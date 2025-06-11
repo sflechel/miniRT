@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 14:12:06 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 18:07:01 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/11 15:30:06 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static int	mouse_hook(int eventcode, int x, int y, t_hook_data *data)
 	(void)x;
 	(void)y;
 	if (eventcode == 4)
-		data->cam->vertical_fov -= 0.05;
+		data->cam->vertical_fov -= 0.5;
 	if (eventcode == 5)
-		data->cam->vertical_fov += 0.05;
+		data->cam->vertical_fov += 0.5;
 	update_camera(data->cam);
 	mlx_loop_end(data->mlx->mlx);
 	return (0);

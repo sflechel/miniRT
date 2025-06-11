@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 17:59:55 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/30 16:38:36 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/11 15:33:38 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,17 @@ int	key_hook(int keycode, void *data_v)
 		|| keycode == KEY_D || keycode == KEY_LSHIFT || keycode == KEY_SPACE)
 		handle_hook_cam(keycode, data->cam);
 	else if (keycode == KEY_ARROW_LEFT)
-		data->cam->rot.y += .06;
+		data->cam->rot.y += .1;
 	else if (keycode == KEY_ARROW_RIGHT)
-		data->cam->rot.y -= .06;
+		data->cam->rot.y -= .1;
 	else if (keycode == KEY_ARROW_UP)
-		data->cam->rot.x += .06;
+		data->cam->rot.x += .1;
 	else if (keycode == KEY_ARROW_DOWN)
-		data->cam->rot.x -= .06;
+		data->cam->rot.x -= .1;
 	else if (keycode == KEY_MINUS)
-		data->cam->rot.z += .06;
+		data->cam->rot.z += .1;
 	else if (keycode == KEY_EQUAL)
-		data->cam->rot.z -= .06;
+		data->cam->rot.z -= .1;
 	else if (keycode == KEY_ESCAPE)
 		data->mlx->end = END;
 	update_camera(data->cam);
