@@ -59,13 +59,6 @@ SRC_FILES = $(addprefix $(SRC_DIR), $(SRC))
 
 OBJ_FILES = $(SRC_FILES:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
-MORE_BONUS = \
-
-MORE_BONUS_SRC = $(addprefix $(SRC_DIR), $(MORE_BONUS))
-
-SRC_BONUS = $(SRC_FILES:%.c=%_bonus.c) $(MORE_BONUS_SRC)
-OBJ_BONUS = $(SRC_BONUS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
-
 all: makelibft makemlx $(NAME)
 
 $(OBJ_DIR):
@@ -90,12 +83,6 @@ makelibft:
 makemlx:
 	@$(MAKE) --no-print-directory -C minilibx-linux
 
-.bonus: $(LIB_DIR)$(LIB) $(OBJ_BONUS) Makefile
-	$(CC) $(CFLAGS) $(OBJ_BONUS) $(LIBS) $(I) $(LIB_DIR)$(LIB) -o $(NAME)
-	touch .bonus
-
-bonus: makelibft .bonus
-
 clean:
 	@$(MAKE) --no-print-directory clean -C $(LIB_DIR)
 	@$(MAKE) --no-print-directory clean -C minilibx-linux
@@ -110,4 +97,4 @@ re:
 	@$(MAKE) --no-print-directory fclean
 	@$(MAKE) --no-print-directory all
 
-.PHONY: all clean fclean re makelibft makemlx bonus
+.PHONY: all clean fclean re makelibft makemlx
