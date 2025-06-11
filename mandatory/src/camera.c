@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:14:43 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/11 14:25:46 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/11 14:27:42 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	init_camera(t_camera *cam, t_vec3 *cam_axis)
 	cam->img_heigth = 480;
 	cam->img_width = cam->img_heigth * aspect_ratio;
 	cosa = dot_product(*cam_axis, (t_vec3){0, 1, 0});
-	a = cross_product(*cam_axis, (t_vec3){0, 1, 0});
 	if (fabsf(cosa) - 1 < 1e-6)
 	{
 		cam->rot.x = M_PI;
@@ -52,6 +51,7 @@ void	init_camera(t_camera *cam, t_vec3 *cam_axis)
 		update_camera(cam);
 		return ;
 	}
+	a = cross_product(*cam_axis, (t_vec3){0, 1, 0});
 	cam->rot.y = -asinf(-a.y + (a.x * a.z) / (1 + cosa));
 	cost = 1 / cosf(cam->rot.y);
 	cam->rot.x = atan2f((a.x + (a.z * a.y) / (1 + cosa))
