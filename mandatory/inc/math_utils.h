@@ -6,7 +6,7 @@
 /*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:21:34 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/22 18:24:25 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/11 14:15:33 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ float	dot_product(t_vec3 vec1, t_vec3 vec2);
 t_vec3	vector_normalization(t_vec3 vec);
 float	get_squared_norm(t_vec3 vec);
 float	get_norm(t_vec3 vec);
+int		vector_equal(t_vec3 vec1, t_vec3 vec2);
 
 #endif //MATH_UTILS_H

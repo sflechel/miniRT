@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/11 13:57:16 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/11 14:01:39 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	parse_float(char *str, float *f)
 			"Error\n%s is not a valid float", str);
 		return (1);
 	}
-	if (*f <= EPSILON)
+	if (*f <= 0)
 	{
 		ft_dprintf(STDERR_FILENO, "Error\n%s need to be superior to 0", str);
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:39:23 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/11 11:20:19 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/11 11:21:49 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ float	plane_get_collision(t_shape *shape, t_ray ray)
 	float		intersection;
 	t_vec3		origin_to_plane;
 
-	if (dot == 0)
+	if (fabsf(dot) < 1e-6)
 		return (-1);
 	origin_to_plane = vector_subtraction(shape->pos, ray.origin);
 	intersection = dot_product(origin_to_plane, shape->plane.normal) / dot;

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:12:34 by sflechel          #+#    #+#             */
-/*   Updated: 2025/05/23 15:10:35 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/11 14:14:47 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,11 @@ float	get_squared_norm(t_vec3 vec)
 float	get_norm(t_vec3 vec)
 {
 	return (sqrtf(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z));
+}
+
+int	vector_equal(t_vec3 vec1, t_vec3 vec2)
+{
+	if (vec1.x == vec2.x && vec1.y == vec2.y && vec1.z == vec2.z)
+		return (1);
+	return (0);
 }
