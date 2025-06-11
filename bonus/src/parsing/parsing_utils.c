@@ -6,12 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/10 14:32:12 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/11 13:30:49 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minirt.h"
+#include "math_utils.h"
 
 int	parse_rgba(char *str, t_color *color)
 {
@@ -57,10 +57,9 @@ int	parse_float(char *str, float *f)
 			"Error\n%s is not a valid float", str);
 		return (1);
 	}
-	if (*f < 0)
+	if (*f <= EPSILON)
 	{
-		ft_dprintf(STDERR_FILENO,
-			"Error\n%s is negative", str);
+		ft_dprintf(STDERR_FILENO, "Error\n%s need to be superior to 0", str);
 		return (1);
 	}
 	return (0);
