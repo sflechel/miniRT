@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/11 12:06:09 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:16:36 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ struct s_ray
 	t_vec3	direction;
 };
 
-typedef struct s_data
+typedef struct s_lists
 {
 	t_light_list	*lights;
 	t_plane_list	*planes;
 	t_sphere_list	*spheres;
 	t_cylinder_list	*cylinders;
 	t_hyper_list	*hypers;
-}	t_data;
+}	t_lists;
 
 typedef struct s_camera
 {
@@ -100,7 +100,7 @@ typedef struct s_thread_data
 	int			start;
 	int			stop;
 	t_camera	*cam;
-	t_data		*lists;
+	t_lists		*lists;
 	t_mlx		*mlx;
 }	t_thread_data;
 
@@ -122,11 +122,11 @@ typedef enum e_error
 void	update_camera(t_camera *cam);
 
 //scanning.h
-void	launch_thread(const t_camera *cam, const t_data *lists,
+void	launch_thread(const t_camera *cam, const t_lists *lists,
 			const t_mlx *mlx);
 
 //raytracing.h
-t_color	cast_ray(const t_ray ray, const t_data *lists);
+t_color	cast_ray(const t_ray ray, const t_lists *lists);
 
 //camera.c
 void	update_camera(t_camera *cam);
@@ -137,8 +137,8 @@ int		print_error_1(t_error id);
 void	*print_strerror_null(t_error id, char *str);
 
 //free
-void	free_lists_and_img(t_data *lists, t_mlx *mlx);
-int		free_lists(t_data *lists);
+void	free_lists_and_img(t_lists *lists, t_mlx *mlx);
+int		free_lists(t_lists *lists);
 int		free_mlx(t_mlx *mlx);
 
 #endif //MINIRT_H

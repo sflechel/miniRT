@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:42:05 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/10 09:12:36 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:20:17 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	*scan_viewport(void *data_v)
 }
 
 void	fill_data(t_thread_data *data, const t_camera *cam,
-			const t_data *lists, const t_mlx *mlx)
+			const t_lists *lists, const t_mlx *mlx)
 {
 	const t_vec3	first_pixel = compute_first_pixel(cam,
 			&data->delta_u, &data->delta_v);
@@ -82,7 +82,7 @@ void	fill_data(t_thread_data *data, const t_camera *cam,
 	while (i < NB_THREAD)
 	{
 		data[i].cam = (t_camera *)cam;
-		data[i].lists = (t_data *)lists;
+		data[i].lists = (t_lists *)lists;
 		data[i].mlx = (t_mlx *)mlx;
 		data[i].start = height_per_thread * i;
 		data[i].stop = height_per_thread * (i + 1);
@@ -97,7 +97,7 @@ void	fill_data(t_thread_data *data, const t_camera *cam,
 }
 
 void	launch_thread(const t_camera *restrict cam,
-			const t_data *restrict lists, const t_mlx *restrict mlx)
+			const t_lists *restrict lists, const t_mlx *restrict mlx)
 {
 	pthread_t		thrs[NB_THREAD];
 	t_thread_data	data[NB_THREAD];

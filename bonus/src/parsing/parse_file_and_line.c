@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:32:09 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/10 11:27:24 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:21:18 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*open_and_read_file(char *filename)
 	return (file);
 }
 
-int	parse_line(char *line, t_data *list, t_camera *cam, t_mlx *mlx)
+int	parse_line(char *line, t_lists *lists, t_camera *cam, t_mlx *mlx)
 {
 	char		**params;
 	char		id;
@@ -65,13 +65,13 @@ int	parse_line(char *line, t_data *list, t_camera *cam, t_mlx *mlx)
 	if (params == 0)
 		return (1);
 	id = params[0][0];
-	if ((id == 'A' && handle_ambient(params, list->lights) == 1)
+	if ((id == 'A' && handle_ambient(params, lists->lights) == 1)
 		|| (id == 'C' && handle_camera(params, cam, mlx) == 1)
-		|| (id == 'L' && handle_light(params, list->lights) == 1)
-		|| (id == 'c' && handle_cylinder(params, list->cylinders, mlx) == 1)
-		|| (id == 'p' && handle_plane(params, list->planes, mlx) == 1)
-		|| (id == 's' && handle_sphere(params, list->spheres, mlx) == 1)
-		|| (id == 'h' && handle_hyper(params, list->hypers, mlx) == 1))
+		|| (id == 'L' && handle_light(params, lists->lights) == 1)
+		|| (id == 'c' && handle_cylinder(params, lists->cylinders, mlx) == 1)
+		|| (id == 'p' && handle_plane(params, lists->planes, mlx) == 1)
+		|| (id == 's' && handle_sphere(params, lists->spheres, mlx) == 1)
+		|| (id == 'h' && handle_hyper(params, lists->hypers, mlx) == 1))
 		return (free_1_return_1(params));
 	free(params);
 	return (0);

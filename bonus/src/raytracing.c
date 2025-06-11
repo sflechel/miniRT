@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/10 09:10:39 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:19:58 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_color	calc_specular(const t_col col, const t_ray light_ray)
 		angle * specular_constant));
 }
 
-t_color	shading(const t_data *shapes, const t_col col, const t_light light)
+t_color	shading(const t_lists *lists, const t_col col, const t_light light)
 {
 	float	intensity;
 	t_color	pixel_color;
@@ -58,7 +58,7 @@ t_color	shading(const t_data *shapes, const t_col col, const t_light light)
 
 	light_ray.origin = col.pos_world;
 	light_ray.direction = vector_sub(light.pos, light_ray.origin);
-	if (drop_shadow(shapes, light_ray, col) == 0)
+	if (drop_shadow(lists, light_ray, col) == 0)
 		pixel_color = (t_color){{0, 0, 0, 0}};
 	else
 	{
@@ -76,7 +76,7 @@ t_color	shading(const t_data *shapes, const t_col col, const t_light light)
 	return (pixel_color);
 }
 
-t_color	cast_ray(const t_ray ray, const t_data *lists)
+t_color	cast_ray(const t_ray ray, const t_lists *lists)
 {
 	const int	nb_light = lists->lights->nb_lights;
 	t_color		pixel_color;

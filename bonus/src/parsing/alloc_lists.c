@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 10:03:54 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/10 14:28:41 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:20:54 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	count_objects(char **lines, t_id id)
 	return (count);
 }
 
-int	alloc_lists(char **lines, t_data *list,
+int	alloc_lists(char **lines, t_lists *lists,
 		t_light_list **lights)
 {
 	const int	nb_spheres = count_objects(lines, ID_SPHERE);
@@ -81,20 +81,20 @@ int	alloc_lists(char **lines, t_data *list,
 
 	if (verify_uniques(lines) == 1)
 		return (1);
-	list->cylinders = malloc(sizeof(t_cylinder_list)
+	lists->cylinders = malloc(sizeof(t_cylinder_list)
 			+ sizeof(t_cylinder) * nb_cylinders);
-	list->spheres = malloc(sizeof(t_sphere_list)
+	lists->spheres = malloc(sizeof(t_sphere_list)
 			+ sizeof(t_sphere) * nb_spheres);
-	list->planes = malloc(sizeof(t_plane_list) + sizeof(t_plane) * nb_planes);
-	list->hypers = malloc(sizeof(t_hyper_list) + sizeof(t_hyper) * nb_hypers);
+	lists->planes = malloc(sizeof(t_plane_list) + sizeof(t_plane) * nb_planes);
+	lists->hypers = malloc(sizeof(t_hyper_list) + sizeof(t_hyper) * nb_hypers);
 	*lights = malloc(sizeof(t_light_list) + sizeof(t_light) * nb_lights);
-	if (list->cylinders == 0 || list->spheres == 0
-		|| list->planes == 0 || *lights == 0 || list->hypers == 0)
-		return (free_lists(list));
-	list->cylinders->nb_shapes = 0;
-	list->spheres->nb_shapes = 0;
-	list->planes->nb_shapes = 0;
-	list->hypers->nb_shapes = 0;
+	if (lists->cylinders == 0 || lists->spheres == 0
+		|| lists->planes == 0 || *lights == 0 || lists->hypers == 0)
+		return (free_lists(lists));
+	lists->cylinders->nb_shapes = 0;
+	lists->spheres->nb_shapes = 0;
+	lists->planes->nb_shapes = 0;
+	lists->hypers->nb_shapes = 0;
 	(*lights)->nb_lights = 0;
 	return (0);
 }

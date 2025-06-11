@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_color_and_normal.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sflechel <sflechel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 10:10:31 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/10 10:12:17 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:23:10 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,22 +113,22 @@ void	hyper_get_color_and_normal(const t_hyper *restrict hyper,
 	}
 }
 
-void	get_color_and_normal(const t_data *restrict shapes,
+void	get_color_and_normal(const t_lists *restrict lists,
 			t_col *restrict col, const t_ray ray)
 {
 	if (col->type == TYPE_PLANE)
 		plane_get_color_and_normal(
-			&shapes->planes->array[col->index], col, ray);
+			&lists->planes->array[col->index], col, ray);
 	else if (col->type == TYPE_SPHERE)
-		sphere_get_color_and_normal(&shapes->spheres->array[col->index], col);
+		sphere_get_color_and_normal(&lists->spheres->array[col->index], col);
 	else if (col->type == TYPE_CYLINDER)
 		cylinder_get_color_and_normal(
-			&shapes->cylinders->array[col->index], col);
+			&lists->cylinders->array[col->index], col);
 	else if (col->type == TYPE_CAP_UP)
-		cap_up_get_color_and_normal(&shapes->cylinders->array[col->index], col);
+		cap_up_get_color_and_normal(&lists->cylinders->array[col->index], col);
 	else if (col->type == TYPE_CAP_DOWN)
 		cap_down_get_color_and_normal(
-			&shapes->cylinders->array[col->index], col);
+			&lists->cylinders->array[col->index], col);
 	else if (col->type == TYPE_HYPER)
-		hyper_get_color_and_normal(&shapes->hypers->array[col->index], col);
+		hyper_get_color_and_normal(&lists->hypers->array[col->index], col);
 }

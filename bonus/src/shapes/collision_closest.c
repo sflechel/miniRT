@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   collision.c                                        :+:      :+:    :+:   */
+/*   collision_closest.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/11 11:19:37 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:22:32 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	closest_col_form_all_shapes(const t_col *col_arr,
 }
 
 static void	get_closest_col_per_shape(t_col *restrict arr,
-		const int nb_col, const t_data *restrict list, const t_ray ray)
+		const int nb_col, const t_lists *restrict lists, const t_ray ray)
 {
 	int	i;
 
@@ -46,32 +46,32 @@ static void	get_closest_col_per_shape(t_col *restrict arr,
 		arr[i].dist = -1;
 		i++;
 	}
-	if (list->planes->nb_shapes > 0)
-		arr[0] = closest_col_plane(list->planes, ray);
-	if (list->spheres->nb_shapes > 0)
-		arr[1] = closest_col_sphere(list->spheres, ray);
-	if (list->cylinders->nb_shapes > 0)
+	if (lists->planes->nb_shapes > 0)
+		arr[0] = closest_col_plane(lists->planes, ray);
+	if (lists->spheres->nb_shapes > 0)
+		arr[1] = closest_col_sphere(lists->spheres, ray);
+	if (lists->cylinders->nb_shapes > 0)
 	{
-		arr[2] = closest_col_cylinder(list->cylinders, ray);
-		arr[3] = closest_col_cap_up(list->cylinders, ray);
-		arr[4] = closest_col_cap_down(list->cylinders, ray);
+		arr[2] = closest_col_cylinder(lists->cylinders, ray);
+		arr[3] = closest_col_cap_up(lists->cylinders, ray);
+		arr[4] = closest_col_cap_down(lists->cylinders, ray);
 	}
-	if (list->hypers->nb_shapes > 0)
-		arr[5] = closest_col_hyper(list->hypers, ray);
+	if (lists->hypers->nb_shapes > 0)
+		arr[5] = closest_col_hyper(lists->hypers, ray);
 }
 
-int	get_closest_collision(const t_data *restrict list,
+int	get_closest_collision(const t_lists *restrict lists,
 		const t_ray ray, t_col *restrict col)
 {
 	t_col	arr[6];
 	t_col	closest_shape;
 
-	get_closest_col_per_shape(arr, 6, list, ray);
+	get_closest_col_per_shape(arr, 6, lists, ray);
 	if (closest_col_form_all_shapes(arr, 6, &closest_shape) == 1)
 		return (1);
 	closest_shape.pos_world = vector_sum(ray.origin,
 			scalar_mult(ray.direction, closest_shape.dist));
-	get_color_and_normal(list, &closest_shape, ray);
+	get_color_and_normal(lists, &closest_shape, ray);
 	*col = closest_shape;
 	return (0);
 }

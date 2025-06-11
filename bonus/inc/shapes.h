@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/11 12:05:19 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:19:22 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "math_utils.h"
 
 typedef struct s_ray	t_ray;
-typedef struct s_data	t_data;
+typedef struct s_lists	t_lists;
 typedef struct s_image	t_image;
 
 typedef enum e_type
@@ -187,7 +187,7 @@ t_col	closest_col_cap_up(const t_cylinder_list *list, const t_ray ray);
 t_col	closest_col_cap_down(const t_cylinder_list *list, const t_ray ray);
 
 //collision
-int		get_closest_collision(const t_data *restrict list,
+int		get_closest_collision(const t_lists *restrict lists,
 			const t_ray ray, t_col *restrict col);
 
 //normal.c
@@ -216,11 +216,11 @@ void	ellipsoid_get_texture(const t_col *restrict col,
 int		get_color_from_img(t_image *img, int u_coord, int v_coord);
 
 //get_color_and_normal.c
-void	get_color_and_normal(const t_data *restrict shapes,
+void	get_color_and_normal(const t_lists *restrict lists,
 			t_col *restrict col, const t_ray ray);
 
 //drop_shadow
-int		drop_shadow(const t_data *shapes,
+int		drop_shadow(const t_lists *lists,
 			const t_ray light_ray, const t_col cam_col);
 
 #endif

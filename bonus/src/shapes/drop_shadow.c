@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:19:38 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/10 09:55:31 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:22:51 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,13 @@ int	hyper_collision(const t_hyper_list *list,
 	return (0);
 }
 
-int	drop_shadow(const t_data *shapes,
+int	drop_shadow(const t_lists *lists,
 		const t_ray light_ray, const t_col cam_col)
 {
-	if (sphere_collision(shapes->spheres, light_ray, cam_col) == 1
-		|| plane_collision(shapes->planes, light_ray, cam_col) == 1
-		|| cylinder_collision(shapes->cylinders, light_ray, cam_col) == 1
-		|| hyper_collision(shapes->hypers, light_ray, cam_col) == 1)
+	if (sphere_collision(lists->spheres, light_ray, cam_col) == 1
+		|| plane_collision(lists->planes, light_ray, cam_col) == 1
+		|| cylinder_collision(lists->cylinders, light_ray, cam_col) == 1
+		|| hyper_collision(lists->hypers, light_ray, cam_col) == 1)
 	{
 		return (0);
 	}

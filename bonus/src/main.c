@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/10 15:40:57 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:18:55 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ int	main(int ac, char **av)
 {
 	t_camera		camera;
 	t_mlx			mlx;
-	t_data			data;
+	t_lists			lists;
 	t_hook_data		hook_data;
 
 	if (ac != 2)
 		return (print_error_1(ERR_INVALID_NB_FILES));
 	if (init_mlx(&mlx) == 1
-		|| parsing(av[1], &data, &camera, &mlx) == 1)
+		|| parsing(av[1], &lists, &camera, &mlx) == 1)
 		return (EXIT_FAILURE);
 	hook_data = (t_hook_data){&mlx, &camera};
 	handle_hooks(&hook_data);
@@ -65,11 +65,11 @@ int	main(int ac, char **av)
 	while (mlx.end == DONT_END)
 	{
 		((t_xvar *)(mlx.mlx))->end_loop = 0;
-		launch_thread(&camera, &data, &mlx);
+		launch_thread(&camera, &lists, &mlx);
 		mlx_put_image_to_window(mlx.mlx, mlx.window, mlx.img.img, 0, 0);
 		mlx_loop(mlx.mlx);
 	}
-	free_lists_and_img(&data, &mlx);
+	free_lists_and_img(&lists, &mlx);
 	free_mlx(&mlx);
 	return (0);
 }

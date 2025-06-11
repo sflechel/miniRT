@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 13:43:27 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/11 11:46:39 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:18:08 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	free_mlx(t_mlx *mlx)
 	return (1);
 }
 
-int	free_lists(t_data *lists)
+int	free_lists(t_lists *lists)
 {
 	free(lists->hypers);
 	free(lists->lights);
@@ -47,7 +47,7 @@ void	free_imgs(t_image *img1, t_image *img2, t_mlx *mlx)
 	}
 }
 
-void	free_lists_and_img(t_data *lists, t_mlx *mlx)
+void	free_lists_and_img(t_lists *lists, t_mlx *mlx)
 {
 	int	i;
 
