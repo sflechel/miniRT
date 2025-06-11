@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:37 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/10 09:54:46 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/11 11:19:37 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,53 +35,6 @@ int	closest_col_form_all_shapes(const t_col *col_arr,
 	return (0);
 }
 
-t_collision_func	get_collision_func(const t_type type)
-{
-	if (type == TYPE_PLANE)
-		return (&plane_get_collision);
-	if (type == TYPE_SPHERE)
-		return (&sphere_get_collision);
-	if (type == TYPE_CYLINDER)
-		return (&cylinder_get_collision);
-	if (type == TYPE_CAP_UP)
-		return (&cap_up_get_collision);
-	if (type == TYPE_CAP_DOWN)
-		return (&cap_down_get_collision);
-	if (type == TYPE_HYPER)
-		return (&hyper_get_collision);
-	return (0);
-}
-
-t_col	closest_col_shape(const t_cylinder_list *list,
-	const t_ray ray, const t_type type)
-{
-	const t_collision_func	col_func = get_collision_func(type);
-	t_col					col;
-	float					closest_col;
-	float					curr_col;
-	int						i;
-
-	closest_col = col_func(&list->array[0], ray);
-	col.index = 0;
-	col.dist = -1;
-	i = 1;
-	while (i < list->nb_shapes)
-	{
-		curr_col = col_func(&list->array[i], ray);
-		if (curr_col != -1 && (curr_col < closest_col || closest_col == -1))
-		{
-			col.index = i;
-			closest_col = curr_col;
-		}
-		i++;
-	}
-	if (closest_col == -1)
-		return (col);
-	col.dist = closest_col;
-	col.type = type;
-	return (col);
-}
-
 static void	get_closest_col_per_shape(t_col *restrict arr,
 		const int nb_col, const t_data *restrict list, const t_ray ray)
 {
@@ -94,20 +47,17 @@ static void	get_closest_col_per_shape(t_col *restrict arr,
 		i++;
 	}
 	if (list->planes->nb_shapes > 0)
-		arr[0] = closest_col_shape(
-				(t_cylinder_list *)list->planes, ray, TYPE_PLANE);
+		arr[0] = closest_col_plane(list->planes, ray);
 	if (list->spheres->nb_shapes > 0)
-		arr[1] = closest_col_shape(
-				(t_cylinder_list *)list->spheres, ray, TYPE_SPHERE);
+		arr[1] = closest_col_sphere(list->spheres, ray);
 	if (list->cylinders->nb_shapes > 0)
 	{
-		arr[2] = closest_col_shape(list->cylinders, ray, TYPE_CYLINDER);
-		arr[3] = closest_col_shape(list->cylinders, ray, TYPE_CAP_UP);
-		arr[4] = closest_col_shape(list->cylinders, ray, TYPE_CAP_DOWN);
+		arr[2] = closest_col_cylinder(list->cylinders, ray);
+		arr[3] = closest_col_cap_up(list->cylinders, ray);
+		arr[4] = closest_col_cap_down(list->cylinders, ray);
 	}
 	if (list->hypers->nb_shapes > 0)
-		arr[5] = closest_col_shape(
-				(t_cylinder_list *)list->hypers, ray, TYPE_HYPER);
+		arr[5] = closest_col_hyper(list->hypers, ray);
 }
 
 int	get_closest_collision(const t_data *restrict list,

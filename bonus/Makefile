@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/06/03 11:38:04 by sflechel          #+#    #+#              #
-#    Updated: 2025/06/10 15:10:30 by sflechel         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = miniRT
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -O3 -flto -g3 -march=native
@@ -50,9 +38,11 @@ SRC =	hook/hook_key.c\
 		parsing/parsing_utils.c\
 		parsing/parsing.c\
 		parsing/alloc_lists.c\
+		shapes/collision_closest_cylinder.c\
+		shapes/collision_closest_shapes.c\
+		shapes/collision_closest.c\
 		shapes/collision_cylinder.c\
 		shapes/collision_shapes.c\
-		shapes/collision.c\
 		shapes/drop_shadow.c\
 		shapes/texture_shape.c\
 		shapes/texture.c\
@@ -104,7 +94,7 @@ makemlx:
 	$(CC) $(CFLAGS) $(OBJ_BONUS) $(LIBS) $(I) $(LIB_DIR)$(LIB) -o $(NAME)
 	touch .bonus
 
-bonus: makelibft .bonus 
+bonus: makelibft .bonus
 
 clean:
 	@$(MAKE) --no-print-directory clean -C $(LIB_DIR)

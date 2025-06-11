@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/10 13:48:31 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:06:09 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,9 +137,8 @@ int		print_error_1(t_error id);
 void	*print_strerror_null(t_error id, char *str);
 
 //free
-int		free_lists_and_img(t_data *lists, t_mlx *mlx);
+void	free_lists_and_img(t_data *lists, t_mlx *mlx);
 int		free_lists(t_data *lists);
 int		free_mlx(t_mlx *mlx);
-void	free_img(t_image *img, t_mlx *mlx);
 
 #endif //MINIRT_H

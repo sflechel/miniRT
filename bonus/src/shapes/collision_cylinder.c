@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 15:52:20 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/10 09:45:16 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/11 11:07:15 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,3 @@ float	cap_down_get_collision(const void *cylinder_void, const t_ray ray)
 		return (data.intersection);
 	return (-1);
 }
-//ADD SHINYNESS TO EACH ITEM FOR SPECULAR
