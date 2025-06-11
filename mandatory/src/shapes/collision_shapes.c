@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:39:23 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/10 08:56:32 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/11 11:20:19 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "minirt.h"
 #include "shapes.h"
 #include <math.h>
+#include <stdio.h>
 
 float	sphere_get_collision(t_shape *shape, t_ray ray)
 {
@@ -23,16 +24,17 @@ float	sphere_get_collision(t_shape *shape, t_ray ray)
 	data.center_vector = vector_subtraction(shape->pos, ray.origin);
 	data.a = get_squared_norm(ray.direction);
 	data.h = dot_product(ray.direction, data.center_vector);
-	data.c = get_squared_norm(data.center_vector);
+	data.c = get_squared_norm(data.center_vector)
+		- shape->sphere.radius * shape->sphere.radius;
 	data.discriminant = data.h * data.h - data.a * data.c;
-	if (data.discriminant < 1e-6)
+	if (data.discriminant < 0)
 		return (-1);
 	data.discriminant = sqrtf(data.discriminant);
 	t = (data.h - data.discriminant) / data.a;
-	if (t > 1e-6)
+	if (t > 0)
 		return (t);
 	t = (data.h + data.discriminant) / data.a;
-	if (t > 1e-6)
+	if (t > 0)
 		return (t);
 	return (-1);
 }
@@ -76,7 +78,7 @@ float	plane_get_collision(t_shape *shape, t_ray ray)
 		return (-1);
 	origin_to_plane = vector_subtraction(shape->pos, ray.origin);
 	intersection = dot_product(origin_to_plane, shape->plane.normal) / dot;
-	if (intersection > 1e-6)
+	if (intersection > 0)
 		return (intersection);
 	return (-1);
 }
