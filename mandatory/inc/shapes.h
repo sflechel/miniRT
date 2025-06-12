@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/11 16:49:40 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/12 08:38:43 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ struct s_shape
 	t_vec3	axis;
 	t_color	color;
 	float	(*get_collision)(t_shape *shape, t_ray ray);
-	t_vec3	(*get_normal)(t_shape * shape, t_ray *light_ray);
+	t_vec3	(*get_normal)(t_shape * shape, t_ray * light_ray);
 	union
 	{
 		t_sphere	sphere;
