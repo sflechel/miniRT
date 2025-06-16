@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:43:53 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/11 16:47:14 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:57:49 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ t_color	cast_ray(t_ray ray, t_shape_list *shapes, t_light light)
 	int		col_index;
 	t_ray	light_ray;
 
-	col_ray = get_closest_collision(shapes, ray, &col_index);
+	if (shapes->nb_shapes > 0)
+		col_ray = get_closest_collision(shapes, ray, &col_index);
+	else
+		col_ray = -1;
 	if (col_ray < 0)
 		return (background_color(ray));
 	light_ray.origin
