@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:14:43 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/11 15:22:37 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:52:33 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	update_camera(t_camera *cam)
 	t_vec3	v;
 
 	cam->focal_length = (t_vec3){0, 0, 10};
-	cam->viewport_heigth = 2 * tanf(cam->vertical_fov / 90 * M_PI)
+	cam->viewport_width = 2 * tanf(cam->horizontal_fov / 90 * M_PI)
 		* cam->focal_length.z;
-	cam->viewport_width = cam->viewport_heigth
-		* ((float)cam->img_width / (float)cam->img_heigth);
+	cam->viewport_heigth = cam->viewport_width
+		* ((float)cam->img_heigth / (float)cam->img_width);
 	u = (t_vec3){1, 0, 0};
 	v = (t_vec3){0, -1, 0};
 	rotation(&u, cam->rot);
@@ -42,7 +42,7 @@ void	init_camera(t_camera *cam, t_vec3 *cam_axis)
 
 	cam->img_heigth = 480;
 	cam->img_width = cam->img_heigth * aspect_ratio;
-	cosa = dot_product(*cam_axis, (t_vec3){0, 1, 0});
+	cosa = dot_product(*cam_axis, (t_vec3){0, 0, 1});
 	if (cosa >= -1 - 1e-6 && cosa <= -1 + 1e-6)
 	{
 		cam->rot.x = M_PI;
@@ -51,7 +51,7 @@ void	init_camera(t_camera *cam, t_vec3 *cam_axis)
 		update_camera(cam);
 		return ;
 	}
-	a = cross_product(*cam_axis, (t_vec3){0, 1, 0});
+	a = cross_product(*cam_axis, (t_vec3){0, 0, 1});
 	cam->rot.y = -asinf(-a.y + (a.x * a.z) / (1 + cosa));
 	cost = 1 / cosf(cam->rot.y);
 	cam->rot.x = atan2f((a.x + (a.z * a.y) / (1 + cosa))

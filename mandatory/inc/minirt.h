@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:41:44 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/10 14:00:19 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:44:29 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_camera
 	t_vec3	pos;
 	t_vec3	rot;
 	t_vec3	focal_length;
-	float	vertical_fov;
+	float	horizontal_fov;
 	int		img_width;
 	int		img_heigth;
 	float	viewport_heigth;
