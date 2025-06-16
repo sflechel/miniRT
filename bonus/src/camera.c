@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:14:43 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/11 15:32:57 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:48:46 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	update_camera(t_camera *cam)
 	t_vec3	v;
 
 	cam->focal_length = (t_vec3){0, 0, 10};
-	cam->viewport_heigth = 2 * tanf(cam->vertical_fov / 90 * M_PI)
+	cam->viewport_width = 2 * tanf(cam->horizontal_fov / 90 * M_PI)
 		* cam->focal_length.z;
-	cam->viewport_width = cam->viewport_heigth
-		* ((float)cam->img_width / (float)cam->img_heigth);
+	cam->viewport_heigth = cam->viewport_width
+		* ((float)cam->img_heigth / (float)cam->img_width);
 	u = (t_vec3){1, 0, 0};
 	v = (t_vec3){0, -1, 0};
 	rotation(&u, cam->rot);

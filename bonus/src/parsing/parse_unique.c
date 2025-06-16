@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:18:16 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/30 16:40:43 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:48:07 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	handle_camera(char **line, t_camera *cam, t_mlx *mlx)
 	if (verif_len(len, 4) == 1
 		|| parse_vector3(line[1], &cam->pos) == 1
 		|| parse_vector3_normalised(line[2], &cam_axis) == 1
-		|| parse_form_range(line[3], &cam->vertical_fov, 0, 180) == 1)
+		|| parse_form_range(line[3], &cam->horizontal_fov, 0, 180) == 1)
 	{
 		ft_dprintf(STDERR_FILENO, " in the camera\n");
 		return (1);
