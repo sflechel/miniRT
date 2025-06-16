@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:14:43 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/16 14:55:48 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:59:59 by sflechel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	init_camera(t_camera *cam, t_vec3 *cam_axis, t_mlx *mlx)
 	cosa = dot_product(*cam_axis, (t_vec3){0, 0, 1});
 	if (cosa >= -1 - EPSILON && cosa <= -1 + EPSILON)
 	{
-		cam->rot.x = M_PI;
-		cam->rot.y = 0;
+		cam->rot.x = 0;
+		cam->rot.y = M_PI;
 		cam->rot.z = 0;
 		update_camera(cam);
 		return ;
