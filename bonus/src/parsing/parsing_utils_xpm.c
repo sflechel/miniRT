@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/10 12:53:37 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/18 09:57:14 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,11 @@ int	parse_xpms(char *strs[], t_image **txtr, t_image **bump, t_mlx *mlx)
 		return (1);
 	if (parse_xpm((char *)str2, bump, mlx) == 1)
 	{
-		mlx_destroy_image(mlx->mlx, (*txtr)->img);
-		free((*txtr));
+		if (!txtr)
+		{
+			mlx_destroy_image(mlx->mlx, (*txtr)->img);
+			free((*txtr));
+		}
 		return (1);
 	}
 	if (verif_texture_size(*txtr, *bump) == 1)
