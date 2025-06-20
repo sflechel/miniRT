@@ -1,6 +1,6 @@
 NAME = miniRT
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -O3 -flto -g3 -march=native
+CFLAGS = -Wall -Wextra -Werror -O3 -flto -gdwarf-4 -march=native
 LIB = libft.a
 LIB_DIR = libft/
 clang20 = /sgoinfre/sflechel/.junest/usr/bin_wrappers/cc19
