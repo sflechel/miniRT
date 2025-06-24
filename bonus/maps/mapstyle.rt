@@ -1,9 +1,12 @@
-A 0.2 255,255,255
-C 0,0,10 0,0,1 20
 L 5,0,5 0.4 255,255,0
 L 0,5,5 0.4 255,255,0
+A 0.2 255,255,255
+C 0,0,15 0,0,1 20
+
 pl 0,0,-7 0,0,1 65,198,23 txtr/leaves_01_normal.xpm txtr/leaves_01_normal.xpm
+
 sp -2.5,0,-2 4 255,255,60 txtr/leaves_01_diffuse.xpm txtr/leaves_01_normal.xpm
+
 cy 0,0,-1 1.0,0.0,0.0 3 5 0,204,204 txtr/leaves_01_diffuse.xpm txtr/leaves_01_normal.xpm
 cy 3,0,-1 1.0,0.0,0.0 3.5 1 0,204,204 0 0
 cy 3.001,0,-1 1.0,0.0,0.0 3 1 0,0,0 0 0
