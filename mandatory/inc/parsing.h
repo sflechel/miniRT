@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:02:03 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/22 13:46:04 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/24 16:25:33 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ int		verif_len(int len, int target);
 //parsing_utils_vector
 int		parse_vector3(char *str, t_vec3 *vec);
 int		parse_vector3_normalised(char *str, t_vec3 *vec);
+int		count_comma(char *str);
 
 #endif

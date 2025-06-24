@@ -6,25 +6,27 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/11 13:30:49 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:58:06 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "math_utils.h"
+#include "parsing.h"
 
 int	parse_rgba(char *str, t_color *color)
 {
 	const char	**rgba = (const char **)split_better(str, ',');
-	const int	len = ptr_array_len((char **)rgba);
-	const int	r = color->r;
-	const int	g = color->g;
-	const int	b = color->b;
+	int	r;
+	int	g;
+	int	b;
 
-	if (!ft_isdigit(str[ft_strlen(str) - 1]) || len != 3
-		|| safe_atoi(rgba[0], (int *)&r) == 1 || r < 0 || r > 255
-		|| safe_atoi(rgba[1], (int *)&g) == 1 || g < 0 || g > 255
-		|| safe_atoi(rgba[2], (int *)&b) == 1 || b < 0 || b > 255)
+	if (rgba == NULL
+		|| count_comma(str) != 2
+		|| ptr_array_len((char **)rgba) != 3
+		|| safe_atoi(rgba[0], &r) == 1 || r < 0 || r > 255
+		|| safe_atoi(rgba[1], &g) == 1 || g < 0 || g > 255
+		|| safe_atoi(rgba[2], &b) == 1 || b < 0 || b > 255)
 	{
 		ft_dprintf(STDERR_FILENO, "Error\n%s is not a valid color", str);
 		return (free_1_return_1(rgba));

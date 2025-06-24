@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:02:03 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/11 12:17:09 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:57:46 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ int		parse_xpms(char *strs[], t_image **txtr, t_image **bump, t_mlx *mlx);
 //parsing_utils_vector
 int		parse_vector3(char *str, t_vec3 *vec);
 int		parse_vector3_normalised(char *str, t_vec3 *vec);
+int		count_comma(char *str);
 
 #endif

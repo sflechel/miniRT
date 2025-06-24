@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:35:42 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/03 16:29:05 by sflechel         ###   ########.fr       */
+/*   Updated: 2025/06/24 16:24:49 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,30 @@
 #include "math_utils.h"
 #include <unistd.h>
 
+int	count_comma(char *str)
+{
+	int	i;
+	int	comma_count;
+
+	i = 0;
+	comma_count = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == ',')
+			comma_count++;
+		i++;
+	}
+	return (comma_count);
+}
+
 int	parse_vector3(char *str, t_vec3 *vec)
 {
-	const char	**vector = (const char **)split_better(str, ',');
-	const int	len = ptr_array_len((char **)vector);
+	char	**vector;
 
-	if (len != 3
+	vector = split_better(str, ',');
+	if (vector == NULL
+		|| ptr_array_len(vector) != 3
+		|| count_comma(str) != 2
 		|| safe_atof(vector[0], &vec->x) == 1
 		|| safe_atof(vector[1], &vec->y) == 1
 		|| safe_atof(vector[2], &vec->z) == 1)
