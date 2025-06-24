@@ -6,13 +6,14 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:32:09 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/23 19:10:26 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/24 16:21:03 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "parsing.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 static char	*read_file(int fd)
@@ -72,7 +73,7 @@ int	parse_line(char *line, t_shape_list *list, t_camera *cam, t_light *light)
 	char		**params;
 	char		id;
 
-	params = ft_split(line, ' ');
+	params = split_better(line, ' ');
 	if (params == 0)
 		return (1);
 	id = params[0][0];
@@ -82,8 +83,11 @@ int	parse_line(char *line, t_shape_list *list, t_camera *cam, t_light *light)
 		|| (id == 'c' && handle_cylinder(params, list, nb_shape) == 1)
 		|| (id == 'p' && handle_plane(params, &list->array[nb_shape]) == 1)
 		|| (id == 's' && handle_sphere(params, &list->array[nb_shape]) == 1))
-		return (ft_free_split(params), 1);
-	ft_free_split(params);
+	{
+		free(params);
+		return (1);
+	}
+	free(params);
 	if (id == 'p' || id == 's')
 		nb_shape++;
 	else if (id == 'c')
