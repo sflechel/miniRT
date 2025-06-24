@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 13:43:27 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/11 12:18:08 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:30:07 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	free_lists(t_lists *lists)
 	return (1);
 }
 
-void	free_imgs(t_image *img1, t_image *img2, t_mlx *mlx)
+int	free_txtrs(t_image *img1, t_image *img2, t_mlx *mlx)
 {
 	if (img1 != 0)
 	{
@@ -45,9 +45,10 @@ void	free_imgs(t_image *img1, t_image *img2, t_mlx *mlx)
 		mlx_destroy_image(mlx->mlx, img2->img);
 		free(img2);
 	}
+	return (1);
 }
 
-void	free_lists_and_img(t_lists *lists, t_mlx *mlx)
+int	free_lists_and_img(t_lists *lists, t_mlx *mlx)
 {
 	int	i;
 
@@ -56,18 +57,19 @@ void	free_lists_and_img(t_lists *lists, t_mlx *mlx)
 		|| i < lists->spheres->nb_shapes || i < lists->hypers->nb_shapes)
 	{
 		if (i < lists->cylinders->nb_shapes)
-			free_imgs(lists->cylinders->array[i].txtr,
+			free_txtrs(lists->cylinders->array[i].txtr,
 				lists->cylinders->array[i].bump, mlx);
 		if (i < lists->planes->nb_shapes)
-			free_imgs(lists->planes->array[i].txtr,
+			free_txtrs(lists->planes->array[i].txtr,
 				lists->planes->array[i].bump, mlx);
 		if (i < lists->spheres->nb_shapes)
-			free_imgs(lists->spheres->array[i].txtr,
+			free_txtrs(lists->spheres->array[i].txtr,
 				lists->spheres->array[i].bump, mlx);
 		if (i < lists->hypers->nb_shapes)
-			free_imgs(lists->hypers->array[i].txtr,
+			free_txtrs(lists->hypers->array[i].txtr,
 				lists->hypers->array[i].bump, mlx);
 		i++;
 	}
 	free_lists(lists);
+	return (1);
 }

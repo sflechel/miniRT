@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 13:30:09 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/11 12:18:55 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/24 10:53:11 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,14 @@ int	main(int ac, char **av)
 	t_camera		camera;
 	t_mlx			mlx;
 	t_lists			lists;
-	t_hook_data		hook_data;
 
 	if (ac != 2)
 		return (print_error_1(ERR_INVALID_NB_FILES));
-	if (init_mlx(&mlx) == 1
-		|| parsing(av[1], &lists, &camera, &mlx) == 1)
+	if (init_mlx(&mlx) == 1)
 		return (EXIT_FAILURE);
-	hook_data = (t_hook_data){&mlx, &camera};
-	handle_hooks(&hook_data);
+	if (parsing(av[1], &lists, &camera, &mlx) == 1)
+		return (free_mlx(&mlx));
+	handle_hooks(&((t_hook_data){&mlx, &camera}));
 	mlx.end = DONT_END;
 	while (mlx.end == DONT_END)
 	{

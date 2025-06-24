@@ -1,6 +1,6 @@
 NAME = miniRT
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -O3 -flto -gdwarf-4 -march=native
+CFLAGS = -Wall -Wextra -Werror -g3
 LIB = libft.a
 LIB_DIR = libft/
 clang20 = /sgoinfre/sflechel/.junest/usr/bin_wrappers/cc19
@@ -45,7 +45,7 @@ SRC =	hook/hook_key.c\
 		shapes/collision_shapes.c\
 		shapes/drop_shadow.c\
 		shapes/texture_shape.c\
-		shapes/texture.c\
+		shapes/texture_utils.c\
 		shapes/normals.c\
 		shapes/get_color_and_normal.c\
 		free.c\

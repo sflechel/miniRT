@@ -6,13 +6,14 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/18 09:57:14 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/24 11:06:45 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minirt.h"
 #include "mlx.h"
+#include <string.h>
 #include <unistd.h>
 
 int	parse_xpm(char *str, t_image **img, t_mlx *mlx)
@@ -58,24 +59,13 @@ int	parse_xpms(char *strs[], t_image **txtr, t_image **bump, t_mlx *mlx)
 	const char	*str1 = strs[0];
 	const char	*str2 = strs[1];
 
+	*txtr = NULL;
+	*bump = NULL;
 	if (parse_xpm((char *)str1, txtr, mlx) == 1)
 		return (1);
 	if (parse_xpm((char *)str2, bump, mlx) == 1)
-	{
-		if (!txtr)
-		{
-			mlx_destroy_image(mlx->mlx, (*txtr)->img);
-			free((*txtr));
-		}
-		return (1);
-	}
+		return (free_txtrs(*txtr, *bump, mlx));
 	if (verif_texture_size(*txtr, *bump) == 1)
-	{
-		mlx_destroy_image(mlx->mlx, (*txtr)->img);
-		free((*txtr));
-		mlx_destroy_image(mlx->mlx, (*bump)->img);
-		free((*bump));
-		return (1);
-	}
+		return (free_txtrs(*txtr, *bump, mlx));
 	return (0);
 }

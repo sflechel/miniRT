@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:18:36 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/11 12:22:06 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:31:49 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,10 @@ int	parsing(char *filename, t_lists *lists, t_camera *cam, t_mlx *mlx)
 	if (lines == 0)
 		return (1);
 	if (alloc_lists(lines, lists, &lists->lights) == 1)
-	{
-		free_mlx(mlx);
 		return (free_1_return_1(lines));
-	}
 	if (fill_list_shapes(lines, lists, cam, mlx) == 1)
 	{
 		free_lists_and_img(lists, mlx);
-		free_mlx(mlx);
 		return (free_1_return_1(lines));
 	}
 	return (free_1_return_0(lines));

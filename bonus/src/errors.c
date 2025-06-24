@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:06:11 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/18 10:10:58 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/24 10:51:31 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	print_error_1(t_error id)
 	else if (id == ERR_INIT_IMG)
 		ft_dprintf(e, "Image failed to initialize\n");
 	else if (id == ERR_INVALID_NB_FILES)
-		ft_dprintf(e, "Incorrect amount of files\n");
+		ft_dprintf(e, "Need one .rt file\n");
 	return (1);
 }
 

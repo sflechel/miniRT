@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:27:04 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/11 12:19:22 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/24 11:23:32 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,8 +212,9 @@ void	sphere_get_texture(const t_col *restrict col,
 void	ellipsoid_get_texture(const t_col *restrict col,
 			const t_hyper *restrict hyper, t_color *color, t_color *bump);
 
-//texture.c
+//texture_utils
 int		get_color_from_img(t_image *img, int u_coord, int v_coord);
+void	get_txtr_or_bump_sizes(t_image *txtr, t_image *bump, int *sizes);
 
 //get_color_and_normal.c
 void	get_color_and_normal(const t_lists *restrict lists,
