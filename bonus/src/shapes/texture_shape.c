@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 10:58:39 by sflechel          #+#    #+#             */
-/*   Updated: 2025/06/24 11:22:44 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/25 10:33:05 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ void	cylinder_get_texture(const t_col *restrict col,
 {
 	const t_vec3	p = vector_sub(cylinder->pos, col->pos_world);
 	const t_vec3	p_proj = ortho_proj(p, cylinder->axis);
-	const float		height = dot_product(p, cylinder->axis)
-		/ cylinder->height + 0.5;
 	const t_vec3	p_perp = vector_sub(p, p_proj);
 	t_cylinder_txtr	data;
 	int				img_sizes[2];
@@ -100,7 +98,8 @@ void	cylinder_get_texture(const t_col *restrict col,
 	if (dot_product(p_perp, cylinder->txtr_origin_rot) < 0)
 		data.azimut = 1 - data.azimut;
 	data.u_coord = data.azimut * cylinder->txtr->width;
-	data.v_coord = height * cylinder->txtr->height;
+	data.v_coord = (dot_product(p, cylinder->axis) / cylinder->height + 0.5)
+		* cylinder->txtr->height;
 	if (cylinder->txtr != 0)
 		(*color).rgba = get_color_from_img(cylinder->txtr,
 				data.u_coord, data.v_coord);
@@ -122,7 +121,6 @@ void	ellipsoid_get_texture(const t_col *restrict col,
 	get_txtr_or_bump_sizes(hyper->txtr, hyper->bump, img_sizes);
 	u_coord = longitude * img_sizes[0];
 	v_coord = latitude * img_sizes[1];
-
 	if (hyper->txtr != 0)
 		(*color).rgba = get_color_from_img(hyper->txtr, u_coord, v_coord);
 	if (hyper->bump != 0)

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:31:34 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/24 13:58:06 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/25 10:28:53 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 int	parse_rgba(char *str, t_color *color)
 {
 	const char	**rgba = (const char **)split_better(str, ',');
-	int	r;
-	int	g;
-	int	b;
+	int			r;
+	int			g;
+	int			b;
 
 	if (rgba == NULL
 		|| count_comma(str) != 2
